@@ -1,0 +1,235 @@
+.tap-race-lobby,
+.tap-race-waiting {
+  display: grid;
+  place-items: center;
+  max-width: 720px;
+  margin: 24px auto 0;
+  padding: 42px 30px;
+  text-align: center;
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 28px;
+  background: linear-gradient(145deg, rgba(255,87,68,.12), rgba(43,124,255,.08)), #11141c;
+}
+
+.tap-race-lobby__icon,
+.tap-race-waiting__car { font-size: 72px; filter: drop-shadow(0 18px 28px rgba(0,0,0,.35)); }
+.tap-race-lobby h1, .tap-race-waiting h2 { margin: 4px 0 12px; }
+.tap-race-lobby h1 { font-size: clamp(38px, 7vw, 64px); letter-spacing: -.055em; }
+.tap-race-lobby p, .tap-race-waiting p { max-width: 600px; color: #aeb4c3; line-height: 1.6; }
+.tap-race-lobby .primary-button, .tap-race-waiting .secondary-button { margin-top: 10px; }
+
+.tap-race-game { width: min(100%, 980px); margin: 0 auto; }
+
+.tap-race-hud {
+  display: grid;
+  grid-template-columns: minmax(0,1fr) auto minmax(0,1fr);
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.tap-race-hud__player {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 10px 12px;
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 16px;
+  background: rgba(18,21,29,.9);
+}
+
+.tap-race-hud__player div { min-width: 0; display: grid; }
+.tap-race-hud__player small { color: #8e95a7; font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: .08em; }
+.tap-race-hud__player strong { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 13px; }
+.tap-race-hud__player b { margin-left: auto; font-size: 24px; }
+.tap-race-hud__player--opponent { justify-content: flex-end; text-align: right; }
+.tap-race-hud__player--opponent b { margin: 0; }
+
+.tap-race-hud__dot { width: 13px; height: 13px; flex: none; border-radius: 50%; box-shadow: 0 0 16px currentColor; }
+.tap-race-hud__player--you .tap-race-hud__dot { color: #ff4a4a; background: #ff4a4a; }
+.tap-race-hud__player--opponent .tap-race-hud__dot { color: #378dff; background: #378dff; }
+
+.tap-race-score { display: grid; justify-items: center; min-width: 112px; }
+.tap-race-score small { color: #8e95a7; font-size: 9px; font-weight: 800; }
+.tap-race-score strong { font-size: 30px; line-height: 1; letter-spacing: -.05em; }
+.tap-race-score span { margin-top: 4px; color: #aaa3ff; font-size: 10px; font-weight: 900; letter-spacing: .12em; }
+
+.tap-race-track-wrap {
+  padding: 5px;
+  overflow: hidden;
+  border-radius: 24px;
+  background: linear-gradient(145deg, rgba(255,255,255,.18), rgba(255,255,255,.04));
+  box-shadow: 0 18px 55px rgba(0,0,0,.32);
+}
+
+.tap-race-track {
+  position: relative;
+  overflow: hidden;
+  min-height: 420px;
+  border-radius: 20px;
+  background: #a9abad;
+  touch-action: manipulation;
+}
+
+.tap-race-scenery { height: 64px; background: linear-gradient(#56d671,#2fba59); position: relative; overflow: hidden; }
+.tap-race-scenery::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(circle at 10px 10px, rgba(255,255,255,.13) 0 2px, transparent 2.5px) 0 0 / 28px 28px;
+  opacity: .7;
+}
+.tap-race-scenery--bottom { position: absolute; left: 0; right: 0; bottom: 0; }
+
+.tap-race-lane { position: relative; height: 145px; background: #9fa1a5; overflow: hidden; }
+.tap-race-lane--mine { margin-bottom: 64px; }
+.tap-race-lane::before, .tap-race-lane::after {
+  content: '';
+  position: absolute; left: 0; right: 0; height: 4px; background: rgba(255,255,255,.92);
+}
+.tap-race-lane::before { top: 0; }
+.tap-race-lane::after { bottom: 0; }
+.tap-race-lane-divider { height: 10px; background: #f3f4f6; }
+
+.tap-race-road-dashes {
+  position: absolute; left: 0; right: 0; top: 50%; height: 7px; transform: translateY(-50%);
+  background: repeating-linear-gradient(90deg, rgba(255,255,255,.95) 0 42px, transparent 42px 80px);
+  opacity: .86;
+}
+
+.tap-race-lane__label {
+  position: absolute; top: 10px; left: 12px; z-index: 2;
+  padding: 4px 7px; border-radius: 8px; color: rgba(255,255,255,.82); background: rgba(0,0,0,.16);
+  font-size: 8px; font-weight: 900; letter-spacing: .1em;
+}
+
+.tap-race-finish-line {
+  position: absolute; z-index: 4; right: 6.5%; top: 64px; bottom: 64px; width: 26px;
+  background:
+    conic-gradient(#fff 25%, #151515 0 50%, #fff 0 75%, #151515 0) 0 0 / 18px 18px;
+  border-left: 2px solid rgba(255,255,255,.8);
+  border-right: 2px solid rgba(255,255,255,.8);
+  box-shadow: 0 0 18px rgba(255,255,255,.24);
+}
+
+.tap-race-car {
+  position: absolute; z-index: 6; top: 50%; width: 72px; height: 40px;
+  transform: translate(-50%,-50%);
+  transition: left 50ms linear;
+  pointer-events: none;
+}
+.tap-race-car__shadow { position: absolute; left: 4px; right: 1px; bottom: 2px; height: 14px; border-radius: 50%; background: rgba(0,0,0,.28); filter: blur(5px); }
+.tap-race-car__body {
+  position: absolute; inset: 5px 6px; border-radius: 50% 38% 38% 50%;
+  background: linear-gradient(180deg, #ff675f, #d6282b);
+  border: 3px solid rgba(70,0,0,.55); box-shadow: inset 0 3px 5px rgba(255,255,255,.3);
+}
+.tap-race-car--blue .tap-race-car__body { background: linear-gradient(180deg,#62adff,#1764ce); border-color: rgba(0,28,78,.62); }
+.tap-race-car__window { position: absolute; left: 28px; top: 3px; width: 17px; height: 14px; border-radius: 7px 9px 4px 4px; background: #b9efff; border: 2px solid rgba(0,0,0,.3); }
+.tap-race-car__stripe { position: absolute; left: 14px; right: 10px; top: 12px; height: 5px; border-radius: 5px; background: rgba(255,255,255,.7); }
+.tap-race-car__wheel { position: absolute; right: 15px; width: 16px; height: 9px; border-radius: 4px; background: #16171a; border: 2px solid #45474b; }
+.tap-race-car__wheel--top { top: 1px; }
+.tap-race-car__wheel--bottom { bottom: 1px; }
+.tap-race-car__you { position: absolute; left: 50%; top: -18px; transform: translateX(-50%); color: #fff; font-size: 8px; font-weight: 1000; text-shadow: 0 2px 3px #000; }
+.tap-race-car.is-mine::before { content:''; position:absolute; inset:-7px -9px; border:2px solid rgba(255,255,255,.75); border-radius:999px; opacity:.7; }
+.tap-race-car.is-tapping .tap-race-car__body { animation: tapRaceBoost .11s ease-out; }
+
+@keyframes tapRaceBoost { 50% { transform: scale(1.08); filter: brightness(1.25); } }
+
+.tap-race-countdown {
+  position: absolute; z-index: 20; left: 50%; top: 50%; transform: translate(-50%,-50%);
+  display: grid; place-items: center; width: 122px; height: 122px; border-radius: 50%;
+  color: #fff; background: rgba(12,14,20,.85); border: 4px solid rgba(255,255,255,.88);
+  font-size: 56px; font-weight: 1000; box-shadow: 0 20px 60px rgba(0,0,0,.38);
+}
+.tap-race-countdown.is-go { width: 148px; border-radius: 28px; color: #d8ff78; }
+
+.tap-race-round-banner {
+  position: absolute; z-index: 18; left: 50%; top: 50%; transform: translate(-50%,-50%);
+  display: grid; justify-items: center; min-width: min(86%, 420px); padding: 20px 24px; text-align: center;
+  border: 1px solid rgba(255,255,255,.16); border-radius: 22px; background: rgba(12,14,20,.92); box-shadow: 0 25px 75px rgba(0,0,0,.45);
+}
+.tap-race-round-banner span { font-size: 38px; }
+.tap-race-round-banner strong { margin-top: 3px; font-size: 22px; }
+.tap-race-round-banner small { margin-top: 6px; color: #aeb4c3; }
+
+.tap-race-controls {
+  display: grid; grid-template-columns: minmax(0,1fr) 170px; gap: 14px; align-items: stretch; margin-top: 14px;
+}
+.tap-race-speed-panel {
+  display: grid; align-content: center; gap: 9px; padding: 14px 16px; border-radius: 18px;
+  border: 1px solid rgba(255,255,255,.08); background: #12151d;
+}
+.tap-race-speed-panel__row { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+.tap-race-speed-panel__row span { color: #9ba2b3; font-size: 12px; font-weight: 800; }
+.tap-race-speed-panel__row strong { font-size: 26px; }
+.tap-race-speed-panel small { color: #777f91; font-size: 10px; line-height: 1.35; }
+.tap-race-speed-bar { height: 12px; overflow: hidden; border-radius: 999px; background: rgba(255,255,255,.07); }
+.tap-race-speed-bar i { display: block; height: 100%; border-radius: inherit; background: linear-gradient(90deg,#55d98d,#f2d758,#ff5c55); transition: width 80ms linear; }
+
+.tap-race-gas {
+  min-height: 116px; border: 0; border-radius: 24px; cursor: pointer; color: #fff;
+  background: radial-gradient(circle at 40% 28%, #ff8e55, transparent 30%), linear-gradient(145deg,#ff4b3f,#cf1f37);
+  box-shadow: 0 15px 34px rgba(225,45,52,.31), inset 0 3px 0 rgba(255,255,255,.24), inset 0 -5px 0 rgba(91,0,15,.25);
+  touch-action: manipulation; user-select: none; -webkit-user-select: none;
+}
+.tap-race-gas span { display:block; font-size: 32px; line-height:1; }
+.tap-race-gas strong { display:block; margin-top:4px; font-size:24px; letter-spacing:.04em; }
+.tap-race-gas small { display:block; margin-top:3px; font-size:9px; opacity:.78; }
+.tap-race-gas:active { transform: translateY(3px) scale(.985); box-shadow: 0 8px 18px rgba(225,45,52,.24), inset 0 2px 0 rgba(255,255,255,.17); }
+.tap-race-gas.is-disabled { opacity:.45; cursor:default; filter:grayscale(.45); }
+
+.tap-race-bottom-actions { display:flex; justify-content:space-between; align-items:center; gap:12px; margin-top:12px; color:#7e8597; font-size:10px; }
+
+.tap-race-result-backdrop {
+  position: fixed; z-index: 120; inset: 0; display: grid; place-items: center; padding: 22px;
+  background: rgba(5,7,10,.78); backdrop-filter: blur(13px);
+}
+.tap-race-result {
+  width: min(100%, 420px); padding: 31px 26px; text-align: center; border-radius: 28px;
+  border: 1px solid rgba(255,255,255,.12); background: linear-gradient(160deg,rgba(74,60,161,.25),transparent 45%),#12151d;
+  box-shadow: 0 30px 90px rgba(0,0,0,.55);
+}
+.tap-race-result.is-win { background: linear-gradient(160deg,rgba(72,185,111,.25),transparent 45%),#12151d; }
+.tap-race-result__icon { font-size: 64px; }
+.tap-race-result h2 { margin: 4px 0 8px; font-size: 40px; letter-spacing: -.05em; }
+.tap-race-result p { margin: 0 auto; max-width: 320px; color: #aeb4c3; line-height: 1.5; }
+.tap-race-result__score { margin: 17px 0; font-size: 36px; font-weight: 1000; }
+.tap-race-result__actions { display:grid; gap:9px; }
+
+@media (max-width: 700px) {
+  .tap-race-hud { grid-template-columns: 1fr auto 1fr; gap: 5px; }
+  .tap-race-hud__player { padding: 8px; gap: 6px; border-radius: 13px; }
+  .tap-race-hud__player strong { font-size: 11px; max-width: 88px; }
+  .tap-race-hud__player b { font-size: 20px; }
+  .tap-race-hud__dot { width: 10px; height: 10px; }
+  .tap-race-score { min-width: 76px; }
+  .tap-race-score small { display: none; }
+  .tap-race-score strong { font-size: 25px; }
+  .tap-race-track { min-height: 360px; }
+  .tap-race-scenery { height: 44px; }
+  .tap-race-scenery--bottom { height: 44px; }
+  .tap-race-lane { height: 131px; }
+  .tap-race-lane--mine { margin-bottom: 44px; }
+  .tap-race-finish-line { top: 44px; bottom: 44px; width: 21px; }
+  .tap-race-car { width: 62px; height: 35px; }
+  .tap-race-controls { grid-template-columns: 1fr 132px; gap: 9px; }
+  .tap-race-gas { min-height: 108px; border-radius: 21px; }
+  .tap-race-gas strong { font-size: 21px; }
+  .tap-race-bottom-actions span { display:none; }
+  .tap-race-bottom-actions { justify-content:flex-end; }
+}
+
+@media (max-width: 430px) {
+  .tap-race-game { margin-top: -5px; }
+  .tap-race-track { min-height: 330px; }
+  .tap-race-lane { height: 121px; }
+  .tap-race-car { width: 56px; height: 33px; }
+  .tap-race-controls { grid-template-columns: minmax(0,1fr) 118px; }
+  .tap-race-speed-panel { padding: 11px 12px; }
+  .tap-race-speed-panel small { display:none; }
+  .tap-race-gas { min-height: 92px; }
+  .tap-race-gas span { font-size: 27px; }
+  .tap-race-gas strong { font-size: 18px; }
+  .tap-race-lobby, .tap-race-waiting { padding: 28px 19px; }
+}

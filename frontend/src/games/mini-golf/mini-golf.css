@@ -1,0 +1,344 @@
+.mg-lobby,
+.mg-waiting {
+  width: min(760px, 100%);
+  margin: 0 auto;
+  padding: 42px 22px 56px;
+  text-align: center;
+}
+
+.mg-lobby h1,
+.mg-waiting h2 { margin: 10px 0 12px; }
+
+.mg-lobby p,
+.mg-waiting p {
+  max-width: 680px;
+  margin: 0 auto 22px;
+  color: var(--muted, #a9a9b7);
+  line-height: 1.65;
+}
+
+.mg-lobby__icon,
+.mg-waiting__ball {
+  width: 82px;
+  height: 82px;
+  margin: 0 auto 14px;
+  display: grid;
+  place-items: center;
+  border-radius: 24px;
+  font-size: 44px;
+  background: linear-gradient(145deg, #7ed66c, #2a7e3c);
+  box-shadow: 0 18px 44px rgba(42, 126, 60, .28), inset 0 1px 0 rgba(255,255,255,.28);
+}
+
+.mg-waiting__ball {
+  border-radius: 50%;
+  color: #ffe064;
+  font-size: 52px;
+  animation: mg-pulse .9s ease-in-out infinite alternate;
+}
+
+@keyframes mg-pulse { to { transform: scale(1.08); filter: brightness(1.12); } }
+
+.mg-game {
+  width: min(1320px, 100%);
+  margin: 0 auto;
+  padding: 8px 10px 30px;
+}
+
+.mg-topbar {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(180px, 1.2fr) minmax(0, 1fr);
+  align-items: stretch;
+  gap: 9px;
+  margin-bottom: 8px;
+}
+
+.mg-player-card,
+.mg-course-title {
+  min-width: 0;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,.09);
+  background: rgba(14, 17, 18, .75);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.04);
+}
+
+.mg-player-card {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 9px 12px;
+}
+
+.mg-player-card--opponent { justify-content: flex-end; text-align: right; }
+.mg-player-card div { min-width: 0; display: flex; flex-direction: column; }
+.mg-player-card small,
+.mg-course-title small,
+.mg-course-title span { color: #9fa6a0; font-size: 10px; }
+.mg-player-card strong { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.mg-player-card b { font-size: 28px; line-height: 1; color: #ffd94f; }
+.mg-player-card--opponent b { color: #62bfff; }
+
+.mg-player-dot {
+  width: 13px;
+  height: 13px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: #ffd74b;
+  box-shadow: 0 0 12px rgba(255,215,75,.65);
+}
+.mg-player-card--opponent .mg-player-dot { background: #58b9ff; box-shadow: 0 0 12px rgba(88,185,255,.65); }
+
+.mg-course-title {
+  display: grid;
+  align-content: center;
+  text-align: center;
+  padding: 7px 12px;
+}
+.mg-course-title strong { font-size: clamp(16px, 2.8vw, 24px); }
+.mg-course-title span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+.mg-turn {
+  margin: 0 auto 8px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  text-align: center;
+  font-weight: 800;
+  letter-spacing: .05em;
+  font-size: 12px;
+  color: #9ba4a0;
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.06);
+}
+.mg-turn.is-mine {
+  color: #14200f;
+  background: linear-gradient(90deg, #ffdc57, #91dd71);
+  border-color: transparent;
+}
+
+.mg-course-shell {
+  position: relative;
+  overflow: hidden;
+  border-radius: 27px;
+  background: #2f7a39;
+  box-shadow: 0 22px 55px rgba(0,0,0,.3), 0 0 0 1px rgba(255,255,255,.08);
+}
+
+.mg-course {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1200 / 760;
+  max-height: 73vh;
+  user-select: none;
+  touch-action: none;
+  cursor: crosshair;
+}
+
+.mg-mow-lines rect { fill: rgba(255,255,255,.025); }
+.mg-fairway {
+  fill: none;
+  stroke: #78c35f;
+  stroke-width: 210;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 8px 0 rgba(27,91,40,.22));
+}
+.mg-fairway-highlight {
+  fill: none;
+  stroke: rgba(255,255,255,.05);
+  stroke-width: 170;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.mg-edge {
+  fill: none;
+  stroke: rgba(20, 69, 31, .95);
+  stroke-width: 20;
+  pointer-events: none;
+}
+
+.mg-sand__shadow { fill: rgba(34, 65, 23, .27); }
+.mg-sand__body { fill: #d9bd78; stroke: #b79655; stroke-width: 4; }
+.mg-sand__ripple { fill: none; stroke: rgba(255,247,195,.34); stroke-width: 7; stroke-linecap: round; }
+
+.mg-obstacle-shadow { fill: rgba(22, 52, 28, .34); }
+.mg-crate__body { fill: #a76932; stroke: #70401e; stroke-width: 6; }
+.mg-crate__x { fill: none; stroke: #d29a59; stroke-width: 8; stroke-linecap: round; opacity: .8; }
+.mg-log__body { fill: #7d4b2a; stroke: #55301d; stroke-width: 6; }
+.mg-log__grain { fill: none; stroke: rgba(227,161,94,.55); stroke-width: 6; stroke-linecap: round; }
+.mg-stone__body { fill: #727d78; stroke: #4d5954; stroke-width: 6; }
+.mg-stone__shine { fill: none; stroke: rgba(220,235,229,.22); stroke-width: 7; stroke-linecap: round; }
+
+.mg-bumper__shadow { fill: rgba(18,48,25,.32); }
+.mg-bumper__outer { fill: #f24643; stroke: #80282a; stroke-width: 6; }
+.mg-bumper__inner { fill: #fff2da; stroke: #c33e3b; stroke-width: 5; }
+.mg-bumper__shine { fill: rgba(255,255,255,.75); }
+
+.mg-deco-shadow { fill: rgba(25, 73, 33, .25); }
+.mg-tree__trunk { fill: #6d4325; }
+.mg-tree__crown { fill: #2e7739; }
+.mg-tree__crown--dark { fill: #245f30; }
+.mg-tree__crown--light { fill: #469747; }
+.mg-deco-rock { fill: #76817b; stroke: #53605a; stroke-width: 4; }
+.mg-flower { fill: #f9ecf3; }
+.mg-flower__center { fill: #f5be39; }
+
+.mg-hole__rim { fill: rgba(20,63,27,.42); }
+.mg-hole__dark { fill: #102319; stroke: #d7dfc9; stroke-width: 4; }
+.mg-flagpole { stroke: #f4f0dd; stroke-width: 6; stroke-linecap: round; filter: drop-shadow(2px 3px 2px rgba(0,0,0,.22)); }
+.mg-flag { fill: #ff4b46; stroke: #b32829; stroke-width: 4; }
+
+.mg-ball { transition: opacity .18s ease; }
+.mg-ball.is-sunk { opacity: .12; }
+.mg-ball__outline { fill: rgba(14,45,20,.22); }
+.mg-ball--mine .mg-ball__outline { fill: rgba(255,218,72,.25); }
+.mg-ball--opponent .mg-ball__outline { fill: rgba(74,178,255,.24); }
+.mg-ball__shine { fill: rgba(255,255,255,.86); }
+
+.mg-pull-line { stroke: rgba(255,255,255,.45); stroke-width: 5; stroke-linecap: round; stroke-dasharray: 11 9; }
+.mg-direction-line { stroke: #fff2a8; stroke-width: 8; stroke-linecap: round; filter: drop-shadow(0 0 6px rgba(255,218,70,.5)); }
+.mg-direction-arrow { fill: #fff2a8; filter: drop-shadow(0 0 6px rgba(255,218,70,.5)); }
+.mg-prediction-dot { fill: rgba(255,247,177,.92); }
+
+.mg-hint {
+  position: absolute;
+  left: 50%;
+  bottom: 10px;
+  z-index: 4;
+  transform: translateX(-50%);
+  padding: 8px 12px;
+  border-radius: 999px;
+  color: #f3f0e5;
+  background: rgba(20,48,24,.73);
+  border: 1px solid rgba(255,255,255,.12);
+  font-size: 11px;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.mg-power {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  z-index: 5;
+  width: min(240px, 48%);
+  padding: 9px 11px;
+  border-radius: 13px;
+  background: rgba(14, 34, 18, .82);
+  border: 1px solid rgba(255,255,255,.12);
+  backdrop-filter: blur(8px);
+  pointer-events: none;
+}
+.mg-power span { display: block; font-size: 9px; color: #aeb5aa; letter-spacing: .11em; }
+.mg-power > div { height: 8px; margin: 5px 0 3px; border-radius: 999px; overflow: hidden; background: rgba(255,255,255,.08); }
+.mg-power i { display: block; height: 100%; border-radius: inherit; background: linear-gradient(90deg, #8bdd70, #ffdc55, #ff6b42); }
+.mg-power b { font-size: 12px; }
+
+.mg-hole-banner {
+  position: absolute;
+  inset: 0;
+  z-index: 8;
+  display: grid;
+  place-content: center;
+  text-align: center;
+  padding: 20px;
+  background: rgba(16, 42, 20, .48);
+  backdrop-filter: blur(4px);
+  pointer-events: none;
+}
+.mg-hole-banner strong { font-size: clamp(28px, 7vw, 58px); color: #fff0a3; text-shadow: 0 5px 24px rgba(0,0,0,.38); }
+.mg-hole-banner small { margin-top: 6px; color: #eef5e9; }
+
+.mg-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 7px;
+  margin-top: 8px;
+}
+.mg-stats div {
+  min-width: 0;
+  padding: 8px 10px;
+  border-radius: 12px;
+  text-align: center;
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.06);
+}
+.mg-stats small { display: block; color: #929b95; font-size: 9px; }
+.mg-stats strong { font-size: 17px; }
+
+.mg-legend {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+.mg-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 9px;
+  border-radius: 10px;
+  color: #a6ada8;
+  background: rgba(255,255,255,.035);
+  font-size: 11px;
+}
+.mg-legend i { width: 13px; height: 13px; border-radius: 4px; display: inline-block; }
+.mg-legend__sand { background: #d9bd78; }
+.mg-legend__bumper { border-radius: 50% !important; background: #f24643; border: 3px solid #fff2da; }
+.mg-legend__wall { background: #7d4b2a; }
+.mg-legend .danger-button { margin-left: auto; }
+
+.mg-result-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgba(5, 14, 8, .8);
+  backdrop-filter: blur(12px);
+}
+.mg-result {
+  width: min(500px, 100%);
+  padding: 30px;
+  border-radius: 24px;
+  text-align: center;
+  background: #121b14;
+  border: 1px solid rgba(255,255,255,.1);
+  box-shadow: 0 28px 80px rgba(0,0,0,.45);
+}
+.mg-result.is-win { box-shadow: 0 28px 80px rgba(92, 203, 101, .18); }
+.mg-result.is-lose { box-shadow: 0 28px 80px rgba(255, 75, 75, .13); }
+.mg-result.is-draw { box-shadow: 0 28px 80px rgba(255, 215, 75, .14); }
+.mg-result__cup { font-size: 54px; }
+.mg-result h2 { margin: 8px 0; font-size: clamp(34px, 8vw, 56px); }
+.mg-result p { color: #a7b0aa; }
+.mg-result__score { margin-top: 13px; color: #d6ddd8; }
+.mg-result__actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 9px; margin-top: 20px; }
+
+@media (max-width: 760px) {
+  .mg-game { padding-inline: 5px; }
+  .mg-topbar { grid-template-columns: minmax(0, 1fr) 118px minmax(0, 1fr); gap: 5px; }
+  .mg-player-card { padding: 7px; gap: 5px; }
+  .mg-player-card strong { max-width: 74px; font-size: 11px; }
+  .mg-player-card b { font-size: 22px; }
+  .mg-course-title { padding: 5px 4px; }
+  .mg-course-title strong { font-size: 12px; }
+  .mg-course-title span { display: none; }
+  .mg-course-title small { font-size: 8px; }
+  .mg-course-shell { border-radius: 18px; }
+  .mg-course { max-height: none; }
+  .mg-stats div { padding-inline: 4px; }
+  .mg-stats small { font-size: 8px; }
+  .mg-stats strong { font-size: 14px; }
+  .mg-legend { gap: 5px; }
+  .mg-legend span { font-size: 9px; padding: 6px 7px; }
+  .mg-legend .danger-button { width: 100%; margin-left: 0; }
+}
+
+@media (max-width: 430px) {
+  .mg-hint { bottom: 6px; font-size: 9px; padding: 6px 9px; }
+  .mg-power { right: 7px; bottom: 7px; padding: 7px 8px; }
+  .mg-turn { font-size: 10px; padding-block: 7px; }
+}

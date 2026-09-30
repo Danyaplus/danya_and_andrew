@@ -238,7 +238,7 @@ function airstrikeResultText(event, myColor) {
 }
 
 export default function ChessGame({ onBack, adminMode = false }) {
-  const fighterImageUrl = `${import.meta.env.BASE_URL}images/chess/fighter.webp`;
+  const fighterImageUrl = `${import.meta.env.BASE_URL}images/games/fighter.webp`;
   const [selected, setSelected] = useState(null);
   const [promotion, setPromotion] = useState(null);
   const [playerName] = useState(getPlayerName);

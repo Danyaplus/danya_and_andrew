@@ -1,5 +1,5 @@
 const GAME_ID = 'even-odd';
-const CHOOSE_MS = 18000;
+const CHOOSE_MS = 40000;
 const INTRO_MS = 1600;
 const SHOW_MS = 3200;
 const POINTS_TO_WIN = 3;

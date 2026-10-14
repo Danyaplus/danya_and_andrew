@@ -1,0 +1,54 @@
+/* Codumi navigation 2026 — an in-flow rail on desktop, drawer on smaller screens */
+.codumi-main-layout{display:grid;grid-template-columns:minmax(0,1fr);min-width:0;min-height:calc(100dvh - 70px);transition:grid-template-columns .24s ease}
+.codumi-main-layout.has-sidebar{grid-template-columns:240px minmax(0,1fr)}
+.codumi-main-content{min-width:0;overflow:clip}
+.codumi-sidebar{position:sticky;top:72px;align-self:start;display:flex;flex-direction:column;min-width:0;height:calc(100dvh - 72px);padding:20px 13px 14px;overflow-y:auto;overflow-x:hidden;color:#d7e1f4;background:linear-gradient(170deg,#141b2a 0%,#0c131f 100%);border-right:1px solid rgba(145,172,235,.13);box-shadow:inset -1px 0 rgba(255,255,255,.025)}
+.codumi-sidebar__top{display:flex;align-items:center;justify-content:space-between;padding:3px 12px 15px;color:#788dab;font-size:10px;font-weight:900;letter-spacing:.2em}
+.codumi-sidebar__close{display:grid;place-items:center;width:28px;height:28px;border:0;border-radius:8px;background:rgba(255,255,255,.055);color:#d5dfef;font-size:22px;cursor:pointer}
+.codumi-sidebar__nav{display:grid;gap:5px}
+.codumi-sidebar__nav button{display:flex;align-items:center;gap:13px;width:100%;min-height:43px;padding:0 13px;border:1px solid transparent;border-radius:11px;text-align:left;color:#b9c9df;background:transparent;font-size:13px;font-weight:740;cursor:pointer;transition:background .16s,color .16s}
+.codumi-sidebar__nav button:hover,.codumi-sidebar__nav button:focus-visible{color:#fff;background:rgba(113,136,201,.13)}
+.codumi-sidebar__nav button.is-active{color:#eaf0ff;background:linear-gradient(110deg,rgba(79,112,252,.21),rgba(100,65,238,.08));border-color:rgba(133,168,255,.19)}
+.codumi-sidebar__nav svg{width:19px;height:19px;flex:none;color:#8ca8d2}
+.codumi-sidebar__nav .is-active svg{color:#70c8ff}
+.codumi-sidebar__divider{height:1px;margin:17px 12px 16px;background:rgba(255,255,255,.08)}
+.codumi-sidebar__label{padding:0 12px 12px;color:#788dab;font-size:10px;font-weight:900;letter-spacing:.18em}
+.codumi-sidebar__user{display:flex;align-items:center;gap:9px;width:100%;padding:10px 8px;margin-bottom:9px;border:1px solid rgba(255,255,255,.085);border-radius:12px;text-align:left;color:#fff;background:rgba(255,255,255,.05);cursor:pointer}
+.codumi-sidebar__user>span:nth-child(2){display:grid;gap:3px;min-width:0;flex:1}
+.codumi-sidebar__user strong{font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.codumi-sidebar__user small{font-size:10px;color:#99a9c1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.codumi-sidebar__user>b{font-size:20px;font-weight:400;color:#8da5d0}
+.codumi-sidebar__guest{padding:10px 12px;background:rgba(255,255,255,.04);border-radius:12px}
+.codumi-sidebar__guest p{margin:0 0 12px;color:#a5b2c7;font-size:12px;line-height:1.5}
+.codumi-sidebar__guest button{width:100%;min-height:38px;border:1px solid rgba(106,177,255,.25);border-radius:10px;color:#f6fbff;background:rgba(79,112,252,.22);font-weight:800;font-size:12px;cursor:pointer}
+.codumi-sidebar__spacer{flex:1;min-height:20px}
+.codumi-sidebar__density{margin-bottom:14px;padding:12px;border:1px solid rgba(255,255,255,.07);border-radius:13px;background:rgba(255,255,255,.025)}
+.codumi-sidebar__density>span{display:block;margin-bottom:11px;color:#8297b7;font-size:10px;font-weight:850;letter-spacing:.1em}
+.codumi-sidebar__density>div{display:grid;grid-template-columns:1fr 1fr;gap:5px}
+.codumi-sidebar__density button{min-height:31px;padding:5px 2px;border:1px solid rgba(255,255,255,.08);border-radius:9px;color:#9fb2ca;background:#141d2b;font-size:10px;cursor:pointer}
+.codumi-sidebar__density button.is-active{color:#fff;border-color:rgba(97,191,252,.42);background:#214c71}
+.codumi-sidebar__footer{display:flex;align-items:center;gap:7px;padding:10px;color:#adbfda;font-size:10px;font-weight:850;letter-spacing:.08em}
+.codumi-sidebar__footer small{margin-left:auto;color:#7288a5;font-size:9px;font-weight:500;letter-spacing:0}
+.codumi-sidebar__signal{width:7px;height:7px;border-radius:50%;background:#39d7af;box-shadow:0 0 10px rgba(57,215,175,.5)}
+.codumi-sidebar-scrim{display:none}
+@media(min-width:1025px){.codumi-sidebar:not(.is-open){display:none}}
+@media(max-width:1024px){
+ .codumi-main-layout,.codumi-main-layout.has-sidebar{display:block}
+ .codumi-sidebar{position:fixed;top:var(--codumi-header-height,70px);bottom:0;left:0;z-index:84;width:min(270px,87vw);height:auto;visibility:hidden;transform:translateX(-103%);transition:transform .23s ease,visibility .23s ease;box-shadow:20px 0 55px #0007}
+ .codumi-sidebar.is-open{visibility:visible;transform:translateX(0)}
+ .codumi-sidebar-scrim{display:block;position:fixed;inset:var(--codumi-header-height,70px) 0 0;z-index:82;background:rgba(0,0,0,.38);border:0;cursor:pointer}
+}
+@media(prefers-reduced-motion:reduce){.codumi-main-layout,.codumi-sidebar{transition:none}}
+
+/* Never chain a scroll gesture from the open sidebar to the underlying page. */
+.codumi-sidebar {
+  overscroll-behavior-y: contain;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
+  scrollbar-gutter: stable;
+}
+/* Background remains scrollable on the right of the mobile drawer. */
+@media (max-width:1024px) {
+  .codumi-sidebar-scrim { pointer-events: none; }
+  .codumi-sidebar { max-height: calc(100dvh - var(--codumi-header-height, 70px)); }
+}

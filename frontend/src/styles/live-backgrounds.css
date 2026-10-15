@@ -1,0 +1,179 @@
+.app-shell{position:relative;isolation:isolate}
+/* Never modify the position of application children: fixed overlays must stay fixed. */
+
+.codumi-live-bg{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:-1;
+  overflow:hidden;
+}
+.codumi-live-bg__stage{
+  position:absolute;
+  overflow:hidden;
+  border-radius:0;
+}
+.codumi-live-bg__image,
+.codumi-live-bg__wash,
+.codumi-live-bg__vignette,
+.codumi-live-bg__space-glow,
+.codumi-live-bg__camp-light,
+.codumi-live-bg__camp-lake-mist,
+.codumi-live-bg__camp-fire-core,
+.codumi-live-bg__camp-fire-flame,
+.codumi-live-bg__camp-smoke,
+.codumi-live-bg__city-neon-pulse,
+.codumi-live-bg__water-shimmer,
+.codumi-live-bg__city-cloud,
+.codumi-live-bg__earth-shell,
+.codumi-live-bg__dust,
+.codumi-live-bg__traffic,
+.codumi-live-bg__window,
+.codumi-live-bg__star,
+.codumi-live-bg__meteor,
+.codumi-live-bg__ember{
+  position:absolute;
+}
+.codumi-live-bg__image{inset:0;width:100%;height:100%;object-fit:fill;filter:saturate(1.02) brightness(.68)}
+.codumi-live-bg__wash{inset:0;background:linear-gradient(180deg,#04070f00,#0508100c 18%,#0508102f 55%,#03060e54 100%)}
+.codumi-live-bg__vignette{inset:-2%;background:radial-gradient(circle at 50% 28%,transparent 0 42%,#03060f59 72%,#01020acc 100%)}
+.codumi-live-bg.is-static *{animation-play-state:paused!important}
+
+/* shared stars + meteors */
+.codumi-live-bg__star{
+  border-radius:999px;
+  background:#fff;
+  box-shadow:0 0 12px #fff9,0 0 28px #98aefe88;
+  animation:liveTwinkle ease-in-out infinite;
+}
+.codumi-live-bg__star--camp{box-shadow:0 0 10px #fff8,0 0 16px #dfe6ff61}
+.codumi-live-bg__meteor{
+  height:2px;
+  border-radius:999px;
+  background:linear-gradient(90deg,transparent,#e8f0ff 35%,#c8d9ff 62%,transparent);
+  filter:drop-shadow(0 0 8px #dfe7ff);
+  opacity:0;
+  transform:rotate(-23deg);
+  animation:liveMeteor linear infinite;
+}
+.codumi-live-bg__meteor--camp{transform:rotate(-17deg)}
+
+/* ORBIT */
+.codumi-live-bg--site-orbit .codumi-live-bg__image{filter:saturate(1.08) brightness(.7)}
+.codumi-live-bg__earth-shell{
+  transform:translate(-50%,-50%);
+  border-radius:50%;
+  overflow:hidden;
+  box-shadow:0 0 30px #75b5ff3b;
+}
+.codumi-live-bg__earth-rotator{
+  position:absolute;inset:0;
+  background-image:var(--codumi-earth-texture);
+  background-size:auto 100%;
+  background-repeat:repeat-x;
+  background-position:0% 52%;
+  filter:saturate(1.1) brightness(1.1);
+  animation:earthRotate 34s linear infinite;
+}
+.codumi-live-bg__earth-shade{
+  position:absolute;inset:-2%;
+  background:radial-gradient(circle at 42% 36%,#ffffff0f 0 24%,transparent 34%),
+             radial-gradient(circle at 28% 25%,#dff5ff18 0 12%,transparent 25%),
+             radial-gradient(circle at 85% 50%,#00102db6 8%,#00081db8 46%,transparent 66%);
+  mix-blend-mode:screen;
+}
+.codumi-live-bg__earth-atmosphere{
+  position:absolute;inset:-2.2%;border-radius:50%;
+  box-shadow:0 0 18px #7eb6ff8d,0 0 44px #4f93ff44 inset;
+}
+.codumi-live-bg__space-glow{inset:0;background:radial-gradient(circle at 74% 56%,#61a0ff14 0 8%,transparent 17%),radial-gradient(circle at 18% 26%,#9f7bff12 0 10%,transparent 24%)}
+.codumi-live-bg__dust{border-radius:50%;filter:blur(4px);opacity:.35;background:radial-gradient(circle,#ffffff4d 0 5%,transparent 62%);animation:driftCloud 38s linear infinite}
+.codumi-live-bg__dust--one{left:14%;top:68%;width:240px;height:110px}
+.codumi-live-bg__dust--two{left:59%;top:80%;width:340px;height:140px;animation-duration:54s;animation-direction:reverse}
+
+/* CAMP */
+.codumi-live-bg--site-camp .codumi-live-bg__image{filter:saturate(1.06) brightness(.72)}
+.codumi-live-bg__camp-light{left:17%;top:55%;width:38%;height:34%;transform:translate(-5%,0);background:radial-gradient(circle at 52% 62%,#ffb14f8a 0 12%,#f08b2f40 24%,transparent 62%);filter:blur(12px);animation:campGlow 2.6s ease-in-out infinite}
+.codumi-live-bg__camp-lake-mist{left:47%;top:58%;width:42%;height:14%;background:linear-gradient(90deg,transparent,#c8d8ff28 24%,#dce8ff40 52%,transparent);filter:blur(10px);opacity:.8;animation:mistDrift 22s ease-in-out infinite}
+.codumi-live-bg__camp-lake-mist--two{top:61%;left:58%;width:28%;height:10%;opacity:.55;animation-duration:29s;animation-direction:reverse}
+.codumi-live-bg__camp-fire-core{left:42.9%;top:72.6%;width:3%;height:6.6%;transform:translate(-50%,-50%);border-radius:50% 50% 44% 44%;background:radial-gradient(circle at 50% 30%,#fff5d7 0 15%,#ffd369 16%,#ff9f2d 49%,#ff631a 76%,transparent 77%);filter:blur(.8px) drop-shadow(0 0 12px #ff9a37) drop-shadow(0 0 28px #ff7f2b);animation:fireCore 1.35s ease-in-out infinite}
+.codumi-live-bg__camp-fire-flame{left:42.9%;top:71.8%;transform:translate(-50%,-50%);border-radius:56% 44% 62% 38% / 52% 52% 48% 48%;background:linear-gradient(180deg,#fffbe2 0 8%,#ffd86d 20%,#ff9b29 56%,#ff5a15 80%,transparent 82%);mix-blend-mode:screen;filter:blur(.2px) drop-shadow(0 0 10px #ffae47);animation:fireLick 1.65s ease-in-out infinite}
+.codumi-live-bg__camp-fire-flame--one{width:2.4%;height:8.8%;margin-left:-.7%}
+.codumi-live-bg__camp-fire-flame--two{width:1.9%;height:7.6%;margin-left:.7%;animation-duration:1.35s;animation-delay:.25s}
+.codumi-live-bg__camp-fire-flame--three{width:1.7%;height:6.7%;margin-left:0;animation-duration:1.1s;animation-delay:.5s}
+.codumi-live-bg__camp-smoke{left:42.9%;top:66%;width:10%;height:13%;transform:translate(-50%,-50%);background:radial-gradient(circle at 50% 88%,#ffffff15,#ffffff08 42%,transparent 74%);filter:blur(10px);animation:smokeRise 8.5s ease-in-out infinite}
+.codumi-live-bg__ember{width:4px;height:4px;transform:translate(-50%,-50%);border-radius:999px;background:#ffcf72;box-shadow:0 0 7px #ff9f3f,0 0 16px #ff9f3f;animation:emberRise linear infinite}
+
+/* CITY */
+.codumi-live-bg--site-neocity .codumi-live-bg__image{filter:saturate(1.08) brightness(.74)}
+.codumi-live-bg__city-neon-pulse{inset:0;background:radial-gradient(circle at 68% 37%,#a681ff1c 0 18%,transparent 40%),radial-gradient(circle at 22% 74%,#ff4db327 0 9%,transparent 22%),radial-gradient(circle at 58% 84%,#59b4ff14 0 14%,transparent 28%);mix-blend-mode:screen;animation:cityPulse 6.8s ease-in-out infinite}
+.codumi-live-bg__water-shimmer{left:55%;top:67%;width:41%;height:22%;background:linear-gradient(90deg,transparent,#ffffff09 20%,#ff89d519 37%,#69c1ff1d 63%,transparent 84%);filter:blur(10px);opacity:.72;animation:waterShimmer 7.2s ease-in-out infinite}
+.codumi-live-bg__city-cloud{left:34%;top:42%;width:34%;height:15%;background:radial-gradient(circle at 40% 50%,#fff 0 10%,transparent 11%),linear-gradient(90deg,transparent,#a8b8ff14 20%,#d8dfff18 48%,transparent 82%);filter:blur(14px);opacity:.42;animation:cloudSweep 28s linear infinite}
+.codumi-live-bg .city-cloud--two{left:62%;top:36%;width:23%;height:11%;opacity:.28;animation-duration:33s;animation-direction:reverse}
+.codumi-live-bg__traffic{inset:0;overflow:visible}
+.traffic-line{
+  fill:none;
+  stroke-linecap:round;
+  filter:url(#trafficGlow);
+  opacity:.95;
+  stroke-dasharray: 120 420;
+  stroke-dashoffset: 0;
+  animation:trafficFlow 7s linear infinite;
+}
+.traffic-line--pink{stroke:#ff5abf;stroke-width:7}
+.traffic-line--blue{stroke:#59b6ff;stroke-width:5;animation-duration:6.2s}
+.traffic-line--violet{stroke:#b67cff;stroke-width:4;animation-duration:8.2s;animation-direction:reverse}
+.codumi-live-bg__window{width:5px;height:10px;transform:translate(-50%,-50%);background:#ffd67c;box-shadow:0 0 8px #ffd67c;opacity:.35;animation:windowBlink steps(1) infinite}
+
+/* motion keyframes */
+@keyframes liveTwinkle{0%,100%{opacity:.45;transform:scale(.85)}48%{opacity:1;transform:scale(1.28)}}
+@keyframes liveMeteor{0%,74%{opacity:0;transform:translate(0,0) rotate(-23deg)}78%{opacity:.94}100%{opacity:0;transform:translate(230px,88px) rotate(-23deg)}}
+@keyframes earthRotate{0%{background-position:0% 52%}100%{background-position:-55% 52%}}
+@keyframes driftCloud{0%{transform:translateX(0)}100%{transform:translateX(60px)}}
+@keyframes campGlow{0%,100%{opacity:.62;transform:translate(-5%,0) scale(1)}50%{opacity:.9;transform:translate(-5%,0) scale(1.07)}}
+@keyframes mistDrift{0%,100%{transform:translateX(0)}50%{transform:translateX(35px)}}
+@keyframes fireCore{0%,100%{transform:translate(-50%,-50%) scale(1,.96)}40%{transform:translate(-50%,-50%) scale(.94,1.08)}65%{transform:translate(-50%,-50%) scale(1.06,.92)}}
+@keyframes fireLick{0%,100%{transform:translate(-50%,-50%) scale(.95,.92) rotate(-3deg);opacity:.86}40%{transform:translate(-50%,-50%) scale(1.05,1.08) rotate(2deg);opacity:1}70%{transform:translate(-50%,-50%) scale(.92,1.18) rotate(-1deg);opacity:.9}}
+@keyframes smokeRise{0%{opacity:0;transform:translate(-50%,0) scale(.5)}15%{opacity:.28}100%{opacity:0;transform:translate(-55%,-60px) scale(1.2)}}
+@keyframes emberRise{0%{opacity:0;transform:translate(-50%,0) scale(.7)}15%{opacity:1}100%{opacity:0;transform:translate(calc(-50% + var(--ember-drift, 0%)),-80px) scale(.15)}}
+@keyframes cityPulse{0%,100%{opacity:.55}50%{opacity:.94}}
+@keyframes waterShimmer{0%,100%{opacity:.55;transform:translateX(0)}50%{opacity:.9;transform:translateX(18px)}}
+@keyframes cloudSweep{0%{transform:translateX(0)}100%{transform:translateX(60px)}}
+@keyframes trafficFlow{0%{stroke-dashoffset:540}100%{stroke-dashoffset:0}}
+@keyframes windowBlink{0%,100%{opacity:.25}35%{opacity:.9}60%{opacity:.5}}
+
+/* previews in shop */
+.codumi-shop__preview.codumi-site--site-orbit,
+.codumi-shop__preview.codumi-site--site-camp,
+.codumi-shop__preview.codumi-site--site-neocity{
+  background-size:cover;
+  background-position:center;
+}
+.codumi-shop__preview.codumi-site--site-orbit::after,
+.codumi-shop__preview.codumi-site--site-camp::after,
+.codumi-shop__preview.codumi-site--site-neocity::after{
+  content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent,#02040b38 70%,#02040b75 100%);
+}
+.codumi-shop__preview.codumi-site--site-orbit .codumi-shop__site-mark,
+.codumi-shop__preview.codumi-site--site-camp .codumi-shop__site-mark,
+.codumi-shop__preview.codumi-site--site-neocity .codumi-shop__site-mark{position:relative;z-index:1}
+
+@media (max-width: 760px){
+  .codumi-live-bg__image{filter:saturate(1.03) brightness(.6)}
+  .codumi-live-bg__camp-light{width:50%;height:40%}
+}
+@media (prefers-reduced-motion: reduce){
+  .codumi-live-bg *{animation:none!important}
+}
+
+/* v7 hardening: decorative wallpaper must be non-interactive, behind all content. */
+.app-shell { position:relative; isolation:isolate; }
+.app-shell > .codumi-live-bg {
+  position:fixed!important;
+  inset:0!important;
+  z-index:-1!important;
+  pointer-events:none!important;
+  overflow:hidden;
+}
+.app-shell > .codumi-live-bg,
+.app-shell > .codumi-live-bg * { pointer-events:none!important; }

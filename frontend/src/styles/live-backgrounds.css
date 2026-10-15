@@ -1,0 +1,133 @@
+/* Kodumi v8: the unaltered generated pictures are the backgrounds.
+   Coordinates of the overlay refer to the ORIGINAL 1672 x 941 artwork.
+   Keep the entire background behind the app, never intercept input. */
+.app-shell { position:relative; isolation:isolate; }
+.app-shell > .codumi-live-bg {
+  position:fixed !important;
+  inset:0 !important;
+  z-index:-1 !important;
+  overflow:hidden;
+  pointer-events:none !important;
+  user-select:none;
+}
+.codumi-live-bg,
+.codumi-live-bg * { pointer-events:none !important; }
+.codumi-live-bg__stage {
+  position:absolute;
+  overflow:hidden;
+}
+.codumi-live-bg__image {
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:fill;
+  opacity:1;
+}
+.codumi-live-bg__art {
+  display:block;
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  overflow:hidden;
+}
+
+/* Stars: real four-point diffraction spikes, but subtle and pastel. */
+.codumi-sky-star {
+  opacity:.15;
+  transform-origin:center;
+  transform-box:fill-box;
+  animation:codumi-v8-twinkle var(--star-duration,5s) ease-in-out var(--star-delay,0s) infinite;
+  filter:drop-shadow(0 0 2px #eed5ff);
+}
+@keyframes codumi-v8-twinkle {
+  0%,100% { opacity:.13; transform:scale(.83); }
+  46% { opacity:.73; transform:scale(1.14); }
+  65% { opacity:.39; transform:scale(1); }
+}
+/* Meteor: short diagonal flight. Tail orientation MATCHES flight vector.
+   The animation remains invisible between appearances. */
+.codumi-sky-meteor {
+  opacity:0;
+  animation:codumi-v8-meteor var(--meteor-duration,19s) linear var(--meteor-delay,0s) infinite;
+}
+@keyframes codumi-v8-meteor {
+  0%,61% { opacity:0; transform:translate(0,0); }
+  63% { opacity:.06; transform:translate(10px,7px); }
+  68% { opacity:.94; }
+  74% { opacity:0; transform:translate(var(--meteor-travel-x,140px),var(--meteor-travel-y,94px)); }
+  74.01%,100% { opacity:0; transform:translate(var(--meteor-travel-x,140px),var(--meteor-travel-y,94px)); }
+}
+/* Glow follows the existing Earth limb, NOT a replacement rotating globe. */
+.codumi-earth-halo { opacity:.28; animation:codumi-v8-earth-breathe 8s ease-in-out infinite; }
+.codumi-earth-edge { opacity:.38; animation:codumi-v8-earth-breathe 8s ease-in-out infinite; }
+@keyframes codumi-v8-earth-breathe {
+  0%,100% { opacity:.24; }
+  50% { opacity:.43; }
+}
+/* Only a warm atmospheric shimmer; the fire itself is untouched. */
+.codumi-camp-glow {
+  opacity:.37;
+  animation:codumi-v8-fire-haze 2.8s ease-in-out infinite;
+}
+@keyframes codumi-v8-fire-haze {
+  0%,100% { opacity:.33; }
+  43% { opacity:.7; }
+  68% { opacity:.44; }
+}
+.codumi-moon-glow {
+  opacity:.45;
+  animation:codumi-v8-moon-breathe 9s ease-in-out infinite;
+}
+@keyframes codumi-v8-moon-breathe {
+  0%,100% { opacity:.30; }
+  50% { opacity:.68; }
+}
+/* Water mist stays confined to the lake strip in the photo. */
+.codumi-lake-mist {
+  opacity:.58;
+  animation:codumi-v8-lake-drift 23s ease-in-out infinite alternate;
+}
+@keyframes codumi-v8-lake-drift {
+  0% { opacity:.31; transform:translateX(-10px); }
+  100% { opacity:.66; transform:translateX(17px); }
+}
+/* City: tiny moving glints ONLY on the real lower highway, never in the sky. */
+.codumi-traffic-track {
+  fill:none;
+  stroke-linecap:round;
+  stroke-dasharray:18 900;
+  stroke-dashoffset:0;
+  opacity:.62;
+  animation:codumi-v8-traffic 9.8s linear infinite;
+}
+.codumi-traffic-track--rose {
+  stroke:#fa74dd;
+  stroke-width:2.5;
+  filter:drop-shadow(0 0 2.5px #fa56d8);
+}
+.codumi-traffic-track--blue {
+  stroke:#a7d6ff;
+  stroke-width:2.1;
+  stroke-dasharray:15 950;
+  animation-duration:11.6s;
+  animation-direction:reverse;
+  animation-delay:-3.8s;
+  filter:drop-shadow(0 0 2px #4ba8ff);
+}
+@keyframes codumi-v8-traffic {
+  from { stroke-dashoffset:930; }
+  to { stroke-dashoffset:0; }
+}
+/* Shop cards use the same real images, resolved via JS under the Vite base URL.
+   Do not place absolute /live-backgrounds paths in CSS (breaks GitHub Pages). */
+.codumi-shop__preview.codumi-site--site-orbit,
+.codumi-shop__preview.codumi-site--site-camp,
+.codumi-shop__preview.codumi-site--site-neocity {
+  background-size:cover;
+  background-position:center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .codumi-live-bg__art { display:none !important; }
+}

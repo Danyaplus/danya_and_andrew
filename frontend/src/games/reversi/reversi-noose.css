@@ -1,0 +1,62 @@
+.rv-noose,.rv-noose-end{position:fixed;inset:0;z-index:2147480000;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:auto;isolation:isolate;box-sizing:border-box;text-align:center;font-family:inherit}
+.rv-noose *,.rv-noose-end *{box-sizing:border-box}
+.rv-noose{background:radial-gradient(ellipse at 48% 38%,#32214b 0,#121322 46%,#06090f 85%);padding:76px 20px 64px}
+.rv-noose__ambient{position:absolute;inset:-15%;z-index:-1;pointer-events:none;opacity:.55;background:radial-gradient(circle at 25% 55%,#6141ac35,transparent 29%),radial-gradient(circle at 78% 48%,#36dcbb20,transparent 30%);animation:rv-noose-breathe 4s ease-in-out infinite alternate}
+.rv-noose__header{position:absolute;top:max(22px,4vh);left:20px;right:20px;display:flex;align-items:center;justify-content:space-between;gap:14px;color:#a8abc5;text-transform:uppercase;font-size:clamp(10px,1vw,12px);letter-spacing:2px}
+.rv-noose__header b{font-size:clamp(11px,1.6vw,18px);color:#dbccff;letter-spacing:3px}
+.rv-noose__equation{width:min(1100px,100%);display:flex;align-items:center;justify-content:center;gap:clamp(7px,2vw,25px);opacity:1;transition:opacity .8s ease,transform .8s ease;transform:translateY(0)}
+.rv-noose__equation--gone{opacity:0;transform:translateY(-25px);pointer-events:none}
+.rv-noose__card{flex:0 1 225px;min-width:0;position:relative;border:1px solid #e1d4ff66;border-radius:24px;padding:10px 10px 18px;background:linear-gradient(150deg,#424064bd,#121c2de3);box-shadow:0 15px 45px #0008,0 0 32px #8d70ed38;opacity:0;filter:blur(20px);transform:translateY(22px) scale(.88);transition:opacity 1.05s ease,filter 1.05s ease,transform 1.05s ease}
+.rv-noose__card img{display:block;width:100%;height:auto;aspect-ratio:1;object-fit:contain;border-radius:15px;background:#fff;box-shadow:inset 0 0 0 1px #ffffff29}
+.rv-noose__card small{display:block;margin:11px 0 0;color:#c3b9df;letter-spacing:2px;font-weight:800;font-size:11px}
+.rv-noose__sign{flex:0 0 auto;color:#e6d1ff;text-shadow:0 0 32px #b88cfa;opacity:0;transform:scale(.2);transition:opacity .65s ease,transform .85s cubic-bezier(.2,1.4,.3,1)}
+.rv-noose__sign--plus{font-size:clamp(46px,8vw,99px)}
+.rv-noose__sum{display:grid;justify-items:center;align-content:center;gap:7px;max-width:230px;min-width:0;opacity:0;filter:blur(20px);transform:translateY(22px) scale(.88);transition:opacity 1s ease,filter 1s ease,transform 1s ease}
+.rv-noose__sum strong{font-size:clamp(45px,7vw,90px);line-height:1;color:#a1ffdf;text-shadow:0 0 30px #50d9aa77}
+.rv-noose__sum span{font-size:clamp(14px,2vw,29px);font-weight:1000;letter-spacing:1px;line-height:1.14;color:#ffe2ab;text-shadow:0 0 22px #f1b36b77}
+.rv-noose__audio-scene{position:absolute;inset:15% 10%;pointer-events:none;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:18px;opacity:0;transform:scale(.94);transition:opacity .75s ease,transform .75s ease}
+.rv-noose__audio-scene.is-visible{opacity:1;transform:scale(1);pointer-events:auto}
+.rv-noose__audio-eyebrow{font-size:clamp(11px,1.5vw,15px);color:#bdb2e4;font-weight:900;letter-spacing:4px}
+.rv-noose__audio-scene h2{font-size:clamp(38px,7.7vw,104px);line-height:1.07;letter-spacing:clamp(1px,.7vw,7px);max-width:1100px;margin:0;color:#f7e1bc;text-shadow:0 0 40px #8e68f6aa}
+.rv-noose__rings{position:absolute;z-index:-1;left:50%;top:47%;width:min(47vw,370px);aspect-ratio:1;transform:translate(-50%,-50%)}
+.rv-noose__rings i{position:absolute;inset:0;border:1px solid #b7a5fa33;border-radius:50%;box-shadow:0 0 40px #9561d71a;animation:rv-noose-ring 3s ease-in-out infinite}
+.rv-noose__rings i:nth-child(2){animation-delay:.9s}.rv-noose__rings i:nth-child(3){animation-delay:1.8s}
+.rv-noose__bars{height:35px;display:flex;gap:5px;justify-content:center;align-items:center;margin:8px 0}
+.rv-noose__bars i{display:block;width:4px;height:12px;border-radius:4px;background:linear-gradient(#e3ceff,#61e4ca);animation:rv-noose-bar .7s ease-in-out infinite alternate}
+.rv-noose__sound-button{pointer-events:auto;background:#f6e5ff;color:#241339;border:0;border-radius:11px;padding:11px 17px;font-weight:900;cursor:pointer}
+.rv-noose__footer{position:absolute;bottom:max(20px,4vh);left:20px;right:20px;display:flex;justify-content:center;align-items:center;gap:20px;color:#969cb6;font-size:clamp(9px,1.5vw,12px);letter-spacing:1px}
+.rv-noose__footer span:first-child,.rv-noose__footer span:last-child{font-size:18px}
+.rv-noose-end{padding:40px 17px;background:radial-gradient(circle at 50% 48%,#293b3c 0,#0a1620 45%,#06080f 100%)}
+.rv-noose-end--loss{background:radial-gradient(circle at 50% 48%,#442132 0,#1a101c 48%,#07090f 100%)}
+.rv-noose-end__halo{position:absolute;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(circle at 50% 47%,#96ffd91f,transparent 44%)}
+.rv-noose-end--loss .rv-noose-end__halo{background:radial-gradient(circle at 50% 47%,#ff7d8c17,transparent 48%)}
+.rv-noose-end__content{max-width:910px;width:100%;display:flex;flex-direction:column;align-items:center;gap:20px;animation:rv-noose-enter 1s ease both}
+.rv-noose-end__eyebrow{font-size:clamp(11px,1.7vw,16px);letter-spacing:3px;font-weight:900;color:#b2dfd1}
+.rv-noose-end--loss .rv-noose-end__eyebrow{color:#e4a5bc}
+.rv-noose-end__symbol{font-size:clamp(44px,8vw,88px)}
+.rv-noose-end h2{font-size:clamp(54px,12vw,155px);line-height:1;margin:0;letter-spacing:2px;text-shadow:0 8px 30px #0005;color:#a5ffe2}
+.rv-noose-end--loss h2{color:#ff96b1}
+.rv-noose-end p{font-size:clamp(18px,3.6vw,36px);line-height:1.35;max-width:850px;margin:0;font-weight:700;color:#edf1f5}
+.rv-noose-end__actions{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:20px}
+.rv-noose-end__actions button{padding:16px 23px;border-radius:15px;font-size:clamp(15px,2vw,21px);font-weight:900;border:1px solid #91edd0;cursor:pointer;background:linear-gradient(135deg,#69efc0,#29cfa8);color:#06201c}
+.rv-noose-end__actions button+button{background:#202c37;color:#eafaff;border-color:#5e7980}
+@keyframes rv-noose-enter{to{opacity:1;filter:blur(0);transform:translateY(0) scale(1)}from{opacity:0;filter:blur(20px);transform:translateY(22px) scale(.88)}}
+@keyframes rv-noose-sign{to{opacity:1;transform:scale(1)}from{opacity:0;transform:scale(.2)}}
+@keyframes rv-noose-bar{to{height:31px;opacity:1}from{height:6px;opacity:.47}}
+@keyframes rv-noose-ring{0%{transform:scale(.75);opacity:.2}50%{opacity:.8}100%{transform:scale(1.4);opacity:0}}
+@keyframes rv-noose-breathe{to{transform:translate(2%,1%);opacity:1}}
+@media(max-width:650px){.rv-noose{padding:65px 6px 75px}.rv-noose__header{left:8px;right:8px;letter-spacing:0}.rv-noose__equation{gap:4px;flex-wrap:wrap}.rv-noose__card{flex-basis:29%;border-radius:12px;padding:5px 5px 9px}.rv-noose__card img{border-radius:7px}.rv-noose__card small{font-size:7px;letter-spacing:.5px;margin-top:5px}.rv-noose__sign--plus{font-size:44px}.rv-noose__sum{max-width:100%;flex-basis:100%;margin-top:14px;gap:0}.rv-noose__sum strong{font-size:50px}.rv-noose__sum span{font-size:23px}.rv-noose__audio-scene{inset:15% 5%}.rv-noose__bars{gap:3px}.rv-noose__footer{left:8px;right:8px;gap:5px}.rv-noose-end__content{gap:15px}.rv-noose-end__actions{flex-direction:column;width:min(370px,100%)}.rv-noose-end__actions button{width:100%}}
+@media(prefers-reduced-motion:reduce){.rv-noose *,.rv-noose-end *{animation:none!important;transition:none!important}.rv-noose__card,.rv-noose__sum,.rv-noose__sign{opacity:1;filter:none;transform:none}.rv-noose__audio-scene:not(.is-visible){opacity:0}}
+
+/* Original rope and stick images are displayed without cropping their edges. */
+.rv-noose__card--one img{object-fit:contain;object-position:center center}
+.rv-noose__card--two img{object-fit:contain;object-position:center center}
+
+/* Timed from the single server event so both players see the same reveal phase. */
+.rv-noose__card.is-revealed,.rv-noose__sum.is-revealed{opacity:1;filter:blur(0);transform:translateY(0) scale(1)}
+.rv-noose__sign.is-revealed{opacity:1;transform:scale(1)}
+.rv-noose__audio-hint{font-size:12px;color:#d4c9e6;letter-spacing:.03em}
+@media(prefers-reduced-motion:reduce){
+  .rv-noose__card:not(.is-revealed),.rv-noose__sum:not(.is-revealed),.rv-noose__sign:not(.is-revealed){opacity:0!important}
+  .rv-noose__card.is-revealed,.rv-noose__sum.is-revealed,.rv-noose__sign.is-revealed{opacity:1!important}
+}

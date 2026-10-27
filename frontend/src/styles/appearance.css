@@ -1,0 +1,467 @@
+/* CODUMI UI APPEARANCE · theme setting and free card skins.
+   All selectors scoped to chrome/pages rather than the 50 games' own boards. */
+
+/* Featured game is now a distinct, floated showcase below the landing hero. */
+.codumi-main-content .codumi-daily {
+  position:relative;
+  isolation:isolate;
+  margin:clamp(24px,3vw,38px) 2px clamp(34px,4vw,52px);
+  border:1px solid rgba(131,153,255,.34);
+  border-radius:23px;
+  box-shadow:0 22px 54px rgba(2,5,26,.30),0 0 0 5px rgba(109,110,255,.045);
+  overflow:hidden;
+}
+.codumi-main-content .codumi-daily::before{
+  content:"";position:absolute;left:22px;right:22px;top:0;height:2px;z-index:2;
+  background:linear-gradient(90deg,transparent,#7ccaff,#b889ff,transparent);
+  opacity:.85;pointer-events:none;
+}
+.codumi-main-content .codumi-daily__image{background:#111b30}
+.codumi-main-content .codumi-daily__info{padding:clamp(18px,2.8vw,30px)}
+.codumi-main-content .home-page .catalog-section {margin-top:0}
+@media(max-width:620px){
+ .codumi-main-content .codumi-daily {margin:23px 1px 34px;border-radius:19px}
+ .codumi-main-content .codumi-daily__info{padding:17px 17px 19px}
+}
+
+/* Header sun/moon is a real toggle (no extra provider assets). */
+.site-header .codumi-theme-toggle{
+  display:grid;place-items:center;flex:0 0 auto;
+  color:#d4d8ff;background:linear-gradient(135deg,#292953,#161f41);
+  border:1px solid rgba(171,183,255,.3);box-shadow:0 0 14px rgba(97,113,255,.10);
+  transition:background .2s ease,transform .2s ease,box-shadow .2s ease;
+}
+.site-header .codumi-theme-toggle.is-day{
+  color:#fff;border-color:rgba(255,201,115,.45);
+  background:linear-gradient(135deg,#f9b951,#e98547);
+  box-shadow:0 0 17px rgba(255,188,92,.32);
+}
+.site-header .codumi-theme-toggle svg{height:21px;width:21px;stroke:currentColor}
+.site-header .codumi-theme-toggle:hover{transform:translateY(-1px)}
+.site-header .codumi-theme-toggle:focus-visible{outline:2px solid #7ccaff;outline-offset:3px}
+@media(max-width:420px){
+  .site-header .codumi-theme-toggle{width:33px;height:33px;border-radius:10px}
+  .site-header .codumi-theme-toggle svg{width:18px;height:18px}
+  .site-header .header-actions{gap:3px}
+  .site-header__left{gap:4px}
+}
+@media(max-width:345px){.site-header .codumi-theme-toggle{width:29px;height:31px}}
+
+/* Three free visual skins, distinct from the compact/comfortable density control. */
+.codumi-sidebar__appearance{
+  margin-bottom:13px;padding:13px 11px 12px;
+  border:1px solid rgba(151,167,215,.15);border-radius:14px;
+  background:linear-gradient(145deg,rgba(91,118,190,.12),rgba(37,45,80,.08));
+}
+.codumi-sidebar__appearance-heading {display:block;color:#a7b9e4;font-size:10px;letter-spacing:.13em;font-weight:900}
+.codumi-sidebar__appearance p{color:#cbd7f0;font-size:12px;font-weight:850;margin:13px 0 8px}
+.codumi-sidebar__appearance small{display:block;color:#93a8c7;font-size:10px;line-height:1.5;margin-top:7px}
+.codumi-appearance-options,.codumi-card-style-options{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px}
+.codumi-sidebar__appearance button{
+  min-width:0;min-height:37px;padding:5px 2px;border-radius:9px;
+  border:1px solid rgba(150,175,218,.17);color:#bacbe4;
+  background:rgba(7,18,40,.35);font-size:10px;font-weight:800;cursor:pointer;
+}
+.codumi-sidebar__appearance button.is-active{
+  color:#fff;background:linear-gradient(135deg,#466deb,#5d49c0);border-color:#b5b3ff;
+  box-shadow:0 4px 14px rgba(63,64,181,.30);
+}
+.codumi-sidebar__appearance button:focus-visible{outline:2px solid #73bfff;outline-offset:2px}
+
+/* Card skins only affect the actual games catalogue, never search suggestions. */
+.codumi-card-style--glass .codumi-main-content .games-grid>.game-card{
+  border-color:rgba(164,196,255,.28);border-radius:22px;
+  box-shadow:0 12px 33px rgba(49,60,134,.22),inset 0 1px 0 rgba(255,255,255,.14);
+}
+.codumi-card-style--glass .codumi-main-content .games-grid>.game-card .game-card__body{
+  border-top:1px solid rgba(188,204,255,.3);
+  background:linear-gradient(135deg,#263251,#202844);
+}
+.codumi-card-style--glass .codumi-main-content .games-grid>.game-card .game-card__badge{
+  color:#e9e9ff;background:#675ac94d;border:1px solid #9287f966;
+}
+.codumi-card-style--outline .codumi-main-content .games-grid>.game-card{
+  border:2px solid #627bda;border-radius:13px;
+  box-shadow:0 2px 0 rgba(98,123,218,.18);
+}
+.codumi-card-style--outline .codumi-main-content .games-grid>.game-card .game-card__body{
+  border-top:2px solid #627bda;background:#111b2e;
+}
+.codumi-card-style--outline .codumi-main-content .games-grid>.game-card .game-card__badge{
+  color:#bfcaff;background:transparent;border:1px solid #627bda;
+}
+.codumi-card-style--outline .codumi-main-content .games-grid>.game-card:hover{box-shadow:0 9px 28px #5468bd33}
+
+/* Sunlight mode: chrome, account, lists and public pages. Game canvases retain
+   their own palettes for reliable contrast and unchanged gameplay. */
+html[data-codumi-theme="light"]{color-scheme:light;color:#1b2c48;background:#f2f6ff}
+html[data-codumi-theme="light"] body{
+  color:#1b2c48;
+  background:radial-gradient(circle at 0% 0%,rgba(110,177,255,.20),transparent 35%),
+             radial-gradient(circle at 90% 8%,rgba(202,156,255,.15),transparent 32%),
+             linear-gradient(145deg,#f5f8ff,#edf2fc 70%,#f9fbff);
+}
+html[data-codumi-theme="light"] .app-shell{color:#20304c}
+html[data-codumi-theme="light"] .site-header{
+  background:rgba(248,251,255,.94);border-color:#cad7ef;
+  box-shadow:0 7px 26px #6580b018;
+}
+html[data-codumi-theme="light"] .brand__text strong{color:#1a2946}
+html[data-codumi-theme="light"] .brand__text small{color:#187dc4}
+html[data-codumi-theme="light"] .site-menu-toggle,
+html[data-codumi-theme="light"] .site-header .header-icon-button:not(.codumi-theme-toggle),
+html[data-codumi-theme="light"] .header-auth-button--ghost{
+  background:#fff;color:#253450;border-color:#ccd8ec;
+}
+html[data-codumi-theme="light"] .site-header .search-wrap input,
+html[data-codumi-theme="light"] .search-wrap input{
+  background:#fff;color:#1c2c49;border-color:#cbd8ee;
+}
+html[data-codumi-theme="light"] .search-wrap input::placeholder{color:#6c7994}
+html[data-codumi-theme="light"] .search-dropdown,
+html[data-codumi-theme="light"] .site-header .search-wrap.is-mobile-open .search-dropdown{
+  background:#fff;color:#1b2b44;border-color:#d0d9e9;
+}
+html[data-codumi-theme="light"] .search-dropdown .game-card--compact{color:#26344f}
+html[data-codumi-theme="light"] .search-dropdown .game-card--compact h3{color:#21314d}
+html[data-codumi-theme="light"] .search-dropdown .game-card--compact:hover{background:#eef4ff}
+html[data-codumi-theme="light"] .search-empty{color:#647490}
+
+html[data-codumi-theme="light"] .codumi-sidebar{
+  background:linear-gradient(163deg,#fff,#eef4ff);color:#273958;border-right-color:#d8e2f3;
+}
+html[data-codumi-theme="light"] .codumi-sidebar__top,
+html[data-codumi-theme="light"] .codumi-sidebar__label,
+html[data-codumi-theme="light"] .codumi-sidebar__density>span,
+html[data-codumi-theme="light"] .codumi-sidebar__appearance-heading{color:#567296}
+html[data-codumi-theme="light"] .codumi-sidebar__nav button{color:#314662}
+html[data-codumi-theme="light"] .codumi-sidebar__nav button:hover,
+html[data-codumi-theme="light"] .codumi-sidebar__nav button:focus-visible{color:#152746;background:#e7edff}
+html[data-codumi-theme="light"] .codumi-sidebar__nav button.is-active{
+  color:#1d3a8e;background:#e5eafe;border-color:#bdd0f7;
+}
+html[data-codumi-theme="light"] .codumi-sidebar__nav button svg{color:#5576a5}
+html[data-codumi-theme="light"] .codumi-sidebar__user,
+html[data-codumi-theme="light"] .codumi-sidebar__guest,
+html[data-codumi-theme="light"] .codumi-sidebar__density,
+html[data-codumi-theme="light"] .codumi-sidebar__appearance{
+  background:#f5f8ff;color:#213553;border-color:#d2def1;
+}
+html[data-codumi-theme="light"] .codumi-sidebar__user strong{color:#1d2e4e}
+html[data-codumi-theme="light"] .codumi-sidebar__user small,
+html[data-codumi-theme="light"] .codumi-sidebar__guest p,
+html[data-codumi-theme="light"] .codumi-sidebar__appearance small{color:#5b7295}
+html[data-codumi-theme="light"] .codumi-sidebar__density button,
+html[data-codumi-theme="light"] .codumi-sidebar__appearance button:not(.is-active),
+html[data-codumi-theme="light"] .codumi-sidebar__close{background:#fff;color:#364b6b;border-color:#d0ddee}
+html[data-codumi-theme="light"] .codumi-sidebar__density button.is-active{color:#fff;background:#4076cd}
+html[data-codumi-theme="light"] .codumi-sidebar__appearance p{color:#344767}
+html[data-codumi-theme="light"] .codumi-sidebar__footer{color:#46638a}
+html[data-codumi-theme="light"] .codumi-sidebar__footer small{color:#657fa1}
+
+html[data-codumi-theme="light"] .kodumi-hero{
+  background:linear-gradient(122deg,#f9fcff 0%,#e5efff 56%,#e9e5ff 100%);
+  border-color:#c7d9f7;box-shadow:0 16px 50px #7795ce2a;
+}
+html[data-codumi-theme="light"] .kodumi-hero__glow{
+  opacity:.30;background:radial-gradient(circle at 90% 75%,#9cbbff,transparent 53%);
+}
+html[data-codumi-theme="light"] .kodumi-hero::before{
+  background-image:linear-gradient(#90a7cd22 1px,transparent 1px),linear-gradient(90deg,#90a7cd22 1px,transparent 1px);
+}
+html[data-codumi-theme="light"] .kodumi-hero h1{color:#203453}
+html[data-codumi-theme="light"] .kodumi-hero__label{color:#49689b}
+html[data-codumi-theme="light"] .kodumi-hero__content p{color:#4c6388}
+html[data-codumi-theme="light"] .kodumi-hero__instant{color:#405e85}
+html[data-codumi-theme="light"] .kodumi-arena__versus{color:#243b6e;text-shadow:0 0 20px #fff}
+html[data-codumi-theme="light"] .kodumi-arena__status{background:#f9fcff;color:#244576;border-color:#b6ccef}
+html[data-codumi-theme="light"] .codumi-main-content .codumi-daily{
+  background:linear-gradient(124deg,#fff,#f2f2ff);border-color:#cbd6f0;
+  box-shadow:0 18px 42px #859dcc35,0 0 0 5px #e4eafd;
+  color:#1b304e;
+}
+html[data-codumi-theme="light"] .codumi-daily__info>span{color:#936525}
+html[data-codumi-theme="light"] .codumi-daily__info h2{color:#1d3452}
+html[data-codumi-theme="light"] .codumi-daily__info p{color:#4a5e7e}
+html[data-codumi-theme="light"] .codumi-daily__info small{color:#627695}
+html[data-codumi-theme="light"] .section-heading h2{color:#1b304f}
+html[data-codumi-theme="light"] .eyebrow{color:#594dc0}
+html[data-codumi-theme="light"] .result-count{background:#e0e9f9;color:#42608c}
+html[data-codumi-theme="light"] .codumi-main-content .games-grid>.game-card{
+  background:#fff;border-color:#d3dff1;box-shadow:0 8px 24px #6882af24;
+}
+html[data-codumi-theme="light"] .codumi-main-content .games-grid>.game-card .game-card__body{
+  background:#fff;border-top-color:#e0e7f3;
+}
+html[data-codumi-theme="light"] .codumi-main-content .games-grid>.game-card h3{color:#1b2c47;text-shadow:none}
+html[data-codumi-theme="light"] .codumi-main-content .games-grid>.game-card p{color:#50617b}
+html[data-codumi-theme="light"] .codumi-main-content .games-grid>.game-card .game-card__badge{
+  background:#ecebff;color:#4a409f;border-color:#d2caf8;
+}
+html[data-codumi-theme="light"] .empty-state{color:#4f6482}
+
+/* Light variants keep their own material while inheriting readable text. */
+html[data-codumi-theme="light"] .codumi-card-style--glass .codumi-main-content .games-grid>.game-card{
+  border-color:#bfc9f7;background:#f8f6ff;box-shadow:0 14px 30px #7b8bce2e;
+}
+html[data-codumi-theme="light"] .codumi-card-style--glass .codumi-main-content .games-grid>.game-card .game-card__body{
+  background:linear-gradient(135deg,#fff,#eaf0ff);border-top-color:#c5d6f8;
+}
+html[data-codumi-theme="light"] .codumi-card-style--outline .codumi-main-content .games-grid>.game-card{
+  border:2px solid #5b79c3;box-shadow:0 2px 0 #d7e4ff;
+}
+html[data-codumi-theme="light"] .codumi-card-style--outline .codumi-main-content .games-grid>.game-card .game-card__body{
+  border-top:2px solid #5b79c3;background:#f7faff;
+}
+
+/* Account modal, public profiles and arena pages maintain legibility in day mode. */
+html[data-codumi-theme="light"] .account-modal,
+html[data-codumi-theme="light"] .arena-player-modal,
+html[data-codumi-theme="light"] .arena-duel-modal{
+  background:linear-gradient(180deg,#fff,#f4f7ff);color:#243654;border-color:#d2dff0;
+  box-shadow:0 35px 100px #23355944;
+}
+html[data-codumi-theme="light"] .account-modal h2,
+html[data-codumi-theme="light"] .account-section-title,
+html[data-codumi-theme="light"] .account-pane-heading{color:#213552}
+html[data-codumi-theme="light"] .account-kicker,
+html[data-codumi-theme="light"] .account-subtitle,
+html[data-codumi-theme="light"] .account-empty,
+html[data-codumi-theme="light"] .account-login-label{color:#627592}
+html[data-codumi-theme="light"] .account-profile-tabs,
+html[data-codumi-theme="light"] .account-auth-tabs,
+html[data-codumi-theme="light"] .account-overview-grid>a,
+html[data-codumi-theme="light"] .account-setting-card,
+html[data-codumi-theme="light"] .account-email-card,
+html[data-codumi-theme="light"] .account-party-card,
+html[data-codumi-theme="light"] .friend-row,
+html[data-codumi-theme="light"] .account-profile-pane{
+  background:#f0f5ff;border-color:#d7e1f3;
+}
+html[data-codumi-theme="light"] .account-auth-tabs button.is-active,
+html[data-codumi-theme="light"] .account-profile-tabs button.is-active{background:#dfeaff;color:#21418b}
+html[data-codumi-theme="light"] .account-auth-tabs button,
+html[data-codumi-theme="light"] .account-profile-tabs button{color:#526783}
+html[data-codumi-theme="light"] .account-form input,
+html[data-codumi-theme="light"] .account-friend-search,
+html[data-codumi-theme="light"] .account-setting-controls input,
+html[data-codumi-theme="light"] .account-email-controls input{
+  background:#fff;color:#1d2c47;border-color:#c9d6e9;
+}
+html[data-codumi-theme="light"] .account-form label>span,
+html[data-codumi-theme="light"] .account-setting-card strong,
+html[data-codumi-theme="light"] .friend-row__name strong{color:#2b3f60}
+html[data-codumi-theme="light"] .account-close{color:#536783;background:#e9f0fc}
+html[data-codumi-theme="light"] .account-mini-button,
+html[data-codumi-theme="light"] .account-avatar-button,
+html[data-codumi-theme="light"] .account-setting-controls button{background:#e3ebff;color:#344fa1}
+html[data-codumi-theme="light"] .friend-more__menu{background:#fff;color:#243b60;border-color:#cbd8e9}
+
+html[data-codumi-theme="light"] .arena-page{color:#263852}
+html[data-codumi-theme="light"] .arena-hero{
+  background:linear-gradient(130deg,#e4edff,#f9fbff);border-color:#c8d8f2;
+}
+html[data-codumi-theme="light"] .arena-hero h1{color:#243855}
+html[data-codumi-theme="light"] .arena-hero p{color:#526888}
+html[data-codumi-theme="light"] .arena-ranking-row,
+html[data-codumi-theme="light"] .arena-quest,
+html[data-codumi-theme="light"] .arena-refresh-note{
+  background:#fff;color:#253958;border-color:#d4e1f1;
+}
+html[data-codumi-theme="light"] .arena-quest.is-complete{background:#fff8e6;border-color:#d6b766}
+html[data-codumi-theme="light"] .arena-rank-name small,
+html[data-codumi-theme="light"] .arena-quest-info p,
+html[data-codumi-theme="light"] .arena-quest-info small,
+html[data-codumi-theme="light"] .arena-refresh-note small{color:#536a8b}
+html[data-codumi-theme="light"] .arena-stat-grid div,
+html[data-codumi-theme="light"] .arena-inbox article{background:#eaf0fb}
+html[data-codumi-theme="light"] .arena-stat-grid b{color:#5349a9}
+html[data-codumi-theme="light"] .arena-stat-grid span{color:#4a6086}
+html[data-codumi-theme="light"] .arena-duel-compose label{color:#314865}
+html[data-codumi-theme="light"] .arena-duel-compose select{background:#fff;color:#1d2b47}
+html[data-codumi-theme="light"] .arena-close{background:#e9f0fc;color:#354868}
+html[data-codumi-theme="light"] .codumi-notification-popover{background:#fff;color:#203350;border-color:#c9d9ed;box-shadow:0 24px 60px #2c406650}
+html[data-codumi-theme="light"] .codumi-notification-head{border-bottom-color:#d4def0}
+html[data-codumi-theme="light"] .codumi-notification-head button{background:#e7edf9;color:#314a70}
+html[data-codumi-theme="light"] .codumi-notification-row{border-bottom-color:#e4eaf4}
+html[data-codumi-theme="light"] .codumi-notification-row.is-unread{background:#f0eeff}
+html[data-codumi-theme="light"] .codumi-notification-row small,
+html[data-codumi-theme="light"] .codumi-notification-foot{color:#5b718c}
+html[data-codumi-theme="light"] .codumi-notification-row time{color:#7283a2}
+html[data-codumi-theme="light"] .codumi-notification-icon{background:#edf2ff}
+
+/* Games intentionally keep the original dedicated dark/high contrast playfields. */
+html[data-codumi-theme="light"] .game-page{color:#ecf2ff}
+html[data-codumi-theme="light"] .game-page__back,
+html[data-codumi-theme="light"] .game-page__fullscreen{color:#eff4ff}
+html[data-codumi-theme="light"] .game-spectators-count{background:#e8effd;color:#345276;border-color:#c6d6ed}
+
+@media(prefers-reduced-motion:reduce){.site-header .codumi-theme-toggle{transition:none}}
+
+/* Inner profile dashboards (XP, trophies, achievements, history). */
+html[data-codumi-theme="light"] .account-overview-grid button,
+html[data-codumi-theme="light"] .account-friends-column,
+html[data-codumi-theme="light"] .account-search-column,
+html[data-codumi-theme="light"] .account-overview-note{
+  color:#243b5a;background:linear-gradient(145deg,#f8faff,#edf3ff);border-color:#d2def0;
+}
+html[data-codumi-theme="light"] .account-overview-grid button strong{color:#223a58}
+html[data-codumi-theme="light"] .account-overview-grid button small,
+html[data-codumi-theme="light"] .account-overview-note{color:#546986}
+html[data-codumi-theme="light"] .account-pane-heading h3{color:#243955}
+html[data-codumi-theme="light"] .account-pane-heading p{color:#607593}
+html[data-codumi-theme="light"] .account-request-box{background:#edf2ff;border-color:#ccd8f4}
+html[data-codumi-theme="light"] .account-request-box>b{color:#5369ad}
+html[data-codumi-theme="light"] .account-profile-tabs button.is-active{
+  color:#244b9a;background:#e1eaff;border-color:#c0d1f5;
+}
+html[data-codumi-theme="light"] .codumi-level-card{
+  background:radial-gradient(ellipse at 100% 0%,#ece9ff,transparent 65%),#eff4ff;
+  color:#233858;border-color:#c9d5ef;
+}
+html[data-codumi-theme="light"] .codumi-level-card__top small{color:#647497}
+html[data-codumi-theme="light"] .codumi-level-card__xp{color:#8a581e}
+html[data-codumi-theme="light"] .codumi-level-card__track{background:#d6deee}
+html[data-codumi-theme="light"] .codumi-level-card__bottom small,
+html[data-codumi-theme="light"] .codumi-level-card p{color:#556b8b}
+html[data-codumi-theme="light"] .ach-badge:not(.is-unlocked){background:linear-gradient(145deg,#e7ebf2,#dbe3ee);border-color:#c1ccdc;color:#53647a}
+html[data-codumi-theme="light"] .ach-badge:not(.is-unlocked)>strong{color:#53647a}
+html[data-codumi-theme="light"] .ach-filters button:not(.is-active){background:#f1f5fe;color:#506581;border-color:#cfdaeb}
+html[data-codumi-theme="light"] .ach-filters button:not(.is-active) span{color:#5b7190}
+html[data-codumi-theme="light"] .ach-badge.is-unlocked{background:linear-gradient(145deg,#483827,#2b3348)}
+html[data-codumi-theme="light"] .ach-detail{background:#fff9e9;border-color:#e7cb8d}
+html[data-codumi-theme="light"] .ach-detail>div>strong,
+html[data-codumi-theme="light"] .ach-detail__claim strong{color:#98661d}
+html[data-codumi-theme="light"] .ach-detail p,
+html[data-codumi-theme="light"] .ach-detail__claim small{color:#655a4a}
+html[data-codumi-theme="light"] .ach-detail__progress span{color:#805b18}
+html[data-codumi-theme="light"] .ach-detail__progress>div{background:#e5d8b3}
+html[data-codumi-theme="light"] .ach-loading,
+html[data-codumi-theme="light"] .ach-empty{color:#526988;border-color:#b8c9e4}
+html[data-codumi-theme="light"] .ach-footer-note{color:#6a7d96}
+html[data-codumi-theme="light"] .match-stats{color:#233852}
+html[data-codumi-theme="light"] .match-stats-box,
+html[data-codumi-theme="light"] .match-stats-recent{background:#f0f5ff;border-color:#d2def0}
+html[data-codumi-theme="light"] .match-stats-box b{color:#233852}
+html[data-codumi-theme="light"] .match-stats-box.is-win b{color:#16805b}
+html[data-codumi-theme="light"] .match-stats-box span,
+html[data-codumi-theme="light"] .match-stats-recent-name span,
+html[data-codumi-theme="light"] .match-stats-recent-meta small{color:#5c728e}
+html[data-codumi-theme="light"] .match-stats-heading p{color:#5a6f8e}
+html[data-codumi-theme="light"] .match-stats-highlights span{color:#4c4e9f}
+html[data-codumi-theme="light"] .match-stats-highlights small{color:#607696}
+html[data-codumi-theme="light"] .match-stats-note{background:#ebeaff;color:#4a4e86}
+html[data-codumi-theme="light"] .match-stats-result-icon{background:#e1e8f6}
+html[data-codumi-theme="light"] .match-stats-recent-meta b{color:#576b88}
+html[data-codumi-theme="light"] .match-stats-recent-meta b.is-win{color:#178354}
+html[data-codumi-theme="light"] .match-stats-recent-meta b.is-loss{color:#b34854}
+html[data-codumi-theme="light"] .match-stats-recent-meta b.is-draw{color:#956c29}
+
+/* Sunlight polish: fully opaque, intentional surfaces and readable text on all skins. */
+html[data-codumi-theme="light"] .codumi-main-content .games-grid>.game-card{
+  border:1px solid #c1d1ec!important;border-radius:19px;
+  background:linear-gradient(165deg,#fff,#f1f5ff)!important;
+  box-shadow:0 10px 26px #708bb531,0 1px 0 #fff inset;
+  overflow:hidden;transition:transform .18s ease,box-shadow .18s ease;
+}
+html[data-codumi-theme="light"] .codumi-main-content .games-grid>.game-card:hover{transform:translateY(-3px);box-shadow:0 19px 35px #6584b24a}
+html[data-codumi-theme="light"] .codumi-main-content .games-grid>.game-card .game-card__body{
+  background:linear-gradient(145deg,#ffffff,#eff4ff)!important;
+  border-top:1px solid #d0dbef!important;
+}
+html[data-codumi-theme="light"] .codumi-main-content .games-grid>.game-card h3{
+  color:#152c50!important;text-shadow:none!important;font-weight:900;
+}
+html[data-codumi-theme="light"] .codumi-main-content .games-grid>.game-card p{
+  color:#425c7d!important;text-shadow:none!important;
+}
+html[data-codumi-theme="light"] .codumi-main-content .games-grid>.game-card .game-card__badge{
+  color:#324c9f!important;background:#e2e9ff!important;
+  border:1px solid #b4c9ff!important;text-shadow:none!important;
+}
+html[data-codumi-theme="light"] .codumi-card-style--nebula .codumi-main-content .games-grid>.game-card,
+html[data-codumi-theme="light"] .codumi-card-style--ember .codumi-main-content .games-grid>.game-card,
+html[data-codumi-theme="light"] .codumi-card-style--platinum .codumi-main-content .games-grid>.game-card{
+  background:#f3f7ff!important;
+}
+html[data-codumi-theme="light"] .codumi-card-style--nebula .codumi-main-content .games-grid>.game-card{border-color:#a7a5e7!important}
+html[data-codumi-theme="light"] .codumi-card-style--ember .codumi-main-content .games-grid>.game-card{border-color:#edba98!important}
+html[data-codumi-theme="light"] .codumi-card-style--platinum .codumi-main-content .games-grid>.game-card{border-color:#bdcde4!important}
+/* Quests and rewards feel like collectible panels instead of white transparent boxes. */
+html[data-codumi-theme="light"] .arena-quest{
+  background:radial-gradient(ellipse at 92% 8%,#e5e4ff,transparent 65%),linear-gradient(125deg,#f8fbff,#e9f1ff)!important;
+  border:1px solid #c4d7f1!important;
+  box-shadow:0 10px 23px #738cb226,inset 0 1px 0 #fff;
+  border-radius:18px;
+}
+html[data-codumi-theme="light"] .arena-quest.is-complete{
+  background:radial-gradient(ellipse at 90% 0%,#fff0c1,transparent 60%),linear-gradient(120deg,#fffdf3,#f5f2e8)!important;
+  border-color:#e1c780!important;
+}
+html[data-codumi-theme="light"] .arena-quest-info h3{color:#23395d}
+html[data-codumi-theme="light"] .arena-quest-icon{display:grid;place-items:center;flex:none;width:42px;height:42px;border-radius:13px;background:linear-gradient(135deg,#e0e8ff,#f5f4ff);border:1px solid #c7d6f5;color:#454c9c}
+html[data-codumi-theme="light"] .arena-quest-reward{padding:8px 10px;border-radius:12px;background:#fdf2d8;border:1px solid #efdcae}
+html[data-codumi-theme="light"] .arena-quest-reward>strong{color:#92601a}
+html[data-codumi-theme="light"] .arena-quest-reward>small{color:#766b57}
+html[data-codumi-theme="light"] .arena-progress{background:#d9e4f5}
+html[data-codumi-theme="light"] .arena-progress span{background:linear-gradient(90deg,#5787ec,#9370df)}
+html[data-codumi-theme="light"] .arena-refresh-note{background:linear-gradient(120deg,#edf4ff,#e7edfc);border-color:#cbdaf2;color:#354f73}
+html[data-codumi-theme="light"] .arena-refresh-note small{color:#5b708a}
+html[data-codumi-theme="light"] .ach-page{color:#213854}
+html[data-codumi-theme="light"] .ach-hero{background:radial-gradient(ellipse at 82% 5%,#ddd4ff,transparent 65%),linear-gradient(120deg,#eef5ff,#dceaff);border:1px solid #bacbeb;box-shadow:0 15px 26px #758ab330}
+html[data-codumi-theme="light"] .ach-hero h3{color:#1c365d}
+html[data-codumi-theme="light"] .ach-hero h3 span{color:#946127}
+html[data-codumi-theme="light"] .ach-hero p{color:#526e90}
+html[data-codumi-theme="light"] .ach-hero__counter{background:#fff9e6;border:1px solid #dfc98a}
+html[data-codumi-theme="light"] .ach-hero__counter strong{color:#8d5c16}
+html[data-codumi-theme="light"] .ach-hero__counter strong i{color:#647893}
+html[data-codumi-theme="light"] .ach-hero__counter span{color:#825f2d}
+html[data-codumi-theme="light"] .ach-trophy-section,
+html[data-codumi-theme="light"] .ach-collection{
+  background:linear-gradient(142deg,#fff,#eaf2ff);border:1px solid #cad9ef;
+  box-shadow:0 9px 22px #6985b120;
+}
+html[data-codumi-theme="light"] .ach-section-title h4{color:#253d5e}
+html[data-codumi-theme="light"] .ach-eyebrow{color:#5469a7}
+html[data-codumi-theme="light"] .ach-coming{color:#6356a4;background:#e9e7ff;border:1px solid #cbc5f3}
+html[data-codumi-theme="light"] .ach-trophy-shelf{background:linear-gradient(145deg,#dce8f8,#eff5ff);border:1px solid #ccdaed}
+html[data-codumi-theme="light"] .ach-cup strong{color:#314663}
+html[data-codumi-theme="light"] .ach-cup small,
+html[data-codumi-theme="light"] .ach-trophy-note{color:#62748c}
+html[data-codumi-theme="light"] .ach-badge:not(.is-unlocked){background:linear-gradient(145deg,#f4f7fd,#dee8f8);border-color:#c5d4e9}
+html[data-codumi-theme="light"] .ach-badge:not(.is-unlocked)>strong{color:#405976}
+html[data-codumi-theme="light"] .ach-badge.is-unlocked{background:linear-gradient(145deg,#533c2b,#25374f);border-color:#b98a41}
+html[data-codumi-theme="light"] .ach-badge.is-unlocked>strong{color:#ffedc8}
+html[data-codumi-theme="light"] .ach-refresh{background:#e0eaff;color:#375488;border-color:#c2d3ee}
+html[data-codumi-theme="light"] .ach-detail{background:linear-gradient(125deg,#fff9eb,#f6ecd8);border-color:#e5c991}
+html[data-codumi-theme="light"] .ach-detail__claim button{color:#38290e}
+html[data-codumi-theme="light"] .arena-section-head h2{color:#253a57}
+/* Keep purchased card skins visibly distinct in daylight, not washed-out pastels. */
+html[data-codumi-theme="light"] .codumi-card-style--glass .codumi-main-content .games-grid>.game-card .game-card__body{background:linear-gradient(130deg,#f8f9ff,#e3ecff)!important}
+html[data-codumi-theme="light"] .codumi-card-style--outline .codumi-main-content .games-grid>.game-card .game-card__body{background:linear-gradient(145deg,#fff,#eef4ff)!important;border-top:2px solid #5279c8!important}
+html[data-codumi-theme="light"] .codumi-card-style--nebula .codumi-main-content .games-grid>.game-card .game-card__body{background:linear-gradient(125deg,#f1efff,#e9dcff)!important}
+html[data-codumi-theme="light"] .codumi-card-style--platinum .codumi-main-content .games-grid>.game-card .game-card__body{background:linear-gradient(125deg,#fdfefe,#dae5f2)!important}
+html[data-codumi-theme="light"] .codumi-card-style--ember .codumi-main-content .games-grid>.game-card .game-card__body{background:linear-gradient(125deg,#fff5e6,#fee0cf)!important}
+
+/* Profile content and stat cards remain readable in every appearance setting. */
+html[data-codumi-theme="light"] .account-modal--profile .account-profile-pane {
+  color: #203653;
+  background: linear-gradient(145deg,#fafcff,#eef4ff);
+  border-color: #d0dcf0;
+}
+html[data-codumi-theme="light"] .account-modal--profile .match-stats-heading {
+  background: #fff;
+  border-color: #cedbf0;
+}
+html[data-codumi-theme="light"] .account-modal--profile .match-stats-heading span { color:#495fbd; }
+html[data-codumi-theme="light"] .account-modal--profile .match-stats-highlights section {
+  background: linear-gradient(140deg,#fff,#eaf1ff);
+  border-color: #cad9f2;
+  color: #243e63;
+  box-shadow: 0 5px 14px #44699714;
+}
+html[data-codumi-theme="light"] .account-modal--profile .match-stats-highlights strong { color:#243b62; }
+html[data-codumi-theme="light"] .account-modal--profile .match-stats-track { background:#d6e1f2; }
+html[data-codumi-theme="light"] .account-modal--profile .match-stats-recent-name strong,
+html[data-codumi-theme="light"] .account-modal--profile .match-stats-recent-header h3 { color:#243853; }
+html[data-codumi-theme="light"] .account-modal--profile .match-stats-recent-header span { color:#627794; }

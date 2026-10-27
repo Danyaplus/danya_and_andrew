@@ -1,0 +1,132 @@
+/* Responsive Kodumi header — 2026-10. Keep one clear row on narrow guest screens. */
+.header-guest-menu { display: none; position: relative; flex: none; }
+.header-guest-menu__panel[hidden] { display: none !important; }
+.header-guest-menu__panel {
+  position: absolute; top: calc(100% + 12px); right: 0;
+  z-index: 120; display: grid; gap: 8px;
+  width: min(224px, calc(100vw - 24px));
+  padding: 10px; border: 1px solid var(--kd-line, #455773);
+  border-radius: 15px; background: var(--kd-surface, #162237);
+  box-shadow: 0 18px 46px rgba(5, 16, 41, .24);
+}
+.header-guest-menu__panel > button {
+  width: 100%; min-height: 42px; padding: 9px 15px;
+  border: 1px solid var(--kd-line, #455773);
+  border-radius: 11px; text-align: center;
+  background: var(--kd-surface-raised, #1b2b42);
+  color: var(--kd-ink, #f3f7ff); font-size: 13px; font-weight: 800;
+  cursor: pointer;
+}
+.header-guest-menu__panel > button.header-guest-menu__register {
+  color: #fff; border-color: #4f7bef;
+  background: linear-gradient(115deg, #177af5, #6252ec);
+}
+.header-guest-menu__toggle[aria-expanded="true"] {
+  outline: 2px solid var(--kd-blue, #73baff);
+  outline-offset: 2px;
+}
+.header-guest-menu__panel > button:focus-visible { outline: 2px solid var(--kd-focus, #69b8ff); outline-offset: 2px; }
+
+@media (max-width: 780px) {
+  .site-header {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    column-gap: 7px;
+    row-gap: 5px;
+    width: 100%;
+    min-width: 0;
+    padding-inline: 12px;
+  }
+  .site-header__left {
+    grid-column: 1;
+    min-width: 0;
+    gap: 7px;
+    overflow: hidden;
+  }
+  .site-header__left .brand { flex: none; min-width: 0; }
+  .site-header__left .brand__text { display: none !important; }
+  .site-header .header-actions {
+    grid-column: 2;
+    justify-self: end;
+    min-width: 0;
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 6px;
+  }
+  .site-header .header-auth-button--desktop { display: none; }
+  .site-header .header-guest-menu { display: block; }
+  .site-header .header-icon-button,
+  .site-header .header-profile-button,
+  .site-header .header-guest-menu__toggle {
+    flex: 0 0 38px;
+    width: 38px;
+    height: 38px;
+    border-radius: 12px;
+  }
+  .site-header .header-profile-button { border-radius: 50%; }
+  .site-header .header-profile-button .user-avatar { width: 32px !important; height: 32px !important; }
+  .site-header .codumi-language-header {
+    flex: none;
+    min-width: 0;
+    height: 38px;
+    margin: 0;
+    padding: 3px 5px;
+    border-radius: 11px;
+  }
+  .site-header .codumi-language-header > span { display: none; }
+  .site-header .codumi-language-header select {
+    min-height: 28px;
+    max-width: 59px;
+    padding: 0;
+    font-size: 12px;
+    font-weight: 800;
+  }
+  .site-header .search-wrap.is-mobile-open {
+    position: absolute;
+    grid-column: unset;
+    top: calc(100% + 5px);
+    left: 10px;
+    right: 10px;
+    z-index: 110;
+  }
+  .site-header .search-wrap.is-mobile-open .search-dropdown {
+    position: absolute;
+    top: calc(100% + 7px);
+    left: 0;
+    right: 0;
+    width: 100%;
+  }
+}
+
+@media (max-width: 490px) {
+  .site-header { padding-inline: 9px; column-gap: 4px; }
+  .site-header__left { gap: 5px; }
+  .site-header .header-actions { gap: 5px; }
+  .site-header .codumi-theme-toggle { display: none; } /* Theme stays in sidebar. */
+  .site-header .site-menu-toggle,
+  .site-header__left .brand__mark { width: 34px; height: 34px; }
+  .site-header .header-icon-button,
+  .site-header .header-profile-button,
+  .site-header .header-guest-menu__toggle { width: 36px; height: 36px; flex-basis: 36px; }
+  .site-header .codumi-language-header { height: 36px; }
+  .site-header .codumi-language-header select { max-width: 55px; font-size: 11px; }
+}
+
+/* On very small logged-in screens, retain all controls in a tidy second row. */
+@media (max-width: 355px) {
+  .site-header.site-header--authenticated { grid-template-columns: 1fr; row-gap: 7px; }
+  .site-header.site-header--authenticated .site-header__left { grid-column: 1; }
+  .site-header.site-header--authenticated .header-actions {
+    grid-column: 1;
+    grid-row: 2;
+    justify-self: stretch;
+    justify-content: space-between;
+    padding-bottom: 3px;
+  }
+  .site-header.site-header--authenticated .header-icon-button,
+  .site-header.site-header--authenticated .header-profile-button { flex-shrink: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .header-guest-menu__panel { scroll-behavior: auto; }
+}

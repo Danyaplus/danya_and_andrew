@@ -1,9 +1,0 @@
-/* Language selector shares the site's existing responsive layout. */
-.codumi-language-header { display: inline-flex; align-items: center; gap: 3px; padding: 5px 7px; border: 1px solid var(--border, #64748b60); border-radius: 11px; font-size: 13px; color: inherit; background: var(--panel, #172033); }
-.codumi-language-header select { background: transparent; color: inherit; border: none; font-size: 12px; font-weight: 700; cursor: pointer; max-width: 60px; outline-offset: 3px; }
-.codumi-language-header select option { background: #172033; color: #fff; }
-.codumi-sidebar__language { display: grid; gap: 10px; padding: 14px 18px; }
-.codumi-sidebar__language label { font-size: 12px; font-weight: 700; opacity: .8; }
-.codumi-sidebar__language select, .codumi-language-profile select { width: 100%; min-height: 38px; border-radius: 9px; background: #202a3a; color: #fff; border: 1px solid #66768a88; padding: 8px 10px; }
-.codumi-language-profile { align-items: center; }
-@media (max-width: 440px) { .codumi-language-header { padding: 4px; } .codumi-language-header span { display: none; } }

@@ -1,0 +1,732 @@
+/* KODUMI GAMES / cohesive 2026 light and dark UI polish.
+   Scoped to the site chrome, catalogue, profile and public pages.
+   Deliberately does not touch the gameplay boards or purchased card skins. */
+
+:root {
+  --kd-ink: #edf4ff;
+  --kd-muted: #b3c3de;
+  --kd-subtle: #91a5c6;
+  --kd-surface: #121e32;
+  --kd-surface-raised: #192942;
+  --kd-surface-soft: #1b2a43;
+  --kd-line: #344760;
+  --kd-blue: #73baff;
+  --kd-blue-strong: #2485ff;
+  --kd-selection: #273f65;
+  --kd-shadow: 0 12px 32px rgba(1, 8, 25, .3);
+  --kd-shadow-hover: 0 19px 42px rgba(1, 8, 25, .4);
+  --kd-focus: #90d4ff;
+  color-scheme: dark;
+}
+html[data-codumi-theme="light"] {
+  --kd-ink: #1a2c4b;
+  --kd-muted: #48617f;
+  --kd-subtle: #607491;
+  --kd-surface: #fff;
+  --kd-surface-raised: #f5f8ff;
+  --kd-surface-soft: #eaf1fd;
+  --kd-line: #ccd9ee;
+  --kd-blue: #135cce;
+  --kd-blue-strong: #176eea;
+  --kd-selection: #e3edff;
+  --kd-shadow: 0 10px 27px rgba(51, 87, 146, .11);
+  --kd-shadow-hover: 0 18px 37px rgba(51, 87, 146, .18);
+  --kd-focus: #176eea;
+  color-scheme: light;
+}
+
+/* Base canvas: restrained color instead of a washed-out white haze. */
+html:not([data-codumi-theme="light"]),
+html:not([data-codumi-theme="light"]) body {
+  color: var(--kd-ink);
+  background-color: #0b1221;
+}
+html:not([data-codumi-theme="light"]) body {
+  background-image: radial-gradient(ellipse at 4% 0%, rgba(41, 84, 171, .17), transparent 39%),
+    radial-gradient(ellipse at 96% 4%, rgba(101, 65, 171, .10), transparent 38%),
+    linear-gradient(145deg, #0d1627, #0a111e 74%);
+}
+html[data-codumi-theme="light"] body {
+  color: var(--kd-ink);
+  background: radial-gradient(ellipse at 9% -4%, rgba(104, 159, 245, .12), transparent 42%),
+    radial-gradient(ellipse at 99% 3%, rgba(165, 138, 238, .09), transparent 41%),
+    linear-gradient(160deg, #f7f9fe 0%, #edf3fc 70%, #f5f8fe 100%);
+}
+.app-shell { color: var(--kd-ink); }
+
+/* Navigation / search / language: equal heights, purposeful strokes. */
+.site-header {
+  border-bottom: 1px solid var(--kd-line);
+  background: rgba(13, 23, 40, .94);
+  box-shadow: 0 5px 22px rgba(0, 6, 19, .15);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+html[data-codumi-theme="light"] .site-header {
+  border-color: var(--kd-line);
+  background: rgba(255, 255, 255, .95);
+  box-shadow: 0 6px 25px rgba(48, 81, 141, .09);
+}
+.site-header .brand__text strong { letter-spacing: .12em; }
+.site-header .search-wrap input {
+  border: 1px solid var(--kd-line);
+  border-radius: 13px;
+  background: var(--kd-surface);
+  color: var(--kd-ink);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, .025), 0 2px 8px rgba(20, 42, 78, .035);
+  transition: border-color .18s ease, box-shadow .18s ease;
+}
+.site-header .search-wrap input::placeholder { color: var(--kd-subtle); opacity: 1; }
+.site-header .search-wrap input:focus {
+  border-color: var(--kd-blue-strong);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--kd-blue-strong) 16%, transparent);
+}
+.search-dropdown {
+  border-color: var(--kd-line);
+  background: var(--kd-surface);
+  color: var(--kd-ink);
+  box-shadow: var(--kd-shadow-hover);
+}
+.site-menu-toggle,
+.site-header .header-icon-button:not(.codumi-theme-toggle),
+.codumi-language-header {
+  border: 1px solid var(--kd-line);
+  background: var(--kd-surface);
+  color: var(--kd-ink);
+  box-shadow: 0 2px 9px rgba(31, 57, 99, .065);
+}
+html[data-codumi-theme="light"] .site-menu-toggle,
+html[data-codumi-theme="light"] .site-header .header-icon-button:not(.codumi-theme-toggle),
+html[data-codumi-theme="light"] .codumi-language-header {
+  border-color: var(--kd-line);
+  background: #fff;
+  color: var(--kd-ink);
+}
+.codumi-language-header select { color: inherit; font-weight: 800; }
+html[data-codumi-theme="light"] .codumi-language-header select { color: var(--kd-ink); }
+.site-header .codumi-theme-toggle.is-day {
+  background: linear-gradient(140deg, #ffb53f, #f18a20);
+  border-color: #eaa24b;
+  box-shadow: 0 4px 13px rgba(232, 137, 37, .22);
+}
+.site-header .codumi-theme-toggle:not(.is-day) {
+  background: linear-gradient(135deg, #2b3f6c, #1a2547);
+  border-color: #4a628a;
+  color: #e9eeff;
+}
+.site-menu-toggle:hover,
+.site-header .header-icon-button:hover,
+.codumi-language-header:hover { border-color: var(--kd-blue); }
+
+/* The sidebar is a calm navigation surface, with readable active states. */
+.codumi-sidebar {
+  background: linear-gradient(166deg, #151f32, #101b2b);
+  color: var(--kd-ink);
+  border-right: 1px solid var(--kd-line);
+  box-shadow: inset -1px 0 rgba(255, 255, 255, .025);
+}
+html[data-codumi-theme="light"] .codumi-sidebar {
+  background: linear-gradient(165deg, #ffffff, #f5f8fe);
+  color: var(--kd-ink);
+  border-right: 1px solid var(--kd-line);
+  box-shadow: inset -1px 0 #fff;
+}
+.codumi-sidebar__nav { gap: 4px; }
+.codumi-sidebar__nav button { border-radius: 11px; font-size: 13px; font-weight: 750; }
+.codumi-sidebar__nav button:hover { background: var(--kd-selection); color: var(--kd-ink); }
+.codumi-sidebar__nav button.is-active {
+  background: var(--kd-selection);
+  color: var(--kd-blue);
+  border-color: var(--kd-line);
+  box-shadow: inset 3px 0 0 var(--kd-blue-strong);
+}
+html[data-codumi-theme="light"] .codumi-sidebar__nav button.is-active {
+  background: #e8efff;
+  color: #1555bc;
+  border-color: #cbdaf4;
+}
+.codumi-sidebar__nav button.is-active svg,
+html[data-codumi-theme="light"] .codumi-sidebar__nav button.is-active svg { color: var(--kd-blue); }
+.codumi-sidebar__user,
+.codumi-sidebar__guest,
+.codumi-sidebar__density,
+.codumi-sidebar__appearance {
+  border-color: var(--kd-line);
+  background: var(--kd-surface-raised);
+  color: var(--kd-ink);
+  border-radius: 14px;
+}
+html[data-codumi-theme="light"] .codumi-sidebar__user,
+html[data-codumi-theme="light"] .codumi-sidebar__guest,
+html[data-codumi-theme="light"] .codumi-sidebar__density,
+html[data-codumi-theme="light"] .codumi-sidebar__appearance {
+  border-color: var(--kd-line);
+  background: #f5f8fe;
+  color: var(--kd-ink);
+}
+.codumi-sidebar__density button:not(.is-active),
+.codumi-sidebar__appearance button:not(.is-active),
+.codumi-sidebar__language select {
+  border: 1px solid var(--kd-line);
+  color: var(--kd-ink);
+  background: var(--kd-surface);
+}
+html[data-codumi-theme="light"] .codumi-sidebar__density button:not(.is-active),
+html[data-codumi-theme="light"] .codumi-sidebar__appearance button:not(.is-active),
+html[data-codumi-theme="light"] .codumi-sidebar__language select {
+  border-color: var(--kd-line);
+  color: var(--kd-ink);
+  background: #fff;
+}
+.codumi-sidebar__density button.is-active,
+.codumi-sidebar__appearance button.is-active { color: #fff; background: #255fc8; border-color: #4a90ef; }
+
+/* Landing: strong headline, soft dimensional artwork, consistent gutters. */
+.codumi-main-content .page-shell { padding-top: clamp(18px, 2.3vw, 30px); }
+.codumi-main-content .kodumi-hero {
+  overflow: hidden;
+  border-radius: 23px;
+  border-color: #30496f;
+  background: radial-gradient(ellipse at 80% 39%, rgba(67, 109, 255, .22), transparent 45%),
+    linear-gradient(115deg, #142341, #111d39 62%, #1c204d);
+  box-shadow: var(--kd-shadow);
+}
+html[data-codumi-theme="light"] .codumi-main-content .kodumi-hero {
+  border-color: #c8d9f2;
+  background: radial-gradient(ellipse at 78% 34%, rgba(139, 190, 255, .4), transparent 48%),
+    linear-gradient(115deg, #fdfefe, #eaf3ff 64%, #ede9ff);
+  box-shadow: 0 14px 40px rgba(55, 98, 174, .13), inset 0 1px 0 #fff;
+}
+html[data-codumi-theme="light"] .kodumi-hero__glow { opacity: .23; }
+html[data-codumi-theme="light"] .kodumi-hero h1 { color: #152a4b; }
+.codumi-main-content .kodumi-hero__content p { line-height: 1.65; font-size: clamp(13px, 1.22vw, 15px); }
+html[data-codumi-theme="light"] .kodumi-hero__content p { color: #425c7d; }
+html[data-codumi-theme="light"] .kodumi-hero__label { color: #3e5d8f; }
+.kodumi-hero__cta,
+.codumi-daily__info button,
+.primary-button,
+.account-primary {
+  background: linear-gradient(115deg, #107df7, #435be6);
+  color: #fff;
+  box-shadow: 0 9px 22px rgba(23, 90, 220, .24);
+}
+.codumi-main-content .kodumi-hero__cta { border: 1px solid rgba(154, 197, 255, .55); }
+.kodumi-hero__cta:hover,
+.codumi-daily__info button:hover,
+.primary-button:hover,
+.account-primary:not(:disabled):hover { filter: brightness(1.06); box-shadow: 0 13px 25px rgba(23, 90, 220, .31); }
+html[data-codumi-theme="light"] .kodumi-arena__player--blue { background: linear-gradient(155deg, rgba(80, 185, 255, .3), rgba(59, 113, 246, .13)); }
+html[data-codumi-theme="light"] .kodumi-arena__player--violet { background: linear-gradient(155deg, rgba(180, 120, 248, .32), rgba(124, 107, 230, .11)); }
+html[data-codumi-theme="light"] .kodumi-arena__player small { color: #285380; }
+html[data-codumi-theme="light"] .kodumi-hero__instant { color: #3f5f82; }
+
+/* Featured game: readable, obvious grouping and smooth card edge. */
+.codumi-main-content .codumi-daily {
+  border-radius: 21px;
+  border: 1px solid var(--kd-line);
+  background: var(--kd-surface);
+  box-shadow: var(--kd-shadow);
+  color: var(--kd-ink);
+}
+html[data-codumi-theme="light"] .codumi-main-content .codumi-daily {
+  background: linear-gradient(125deg, #fff, #f8f9ff);
+  border-color: #ccd8ee;
+  box-shadow: var(--kd-shadow);
+}
+.codumi-daily__info h2 { color: var(--kd-ink); letter-spacing: -.025em; }
+.codumi-daily__info p { color: var(--kd-muted); line-height: 1.62; }
+.codumi-daily__info small { color: var(--kd-subtle); }
+html[data-codumi-theme="light"] .codumi-daily__info p { color: var(--kd-muted); }
+html[data-codumi-theme="light"] .codumi-daily__info small { color: var(--kd-subtle); }
+.codumi-daily__info button { min-height: 39px; border-radius: 11px; }
+
+/* Catalogue: keep the existing image/text row layout (critical on iOS).
+   Restrict material changes to the default 'classic' card skin. */
+.codumi-main-content .section-heading h2 { color: var(--kd-ink); font-weight: 900; letter-spacing: -.04em; }
+html[data-codumi-theme="light"] .codumi-main-content .section-heading h2 { color: var(--kd-ink); }
+.codumi-main-content .section-heading .eyebrow { color: var(--kd-blue); }
+.codumi-card-style--classic .codumi-main-content .games-grid > .game-card {
+  border: 1px solid var(--kd-line);
+  border-radius: 17px;
+  background: var(--kd-surface);
+  box-shadow: var(--kd-shadow);
+  transition: box-shadow .17s ease, border-color .17s ease;
+}
+html[data-codumi-theme="light"] .codumi-card-style--classic .codumi-main-content .games-grid > .game-card {
+  border: 1px solid #cbd8ec !important;
+  background: #fff !important;
+  box-shadow: 0 6px 19px rgba(50, 83, 140, .11);
+}
+.codumi-card-style--classic .codumi-main-content .games-grid > .game-card .game-card__body {
+  background: var(--kd-surface);
+  color: var(--kd-ink);
+  border-top-color: var(--kd-line);
+  padding: 12px 13px 14px;
+}
+html[data-codumi-theme="light"] .codumi-card-style--classic .codumi-main-content .games-grid > .game-card .game-card__body {
+  background: #fff !important;
+  border-top-color: #d9e3f3 !important;
+}
+.codumi-card-style--classic .codumi-main-content .games-grid > .game-card h3 { color: var(--kd-ink); font-weight: 850; }
+.codumi-card-style--classic .codumi-main-content .games-grid > .game-card p { color: var(--kd-muted); font-size: 11.5px; line-height: 1.53; }
+html[data-codumi-theme="light"] .codumi-card-style--classic .codumi-main-content .games-grid > .game-card h3 { color: var(--kd-ink) !important; }
+html[data-codumi-theme="light"] .codumi-card-style--classic .codumi-main-content .games-grid > .game-card p { color: var(--kd-muted) !important; }
+.codumi-card-style--classic .codumi-main-content .games-grid > .game-card:hover {
+  border-color: var(--kd-blue);
+  box-shadow: var(--kd-shadow-hover);
+}
+html[data-codumi-theme="light"] .codumi-card-style--classic .codumi-main-content .games-grid > .game-card:hover {
+  border-color: #7fa9e9 !important;
+  box-shadow: var(--kd-shadow-hover);
+}
+html[data-codumi-theme="light"] .result-count { color: #2b549c; background: #e7effe; border: 1px solid #d1e0f7; }
+
+/* Profile is a top-anchored dashboard: same spacing for all tabs. */
+.account-modal--profile {
+  border: 1px solid var(--kd-line);
+  border-radius: 23px;
+  background: var(--kd-surface);
+  box-shadow: 0 30px 90px rgba(0, 5, 25, .42);
+  color: var(--kd-ink);
+}
+html[data-codumi-theme="light"] .account-modal--profile {
+  border-color: #c7d7ee;
+  background: #fff;
+  color: var(--kd-ink);
+  box-shadow: 0 30px 85px rgba(24, 55, 104, .24);
+}
+.account-modal--profile .account-profile-tabs {
+  border: 1px solid var(--kd-line);
+  border-radius: 15px;
+  background: var(--kd-surface-raised);
+  padding: 6px;
+}
+html[data-codumi-theme="light"] .account-modal--profile .account-profile-tabs {
+  border-color: #d5e2f3;
+  background: #f4f7fd;
+}
+.account-modal--profile .account-profile-tabs button {
+  border-radius: 10px;
+  font-weight: 800;
+  color: var(--kd-muted);
+}
+.account-modal--profile .account-profile-tabs button.is-active {
+  border-color: color-mix(in srgb, var(--kd-blue) 26%, var(--kd-line));
+  background: var(--kd-selection);
+  color: var(--kd-blue);
+  box-shadow: inset 0 -2px 0 var(--kd-blue-strong);
+}
+html[data-codumi-theme="light"] .account-modal--profile .account-profile-tabs button.is-active {
+  background: #e7eeff;
+  border-color: #c8d9f6;
+  color: #1b58bd;
+}
+.account-modal--profile .account-profile-pane {
+  border-radius: 17px;
+  border: 1px solid var(--kd-line);
+  background: var(--kd-surface-raised);
+  padding: clamp(15px, 2vw, 20px);
+}
+html[data-codumi-theme="light"] .account-modal--profile .account-profile-pane {
+  border-color: #d6e0f0;
+  background: #f8faff;
+  color: var(--kd-ink);
+}
+.account-modal--profile .account-pane-heading { padding: 5px 5px 13px; }
+.account-modal--profile .account-pane-heading h3 { color: var(--kd-ink); }
+.account-modal--profile .account-overview-grid button,
+.account-modal--profile .account-setting-card,
+.account-modal--profile .account-email-card,
+.account-modal--profile .account-party-card,
+.account-modal--profile .friend-row,
+.account-modal--profile .match-stats-heading,
+.account-modal--profile .match-stats-highlights section,
+.account-modal--profile .match-stats-box,
+.account-modal--profile .match-stats-recent {
+  border: 1px solid var(--kd-line);
+  border-radius: 15px;
+  background: var(--kd-surface);
+  color: var(--kd-ink);
+}
+html[data-codumi-theme="light"] .account-modal--profile .account-overview-grid button,
+html[data-codumi-theme="light"] .account-modal--profile .account-setting-card,
+html[data-codumi-theme="light"] .account-modal--profile .account-email-card,
+html[data-codumi-theme="light"] .account-modal--profile .account-party-card,
+html[data-codumi-theme="light"] .account-modal--profile .friend-row,
+html[data-codumi-theme="light"] .account-modal--profile .match-stats-heading,
+html[data-codumi-theme="light"] .account-modal--profile .match-stats-highlights section,
+html[data-codumi-theme="light"] .account-modal--profile .match-stats-box,
+html[data-codumi-theme="light"] .account-modal--profile .match-stats-recent {
+  border-color: #d4dfef;
+  background: #fff;
+  color: var(--kd-ink);
+  box-shadow: 0 3px 12px rgba(39, 75, 134, .045);
+}
+.account-modal--profile .account-overview-grid button:hover { border-color: var(--kd-blue); box-shadow: var(--kd-shadow); }
+.account-modal--profile .account-overview-grid button small,
+.account-modal--profile .account-setting-card small,
+.account-modal--profile .account-email-card small,
+.account-modal--profile .match-stats-heading p,
+.account-modal--profile .match-stats-box span,
+.account-modal--profile .match-stats-highlights small { color: var(--kd-muted); }
+html[data-codumi-theme="light"] .account-modal--profile .account-overview-grid button small,
+html[data-codumi-theme="light"] .account-modal--profile .account-setting-card small,
+html[data-codumi-theme="light"] .account-modal--profile .account-email-card small,
+html[data-codumi-theme="light"] .account-modal--profile .match-stats-heading p,
+html[data-codumi-theme="light"] .account-modal--profile .match-stats-box span,
+html[data-codumi-theme="light"] .account-modal--profile .match-stats-highlights small { color: var(--kd-muted); }
+.account-modal--profile .match-stats-highlights strong,
+.account-modal--profile .match-stats-box b { color: var(--kd-ink); }
+html[data-codumi-theme="light"] .account-modal--profile .match-stats-highlights strong,
+html[data-codumi-theme="light"] .account-modal--profile .match-stats-box b { color: #1b3358; }
+.account-modal--profile .match-stats-box.is-win b { color: #42d49e; }
+html[data-codumi-theme="light"] .account-modal--profile .match-stats-box.is-win b { color: #107d55; }
+.account-modal--profile .match-stats-highlights span { color: var(--kd-blue); }
+.account-modal--profile .account-setting-controls input,
+.account-modal--profile .account-email-controls input,
+.account-modal--profile .account-friend-search,
+.account-modal--profile .codumi-language-profile select {
+  background: var(--kd-surface-raised);
+  color: var(--kd-ink);
+  border-color: var(--kd-line);
+}
+html[data-codumi-theme="light"] .account-modal--profile .account-setting-controls input,
+html[data-codumi-theme="light"] .account-modal--profile .account-email-controls input,
+html[data-codumi-theme="light"] .account-modal--profile .account-friend-search,
+html[data-codumi-theme="light"] .account-modal--profile .codumi-language-profile select {
+  background: #fff;
+  border-color: #bfcfe5;
+  color: #213756;
+}
+.account-modal--profile .account-setting-controls button,
+.account-modal--profile .account-email-controls button { border: 1px solid var(--kd-line); background: var(--kd-selection); color: var(--kd-blue); }
+html[data-codumi-theme="light"] .account-modal--profile .account-setting-controls button,
+html[data-codumi-theme="light"] .account-modal--profile .account-email-controls button { border-color: #c8d9f4; background: #e8efff; color: #1d58ba; }
+
+/* Public leaderboards and quests share the same surface language. */
+.arena-page { color: var(--kd-ink); }
+.arena-hero,
+.arena-ranking-row,
+.arena-quest,
+.arena-refresh-note {
+  border: 1px solid var(--kd-line);
+  background: var(--kd-surface);
+  color: var(--kd-ink);
+  box-shadow: var(--kd-shadow);
+}
+.arena-hero { border-radius: 22px; background: linear-gradient(125deg, #172a50, #131e33); }
+html[data-codumi-theme="light"] .arena-hero {
+  background: linear-gradient(115deg, #fff, #e9f1ff);
+  border-color: #cbd9ee;
+}
+html[data-codumi-theme="light"] .arena-ranking-row,
+html[data-codumi-theme="light"] .arena-quest,
+html[data-codumi-theme="light"] .arena-refresh-note {
+  background: #fff !important;
+  border-color: #d3dfef !important;
+  color: #213858;
+  box-shadow: 0 5px 17px rgba(43, 82, 145, .075);
+}
+.arena-ranking-row:hover { border-color: var(--kd-blue); }
+html[data-codumi-theme="light"] .arena-ranking-row:hover { border-color: #84acec !important; background: #f5f8ff !important; }
+.arena-ranking-row small,
+.arena-section-head small,
+.arena-quest-info p,
+.arena-quest-info small { color: var(--kd-muted); }
+html[data-codumi-theme="light"] .arena-ranking-row small,
+html[data-codumi-theme="light"] .arena-section-head small,
+html[data-codumi-theme="light"] .arena-quest-info p,
+html[data-codumi-theme="light"] .arena-quest-info small { color: var(--kd-muted); }
+
+/* Accessibility: visible focus, no animation-dependent text display. */
+.site-header button:focus-visible,
+.codumi-sidebar button:focus-visible,
+.codumi-sidebar select:focus-visible,
+.codumi-main-content .game-card:focus-visible,
+.codumi-main-content .codumi-daily button:focus-visible,
+.account-modal button:focus-visible,
+.account-modal input:focus-visible,
+.account-modal select:focus-visible {
+  outline: 2px solid var(--kd-focus);
+  outline-offset: 3px;
+}
+@media (hover: none) {
+  .codumi-card-style--classic .codumi-main-content .games-grid > .game-card:hover { box-shadow: var(--kd-shadow); }
+}
+@media (max-width: 680px) {
+  .codumi-main-content .kodumi-hero { border-radius: 19px; }
+  .codumi-main-content .codumi-daily { border-radius: 18px; }
+  .codumi-main-content .page-shell { padding-top: 15px; }
+  .account-modal--profile .account-profile-pane { padding: 13px; }
+  .account-modal--profile .account-profile-tabs { gap: 4px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .codumi-card-style--classic .codumi-main-content .games-grid > .game-card,
+  .site-header .search-wrap input { transition: none; }
+}
+
+/* Auth, shop and chat must look like parts of the same product, too. */
+.account-modal:not(.account-modal--profile) {
+  border-color: var(--kd-line);
+  background: var(--kd-surface);
+  color: var(--kd-ink);
+}
+html[data-codumi-theme="light"] .account-modal:not(.account-modal--profile) {
+  background: #fff;
+  border-color: #cbd9ee;
+}
+.account-auth-tabs { background: var(--kd-surface-raised); border: 1px solid var(--kd-line); }
+.account-auth-tabs button.is-active { background: var(--kd-selection); color: var(--kd-blue); }
+html[data-codumi-theme="light"] .account-auth-tabs button.is-active { background: #e3edff; color: #2058b5; }
+.account-form input { border-color: var(--kd-line); color: var(--kd-ink); background: var(--kd-surface-raised); }
+html[data-codumi-theme="light"] .account-form input { border-color: #c5d4ea; background: #fff; color: #233957; }
+.account-form label > span { color: var(--kd-muted); }
+html[data-codumi-theme="light"] .account-form label > span { color: #435d7e; }
+
+.codumi-shop__item {
+  background: var(--kd-surface);
+  color: var(--kd-ink);
+  border-color: var(--kd-line);
+  border-radius: 15px;
+}
+html[data-codumi-theme="light"] .codumi-shop__item {
+  background: #fff;
+  color: #203451;
+  border-color: #d2dff0;
+  box-shadow: 0 5px 16px rgba(48, 81, 140, .07);
+}
+.codumi-shop__item > small,
+.codumi-shop__head p,
+.codumi-shop__section > p { color: var(--kd-muted); }
+html[data-codumi-theme="light"] .codumi-shop__item > small,
+html[data-codumi-theme="light"] .codumi-shop__head p,
+html[data-codumi-theme="light"] .codumi-shop__section > p { color: #506883; }
+.codumi-shop__section h4, .codumi-shop__head h3 { color: var(--kd-ink); }
+html[data-codumi-theme="light"] .codumi-shop__section h4,
+html[data-codumi-theme="light"] .codumi-shop__head h3 { color: #203653; }
+.codumi-shop__item button { background: linear-gradient(115deg, #147af2, #485fe6); }
+.codumi-shop__item.is-equipped { border-color: #38bd9a; }
+
+.global-chat-panel {
+  background: var(--kd-surface);
+  color: var(--kd-ink);
+  border-color: var(--kd-line);
+}
+html[data-codumi-theme="light"] .global-chat-panel {
+  background: #fff;
+  color: var(--kd-ink);
+  border-color: #ccd9ec;
+}
+.global-chat-head { border-bottom-color: var(--kd-line); }
+html[data-codumi-theme="light"] .global-chat-head { border-bottom-color: #d7e2f1; }
+.chat-tabs > button { border-color: var(--kd-line); background: var(--kd-surface-raised); color: var(--kd-muted); }
+.chat-tabs > button.is-active { background: var(--kd-selection); color: var(--kd-blue); }
+html[data-codumi-theme="light"] .chat-tabs > button { background: #f3f7fe; border-color: #d6e1f0; color: #496480; }
+html[data-codumi-theme="light"] .chat-tabs > button.is-active { background: #e4edff; border-color: #bcd0f4; color: #1d58b9; }
+.global-chat-note { background: var(--kd-surface-raised); color: var(--kd-muted); }
+html[data-codumi-theme="light"] .global-chat-note { background: #f0f5fc; color: #4e6684; }
+html[data-codumi-theme="light"] .chat-message-bubble { border-color: #d5e1f0; background: #f6f9fe; color: #243a59; }
+html[data-codumi-theme="light"] .chat-message-row.is-mine .chat-message-bubble {
+  background: #e4edff; border-color: #c4d4f4; color: #183a77;
+}
+
+/* Keep text selection and keyboard navigation legible in either theme. */
+::selection { background: color-mix(in srgb, var(--kd-blue-strong) 26%, transparent); color: var(--kd-ink); }
+@media (prefers-contrast: more) {
+  .site-header .search-wrap input,
+  .codumi-main-content .codumi-daily,
+  .codumi-card-style--classic .codumi-main-content .games-grid > .game-card,
+  .account-modal--profile { border-width: 2px; }
+}
+
+/* 2026.10 extra polish — hero decoration, stable featured-game media, neater active rail. */
+.codumi-main-content .kodumi-hero {
+  position: relative;
+  isolation: isolate;
+}
+.codumi-main-content .kodumi-hero::after {
+  content: "";
+  position: absolute;
+  inset: 14px;
+  border-radius: 20px;
+  pointer-events: none;
+  border: 1px solid rgba(255,255,255,.12);
+  opacity: .35;
+}
+html[data-codumi-theme="light"] .codumi-main-content .kodumi-hero::after {
+  border-color: rgba(126, 164, 224, .45);
+  opacity: .6;
+}
+.kodumi-main-content .kodumi-hero__cta,
+.kodumi-main-content .kodumi-hero__instant {
+  min-height: 44px;
+}
+.kodumi-main-content .kodumi-hero__cta {
+  padding-inline: 18px 16px;
+  border-radius: 15px;
+}
+.kodumi-main-content .kodumi-hero__instant {
+  padding: 0 14px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(163,196,255,.14);
+}
+html[data-codumi-theme="light"] .kodumi-main-content .kodumi-hero__instant {
+  background: rgba(255,255,255,.72);
+  border-color: rgba(131,168,229,.35);
+}
+.kodumi-arena__bubble,
+.kodumi-arena__sticker {
+  position: absolute;
+  z-index: 0;
+  display: grid;
+  place-items: center;
+  user-select: none;
+  pointer-events: none;
+}
+.kodumi-arena__bubble {
+  border-radius: 50%;
+  filter: blur(0);
+  background: radial-gradient(circle at 32% 28%, rgba(255,255,255,.38), rgba(255,255,255,.07) 44%, rgba(255,255,255,.02) 68%, transparent 72%);
+  border: 1px solid rgba(214,229,255,.16);
+}
+.kodumi-arena__bubble--one {
+  width: 250px;
+  height: 250px;
+  right: 54px;
+  top: 24px;
+}
+.kodumi-arena__bubble--two {
+  width: 130px;
+  height: 130px;
+  right: 2px;
+  bottom: 32px;
+  opacity: .82;
+}
+.kodumi-arena__sticker {
+  border-radius: 24px;
+  box-shadow: 0 18px 48px rgba(50,85,173,.18);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+.kodumi-arena__sticker--crown {
+  top: 36px;
+  left: 48px;
+  width: 54px;
+  height: 54px;
+  font-size: 28px;
+  transform: rotate(-12deg);
+  background: linear-gradient(155deg, rgba(255,209,74,.26), rgba(255,165,35,.1));
+  border: 1px solid rgba(255,205,93,.38);
+}
+.kodumi-arena__sticker--pad {
+  left: 36px;
+  bottom: 68px;
+  width: 62px;
+  height: 62px;
+  font-size: 28px;
+  transform: rotate(-14deg);
+  background: linear-gradient(155deg, rgba(86,191,255,.22), rgba(87,106,255,.08));
+  border: 1px solid rgba(113,191,255,.36);
+}
+.kodumi-arena__sticker--gem {
+  right: 10px;
+  bottom: 18px;
+  width: 34px;
+  height: 34px;
+  font-size: 16px;
+  color: #6d77ff;
+  transform: rotate(16deg);
+  background: linear-gradient(155deg, rgba(114,126,255,.18), rgba(123,97,245,.08));
+  border: 1px solid rgba(125,138,255,.3);
+}
+html[data-codumi-theme="light"] .kodumi-arena__bubble {
+  background: radial-gradient(circle at 32% 28%, rgba(255,255,255,.78), rgba(255,255,255,.28) 44%, rgba(181,213,255,.18) 70%, transparent 75%);
+  border-color: rgba(165,194,241,.45);
+}
+html[data-codumi-theme="light"] .kodumi-arena__sticker--crown {
+  background: linear-gradient(155deg, rgba(255,214,87,.42), rgba(255,179,67,.2));
+}
+html[data-codumi-theme="light"] .kodumi-arena__sticker--pad {
+  background: linear-gradient(155deg, rgba(93,193,255,.34), rgba(77,127,255,.14));
+}
+html[data-codumi-theme="light"] .kodumi-arena__sticker--gem {
+  background: linear-gradient(155deg, rgba(152,164,255,.34), rgba(143,119,255,.18));
+}
+
+.codumi-main-content .codumi-daily {
+  grid-template-columns: minmax(240px, 38%) minmax(0,1fr);
+}
+.codumi-main-content .codumi-daily__image {
+  min-height: 0;
+  aspect-ratio: 16 / 10;
+  background: radial-gradient(circle at 34% 18%, rgba(98,127,255,.24), transparent 34%), #12203a;
+}
+.codumi-main-content .codumi-daily__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+}
+html[data-codumi-theme="light"] .codumi-main-content .codumi-daily__image {
+  background: linear-gradient(140deg, #dcecff, #eef3ff 55%, #e6e3ff);
+}
+.codumi-main-content .codumi-daily__info {
+  position: relative;
+  overflow: hidden;
+}
+.codumi-main-content .codumi-daily__info::after {
+  content: "";
+  position: absolute;
+  inset: auto -24px -36px auto;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(162, 181, 255, .18), transparent 66%);
+  pointer-events: none;
+}
+html[data-codumi-theme="light"] .codumi-main-content .codumi-daily__info::after {
+  background: radial-gradient(circle, rgba(180, 151, 255, .18), transparent 66%);
+}
+@media (max-width: 900px) {
+  .kodumi-arena__bubble--one { width: 190px; height: 190px; right: 34px; top: 20px; }
+  .kodumi-arena__bubble--two { width: 96px; height: 96px; right: 6px; bottom: 26px; }
+  .kodumi-arena__sticker--crown { left: 26px; top: 28px; width: 46px; height: 46px; font-size: 24px; }
+  .kodumi-arena__sticker--pad { left: 22px; bottom: 58px; width: 54px; height: 54px; font-size: 24px; }
+  .kodumi-main-content .codumi-daily { grid-template-columns: minmax(185px, 34%) minmax(0,1fr); }
+}
+@media (max-width: 620px) {
+  .kodumi-main-content .codumi-daily {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+  .codumi-main-content .codumi-daily__image {
+    aspect-ratio: 16 / 9;
+  }
+  .kodumi-arena__bubble,
+  .kodumi-arena__sticker--gem { display: none; }
+  .kodumi-arena__sticker--crown,
+  .kodumi-arena__sticker--pad { transform: scale(.88) rotate(-11deg); }
+}
+
+.codumi-sidebar__nav button {
+  position: relative;
+  padding-left: 14px;
+}
+.codumi-sidebar__nav button.is-active {
+  box-shadow: none;
+}
+.codumi-sidebar__nav button.is-active::before {
+  content: "";
+  position: absolute;
+  left: 8px;
+  top: 50%;
+  width: 4px;
+  height: 22px;
+  transform: translateY(-50%);
+  border-radius: 999px;
+  background: linear-gradient(180deg, #6dc8ff, #2a77ff);
+}
+html[data-codumi-theme="light"] .codumi-sidebar__nav button.is-active::before {
+  background: linear-gradient(180deg, #63bcff, #2e72ef);
+}

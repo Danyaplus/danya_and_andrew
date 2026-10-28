@@ -1,0 +1,128 @@
+/* Three genuine earned medals, displayed on the existing profile banner. */
+.account-modal--profile .codumi-profile-banner { flex-wrap:wrap; align-content:center; row-gap:7px; }
+.account-modal--profile .codumi-profile-banner .kd-showcase-banner {
+  flex:0 0 100%; width:100%; display:flex; align-items:center; flex-wrap:wrap;
+  gap:8px 12px; min-width:0; margin-top:3px; padding-top:8px;
+  border-top:1px solid rgba(227,237,255,.16);
+}
+.kd-showcase-title { display:inline-flex; align-items:center; gap:5px; max-width:100%; padding:5px 10px;
+  border:1px solid rgba(255,220,124,.5); border-radius:99px; background:rgba(19,26,55,.62);
+  color:#ffe9af; font-size:11px; font-weight:850; line-height:1.2; text-shadow:0 1px 3px rgba(0,0,0,.25); }
+.kd-showcase-trio { display:flex; gap:7px; min-width:0; }
+.kd-showcase-medal { position:relative; display:grid; place-items:center; width:39px; height:42px; flex:none;
+  cursor:pointer; border:1px solid rgba(215,224,254,.22); border-radius:11px;
+  color:#fff; background:rgba(9,18,44,.46); padding:0; }
+.kd-showcase-medal:hover,.kd-showcase-medal:focus-visible { border-color:#ffe09b; outline-offset:2px; }
+.kd-showcase-medal .ach-medal { transform:scale(.43)!important; transform-origin:center center; margin:0!important; height:82px!important; }
+.kd-showcase-medal--empty { color:rgba(233,241,255,.65); font-size:23px; font-weight:400; border-style:dashed; }
+
+/* Picker is part of Awards tab and shares the site's light/dark design tokens. */
+.kd-showcase-editor { margin:0 0 20px; padding:clamp(12px,2vw,18px); border:1px solid var(--kd-line,rgba(140,166,214,.28));
+  border-radius:17px; background:var(--kd-surface,rgba(28,42,70,.75)); color:var(--kd-ink,#f0f4ff); }
+.kd-showcase-editor__heading,.kd-showcase-editor__subhead,.kd-showcase-editor__footer {
+  display:flex; align-items:center; justify-content:space-between; gap:12px; }
+.kd-showcase-editor__heading h3 { font-size:16px; margin:0; }
+.kd-showcase-editor__heading p { font-size:12px; color:var(--kd-muted,#9faecc); margin:6px 0 0; line-height:1.5; }
+.kd-showcase-editor__heading>span { background:var(--kd-selection,rgba(63,91,174,.28)); border:1px solid var(--kd-line,rgba(140,166,214,.28));
+  border-radius:10px; padding:7px 9px; color:var(--kd-blue,#83bcff); font-size:12px; font-weight:850; }
+.kd-showcase-editor__title { display:grid; gap:7px; margin:16px 0 13px; }
+.kd-showcase-editor__title strong,.kd-showcase-editor__subhead strong { font-size:12px; }
+.kd-showcase-editor__title select { min-height:41px; width:100%; padding:0 12px; border:1px solid var(--kd-line,rgba(140,166,214,.28)); border-radius:11px;
+  background:var(--kd-surface-raised,#1b2944); color:var(--kd-ink,#eff5ff); font:inherit; font-size:13px; }
+.kd-showcase-editor__subhead small,.kd-showcase-muted { color:var(--kd-muted,#9faecc); font-size:11px; }
+.kd-showcase-editor__badges { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:9px; margin-top:9px; }
+.kd-showcase-choice { min-width:0; min-height:128px; display:flex; flex-direction:column; align-items:center; justify-content:center;
+  gap:4px; position:relative; padding:9px 5px; cursor:pointer; border-radius:13px; border:1px solid var(--kd-line,rgba(140,166,214,.28));
+  background:var(--kd-surface-raised,#1b2944); color:var(--kd-ink,#edf3ff); }
+.kd-showcase-choice.is-selected { border-color:#e1b957; background:color-mix(in srgb,var(--kd-surface-raised,#1b2944) 88%,#ffcc62); box-shadow:inset 0 0 0 1px rgba(238,194,88,.32); }
+.kd-showcase-choice:hover { border-color:var(--kd-blue,#7dbbff); }
+.kd-showcase-choice .ach-medal { transform:scale(.68)!important; height:66px!important; margin:0!important; }
+.kd-showcase-choice>span:not(.ach-medal) { max-width:100%; text-align:center; overflow-wrap:anywhere; font-size:11px; font-weight:800; line-height:1.3; }
+.kd-showcase-choice>b { position:absolute; top:5px; right:5px; width:21px; height:21px; border-radius:50%; display:grid; place-items:center;
+  font-size:11px; background:#eec35e; color:#413008; }
+.kd-showcase-editor__footer { justify-content:flex-start; flex-wrap:wrap; margin-top:14px; }
+.kd-showcase-save { min-height:40px; border:none; border-radius:11px; padding:9px 16px;
+  background:linear-gradient(115deg,#1683f5,#4c63e8); color:#fff; font-weight:850; cursor:pointer; }
+.kd-showcase-save:disabled { opacity:.45; cursor:default; }
+.kd-showcase-editor__footer small { color:var(--kd-muted,#9faecc); font-size:12px; }
+@media (max-width:540px) {
+  .account-modal--profile .codumi-profile-banner .kd-showcase-banner { gap:6px; margin-top:4px; }
+  .kd-showcase-title { font-size:10px; padding:4px 7px; }
+  .kd-showcase-editor__badges { grid-template-columns:repeat(2,minmax(0,1fr)); gap:7px; }
+  .kd-showcase-choice { min-height:112px; }
+}
+@media (max-width:370px) { .kd-showcase-title{max-width:100%;} .kd-showcase-trio { gap:5px; } }
+@media (prefers-reduced-motion:reduce) { .kd-showcase-choice { transition:none; } }
+
+/* Collection v2: real medal inventory, equipped first, titles in their own collection. */
+.account-modal--profile .kd-showcase-banner { overflow: visible; }
+.kd-showcase-medal { overflow: hidden; }
+.kd-showcase-medal .ach-medal { display: block; position: absolute; top: 50%; left: 50%; width: 70px!important; height: 82px!important; margin: 0!important; transform: translate(-50%,-50%) scale(.46)!important; transform-origin: center center; }
+.kd-showcase-title { cursor: pointer; }
+.kd-showcase-editor__subhead { margin: 20px 0 10px; padding-top: 13px; border-top: 1px solid var(--kd-line,rgba(140,166,214,.28)); }
+.kd-showcase-active-medals { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 10px; }
+.kd-showcase-active-slot { display: flex; align-items: center; justify-content: center; gap: 6px; position: relative; height: 108px; min-width: 0; padding: 12px 6px; border: 1px solid rgba(230,188,89,.52); border-radius: 14px; background: color-mix(in srgb,var(--kd-surface-raised,#1b2944) 82%,#fac85a); color: var(--kd-ink,#fff); cursor:pointer; flex-direction: column; }
+.kd-showcase-active-slot .ach-medal { transform: scale(.6)!important; transform-origin: center; height: 49px!important; width:70px!important; margin:0!important; }
+.kd-showcase-active-slot>span:not(.ach-medal) { font-size: 10px; font-weight: 800; max-width: 100%; text-align:center; overflow-wrap:anywhere; }
+.kd-showcase-active-slot>b { position:absolute; top:5px; right:8px; font-size: 15px; opacity: .65; }
+.kd-showcase-active-slot.is-empty { border-style:dashed; border-color:var(--kd-line,#415470); background: var(--kd-surface-raised,#1b2944); color:var(--kd-muted,#99abc7); font-size: 22px; cursor: default; }
+.kd-showcase-choice small { color:var(--kd-muted,#a6b7ce); font-size:10px; font-weight:750; }
+.kd-showcase-choice.is-selected small { color:#dfac4d; }
+.kd-showcase-pending { padding: 13px; margin-top: 16px; border: 1px dashed var(--kd-line,#415470); border-radius: 12px; color: var(--kd-muted,#c3cee0); }
+.kd-showcase-pending>strong,.kd-showcase-locked-titles>strong { display:block; margin:0 0 8px; font-size:12px; }
+.kd-showcase-pending-list { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:8px; }
+.kd-showcase-pending-list span { padding:5px 8px; border-radius:7px; background:var(--kd-surface-raised,#1b2944); font-size:11px; }
+.kd-showcase-inline-link { border:none; padding:6px 0; background:transparent; color:var(--kd-blue,#71b5ff); font-size:12px; font-weight:800; cursor:pointer; text-align:left; }
+.kd-showcase-titles-list { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; }
+.kd-showcase-title-card { display:flex; align-items:center; gap:9px; min-width:0; min-height:68px; padding:10px; border:1px solid var(--kd-line,#4e5e7f); border-radius:12px; background:var(--kd-surface-raised,#1b2944); color:var(--kd-ink,#fff); cursor:pointer; text-align:left; }
+.kd-showcase-title-card:hover:not(:disabled),.kd-showcase-title-card.is-selected { border-color:#ebb85a; }
+.kd-showcase-title-card.is-selected { box-shadow:inset 0 0 0 1px #e3b54f44; }
+.kd-showcase-title-card.is-locked { opacity:.55; cursor:not-allowed; }
+.kd-showcase-title-card__icon { font-size:20px; flex:0 0 26px; text-align:center; }
+.kd-showcase-title-card__body { display:grid; gap:3px; min-width:0; flex:1; }
+.kd-showcase-title-card__body strong { font-size:12px; overflow-wrap:anywhere; }
+.kd-showcase-title-card__body small { font-size:10px; color:var(--kd-muted,#abbed5); }
+.kd-showcase-title-card__body em { font-size:10px; font-style:normal; font-weight:900; color:#38be8c; }
+.kd-showcase-title-card__state { font-size:10px; color:var(--kd-blue,#7caaff); text-align:right; white-space:nowrap; }
+.kd-showcase-locked-titles { margin-top:17px; padding-top:12px; border-top:1px solid var(--kd-line,#425273); }
+.kd-showcase-go { display:block; margin: 15px auto 0; padding:11px 16px; border-radius:11px; border:1px solid var(--kd-line,#455875); color:var(--kd-blue,#83bfff); background:var(--kd-surface-raised,#192d4d); font-weight:800; cursor:pointer; }
+.kd-showcase-shop { padding:16px; margin-bottom:18px; border:1px solid var(--kd-line,#415574); background:var(--kd-surface,#18273f); color:var(--kd-ink,#f7faff); border-radius:16px; }
+.kd-showcase-shop h3 { margin:0 0 5px; font-size:18px; }
+.kd-showcase-shop p { margin:0 0 14px; font-size:12px; color:var(--kd-muted,#adc1df); line-height:1.5; }
+.kd-showcase-shop__grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
+.kd-showcase-shop__card { padding:15px 11px; border-radius:13px; border:1px solid var(--kd-line,#526487); background:var(--kd-surface-raised,#1b2b46); display:flex; flex-direction:column; align-items:center; justify-content:center; min-width:0; gap:7px; text-align:center; }
+.kd-showcase-shop__icon { font-size:30px; }
+.kd-showcase-shop__card strong { font-size:12px; }
+.kd-showcase-shop__card small { font-size:11px; color:var(--kd-muted,#bfd0e5); }
+.kd-showcase-shop__card button { border:0; background:linear-gradient(120deg,#177fe7,#5557e9); color:#fff; min-height:37px; padding:8px 11px; border-radius:10px; cursor:pointer; font-weight:850; font-size:11px; }
+.kd-showcase-shop__card button:disabled { opacity:.5; cursor:default; }
+.kd-showcase-shop__owned { color:#27a77d; font-weight:900; font-size:12px; }
+.kd-showcase-shop__notice { padding-top:12px; }
+html[data-codumi-theme="light"] .kd-showcase-choice.is-selected small { color:#926008; }
+@media(max-width:480px) { .kd-showcase-titles-list { grid-template-columns:1fr; } .kd-showcase-editor__badges {grid-template-columns:repeat(2,minmax(0,1fr))} .kd-showcase-shop__grid {grid-template-columns:repeat(2,minmax(0,1fr))} }
+
+/* Show equipped medals green and sort them first; keep pending/locked cards visible. */
+.kd-showcase-choice.is-selected { border-color:#46d7a0; background:color-mix(in srgb,var(--kd-surface-raised,#1b2944) 78%,#36b980); box-shadow:0 0 0 1px #3fd8a04d; }
+.kd-showcase-choice.is-selected small { color:#63edb5; }
+.kd-showcase-active-slot { border-color:#48dca7; background:color-mix(in srgb,var(--kd-surface-raised,#1b2944) 80%,#36ac83); }
+.kd-showcase-choice.is-locked { opacity:.5; cursor:default; }
+.kd-showcase-locked-medals { margin-top:17px; padding:12px; border:1px solid var(--kd-line,#425273); border-radius:12px; }
+.kd-showcase-locked-medals summary { cursor:pointer; font-size:12px; font-weight:800; }
+.kd-showcase-pending-cards { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px; }
+.kd-showcase-pending-card { display:flex; flex-direction:column; gap:4px; align-items:center; padding:8px 5px; border:1px dashed var(--kd-line,#415574); border-radius:11px; font-size:11px; text-align:center; }
+.kd-showcase-pending-card .ach-medal { transform:scale(.56); height:67px; margin:0; }
+.kd-showcase-title { color:var(--title-accent,#FFE3A2); border-color:color-mix(in srgb,var(--title-accent,#FFE3A2) 50%,transparent); text-shadow:0 0 13px color-mix(in srgb,var(--title-accent,#FFE3A2) 40%,transparent); }
+.kd-showcase-title-card.is-selected { border-color:var(--title-accent,#ebb85a); box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--title-accent,#ebb85a) 60%,transparent); }
+.kd-showcase-title-card.is-selected .kd-showcase-title-card__body strong { color:var(--title-accent,#f5c767); }
+.kd-showcase-color-panel { margin:12px 0; padding:13px; border-radius:13px; border:1px solid var(--kd-line,#415574); background:var(--kd-surface-raised,#1b2944); }
+.kd-showcase-color-panel label { font-size:12px; font-weight:850; display:block; margin-bottom:10px; }
+.kd-showcase-color-controls { display:flex; align-items:center; flex-wrap:wrap; gap:9px; }
+.kd-showcase-color-controls input[type=color] { width:43px; height:34px; border-radius:9px; padding:3px; cursor:pointer; border:1px solid var(--kd-line,#415574); background:transparent; }
+.kd-showcase-color-dot { flex:none; width:25px; height:25px; border-radius:50%; border:2px solid #ffffff99; background:var(--swatch); cursor:pointer; }
+.kd-showcase-color-hex { font-size:11px; opacity:.8; }
+@media(max-width:480px) { .kd-showcase-pending-cards { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+html[data-codumi-theme="light"] .kd-showcase-choice.is-selected small { color:#14764e; }
+
+.kd-showcase-active-slot.is-empty { cursor:pointer; }
+.kd-showcase-active-slot.is-empty:hover { border-color:#46d7a0; color:#46d7a0; }
+.kd-showcase-title-card.is-selected .kd-showcase-title-card__state { color:#37ce94; }

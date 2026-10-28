@@ -1,0 +1,460 @@
+/* CODUMI Coins · decorative, account-bound profile customization */
+.user-avatar.user-avatar-frame{overflow:visible!important}
+.user-avatar.user-avatar-frame img{border-radius:50%}
+.user-avatar-frame{position:relative;flex:none;display:inline-grid;place-items:center;border-radius:50%;isolation:isolate;overflow:visible}
+.user-avatar-frame::after{content:"";pointer-events:none;position:absolute;inset:-4px;border-radius:50%;border:3px solid transparent;z-index:3}
+.user-avatar-frame--silver::after{border-color:#afc0d6;box-shadow:0 0 0 2px #6b7d9670,inset 0 0 6px #f0f6ff66}
+.user-avatar-frame--aqua::after{border-color:#28edfc;box-shadow:0 0 13px #2ed4ff,0 0 2px #ccfcff inset}
+.user-avatar-frame--gold::after{border-color:#ffcf4a;box-shadow:0 0 12px #ffa724,0 0 0 2px #9b5c15}
+.user-avatar-frame--prismatic::after{border:3px solid transparent;background:conic-gradient(#63e5fe,#f47dff,#fbe37b,#5be7c3,#6a8dff,#63e5fe) border-box;
+  -webkit-mask:linear-gradient(#fff 0 0) padding-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;animation:codumi-prismatic 5s linear infinite}
+@keyframes codumi-prismatic{to{transform:rotate(360deg)}}
+.codumi-profile-banner{position:relative;isolation:isolate;min-height:126px;padding:19px 20px!important;overflow:hidden;border:1px solid #c4d8ff33;border-radius:20px;margin-bottom:8px;background-color:#14213d;background-position:center;background-size:cover}
+.codumi-profile-banner>*{z-index:1;position:relative}
+.codumi-profile-banner:before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  background:linear-gradient(90deg,#0a1028a8,#0a173259 70%,transparent)}
+.codumi-background--sky{background-image:radial-gradient(ellipse at 82% 28%,#69c9ff70,transparent 37%),repeating-linear-gradient(120deg,#1b589888 0 3px,transparent 3px 48px),linear-gradient(130deg,#092a6e,#277ac7 63%,#72d0ff)}
+.codumi-background--violet{background-image:radial-gradient(circle at 80% 38%,#fc81f8aa,transparent 27%),radial-gradient(circle at 35% 10%,#9670f9b3,transparent 32%),linear-gradient(145deg,#291052,#653fa9,#ae5fc7)}
+.codumi-background--mint{background-image:radial-gradient(circle at 82% 27%,#a0ffe8ba,transparent 26%),linear-gradient(150deg,#072e3b,#197c74 65%,#8ae5d0)}
+.codumi-background--sunset{background-image:radial-gradient(circle at 82% 50%,#fff1a7 0 8%,#ff9e5c 9% 20%,transparent 29%),linear-gradient(173deg,#51317c,#bd5a89 45%,#eec376 71%,#49536d)}
+.codumi-background--galaxy{background-image:radial-gradient(ellipse at 72% 20%,#edb5ff 0 2%,transparent 16%),radial-gradient(ellipse at 48% 68%,#5cfafa9e,transparent 20%),repeating-radial-gradient(circle at 78% 26%,#aecaff52 0 1px,transparent 1px 31px),linear-gradient(135deg,#090b30,#251e75,#691c9e)}
+.codumi-background--royal{background-image:repeating-linear-gradient(90deg,transparent 0 48px,#eed29b30 49px 52px,transparent 53px 98px),radial-gradient(ellipse at 50% -10%,#fff0b07c,transparent 36%),linear-gradient(135deg,#382057,#6b3a8e 55%,#bb8452)}
+.codumi-shop{display:grid;gap:20px}
+.codumi-shop__head{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.codumi-shop__head h3{margin:0 0 5px;font-size:23px}.codumi-shop__head p{margin:0;color:#a4aec5;font-size:12px}
+.codumi-shop__balance{flex:none;white-space:nowrap;border:1px solid #edc7755e;background:#382d28;border-radius:999px;padding:10px 12px;color:#ffe39a}
+.codumi-shop__hint{border:1px solid #799aff2b;border-radius:12px;padding:11px 13px;background:#6475ba14;color:#c9d5f4;font-size:12px;line-height:1.55}
+.codumi-shop__error{color:#ffd2d5;background:#772f3a55;padding:10px 12px;border-radius:11px}
+.codumi-shop__section{min-width:0}.codumi-shop__section h4{margin:0;color:#ecedff;font-size:17px}.codumi-shop__section>p{color:#9aa8c3;font-size:12px;margin:3px 0 12px}
+.codumi-shop__grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px}
+.codumi-shop__item{min-width:0;display:flex;flex-direction:column;gap:7px;padding:8px;border:1px solid #7489b53d;background:#19233a;border-radius:16px}
+.codumi-shop__item.is-equipped{border-color:#65eac5;box-shadow:inset 0 0 0 1px #65eac540}
+.codumi-shop__item>strong{font-size:12px;line-height:1.3}.codumi-shop__item>small{color:#acb7ce;font-size:10px}
+.codumi-shop__item button{margin-top:auto;min-height:34px;border-radius:9px;border:0;background:linear-gradient(130deg,#4c78ed,#855be9);color:white;font-size:11px;font-weight:850;cursor:pointer;padding:6px 4px}
+.codumi-shop__item button:disabled{opacity:.55;cursor:default}
+.codumi-shop__preview{height:90px;border-radius:10px;position:relative;display:grid;place-items:center;overflow:hidden}
+.codumi-shop__preview--background:before{display:none}.codumi-shop__sun{position:absolute;width:37px;height:37px;right:21%;top:18%;border-radius:50%;background:#fff8af80;box-shadow:0 0 25px #fff5a4c0}
+.codumi-shop__preview--frame{background:radial-gradient(circle,#38528e,#0d1932)}
+.codumi-shop__frame-example{display:grid;place-items:center;width:54px;height:54px;background:#22263c;color:white;border-radius:50%;font-size:27px}
+.codumi-shop__preview--card{background:linear-gradient(145deg,#293358,#131e37)}
+.codumi-shop__card-art{width:78%;height:70%;display:grid;place-items:center;font-size:25px;border:1px solid #a9c1ed55;border-radius:9px;background:#1e335d;box-shadow:0 8px 17px #0004}
+.codumi-shop__card-art small{font-size:8px;letter-spacing:.13em;color:#c5e8ff}
+.codumi-card--nebula .codumi-shop__card-art,.codumi-card-style--nebula .codumi-main-content .games-grid>.game-card .game-card__body{background:linear-gradient(145deg,#402271,#151747 60%,#284b7f)}
+.codumi-card--platinum .codumi-shop__card-art,.codumi-card-style--platinum .codumi-main-content .games-grid>.game-card .game-card__body{background:linear-gradient(145deg,#e8edf7,#b5c5df);color:#132747}
+.codumi-card--ember .codumi-shop__card-art,.codumi-card-style--ember .codumi-main-content .games-grid>.game-card .game-card__body{background:linear-gradient(145deg,#552524,#271823,#833c2a)}
+.codumi-card-style--nebula .codumi-main-content .games-grid>.game-card{border-color:#ac71f2;box-shadow:0 6px 25px #653a9c45}
+.codumi-card-style--platinum .codumi-main-content .games-grid>.game-card{border-color:#c0d2ee;box-shadow:0 7px 20px #91acc844}
+.codumi-card-style--platinum .codumi-main-content .games-grid>.game-card h3{color:#172942}
+.codumi-card-style--platinum .codumi-main-content .games-grid>.game-card p{color:#344e6c}
+.codumi-card-style--ember .codumi-main-content .games-grid>.game-card{border-color:#e9a060;box-shadow:0 8px 22px #b9582644}
+html[data-codumi-theme="light"] .codumi-card-style--ember .codumi-main-content .games-grid>.game-card h3{color:#ffefe1}
+html[data-codumi-theme="light"] .codumi-card-style--nebula .codumi-main-content .games-grid>.game-card h3{color:#fff}
+html[data-codumi-theme="light"] .codumi-card-style--nebula .codumi-main-content .games-grid>.game-card p,
+html[data-codumi-theme="light"] .codumi-card-style--ember .codumi-main-content .games-grid>.game-card p{color:#d2dff2}
+
+/* Correct light-theme contrast in the compact search dropdown: global CSS uses !important. */
+html[data-codumi-theme="light"] .site-header .search-dropdown .game-card--compact h3{color:#172d49!important;text-shadow:none!important}
+html[data-codumi-theme="light"] .site-header .search-dropdown .game-card--compact .game-card__badge{color:#344c7b!important;background:#e6ecfb!important;border-color:#c7d5eb!important}
+html[data-codumi-theme="light"] .site-header .search-dropdown .game-card--compact .game-card__body{color:#213954!important;background:transparent!important}
+html[data-codumi-theme="light"] .site-header .search-dropdown .game-card--compact:hover,
+html[data-codumi-theme="light"] .site-header .search-dropdown .game-card--compact:active{background:#ebf2ff!important}
+
+/* Global and direct messages share one chat shell. Keep the real game UIs untouched. */
+html[data-codumi-theme="light"] .global-chat-panel{background:#f7faff;color:#243653;border-left-color:#cbd9ea;border-top-color:#cbd9ea}
+html[data-codumi-theme="light"] .global-chat-head{border-bottom-color:#d9e3f1}
+html[data-codumi-theme="light"] .global-chat-head h2{color:#1c3456}
+html[data-codumi-theme="light"] .global-chat-close,
+html[data-codumi-theme="light"] .chat-tabs>button,
+html[data-codumi-theme="light"] .direct-thread-back{color:#314969;background:#e7eef9;border-color:#cbd9ed}
+html[data-codumi-theme="light"] .chat-tabs>button.is-active{color:#2843a4;background:#dde6ff;border-color:#b3c6fc}
+html[data-codumi-theme="light"] .global-chat-note{background:#eaf1fa;color:#526680}
+html[data-codumi-theme="light"] .global-chat-empty{color:#70819d}
+html[data-codumi-theme="light"] .global-chat-empty strong{color:#273b58}
+html[data-codumi-theme="light"] .chat-message-bubble{background:#fff;color:#263b58;border-color:#d0deed}
+html[data-codumi-theme="light"] .chat-message-row.is-mine .chat-message-bubble{background:#e0e9ff;border-color:#bfcafb}
+html[data-codumi-theme="light"] .chat-message-bubble p{color:#223653}
+html[data-codumi-theme="light"] .chat-message-meta strong{color:#394fc1}
+html[data-codumi-theme="light"] .chat-message-meta time{color:#667990}
+html[data-codumi-theme="light"] .chat-reply-quote{color:#536c8a;background:#e3eaf8}
+html[data-codumi-theme="light"] .chat-reply-quote b{color:#4b55ad}
+html[data-codumi-theme="light"] .chat-reaction-chip{color:#395272;background:#e8effb;border-color:#cbdcf4}
+html[data-codumi-theme="light"] .chat-message-actions{background:#f2f5fd;border-color:#d9e2f0}
+html[data-codumi-theme="light"] .chat-reply-action{background:#dfe8f7;color:#425978}
+html[data-codumi-theme="light"] .global-chat-compose{background:#f1f5fc;border-top-color:#d4dfed}
+html[data-codumi-theme="light"] .global-chat-compose input{background:#fff;color:#1f3250;border-color:#ccd9ec}
+html[data-codumi-theme="light"] .chat-compose-reply{background:#e7edf9}
+html[data-codumi-theme="light"] .chat-compose-reply b{color:#474eb7}
+html[data-codumi-theme="light"] .chat-compose-reply span{color:#5a708c}
+html[data-codumi-theme="light"] .chat-friend-row{color:#254364;border-bottom-color:#dbe4ef}
+html[data-codumi-theme="light"] .chat-friend-row:hover{background:#e9effc}
+html[data-codumi-theme="light"] .chat-friend-main strong{color:#1c3657}
+html[data-codumi-theme="light"] .chat-friend-preview,
+html[data-codumi-theme="light"] .chat-friend-login{color:#60738c}
+html[data-codumi-theme="light"] .direct-thread-head{background:#e8eff9}
+html[data-codumi-theme="light"] .direct-thread-head strong{color:#243a58}
+html[data-codumi-theme="light"] .direct-thread-head span{color:#647590}
+html[data-codumi-theme="light"] .direct-chat-error{color:#a22f49;background:#ffe5e8}
+html[data-codumi-theme="light"] .chat-toast{background:#fff;color:#243a58;border-color:#cbdcf0}
+html[data-codumi-theme="light"] .chat-toast__body strong{color:#4648b6}
+html[data-codumi-theme="light"] .chat-toast__body span{color:#425c7b}
+html[data-codumi-theme="light"] .chat-toast__open{color:#594fb9}
+
+html[data-codumi-theme="light"] .codumi-shop__item{background:#fff;border-color:#cad7ee;color:#293d5e}
+html[data-codumi-theme="light"] .codumi-shop__section h4,
+html[data-codumi-theme="light"] .codumi-shop__head h3{color:#263a58}
+html[data-codumi-theme="light"] .codumi-shop__section>p,
+html[data-codumi-theme="light"] .codumi-shop__head p{color:#577092}
+html[data-codumi-theme="light"] .codumi-shop__hint{background:#edf1ff;color:#425c83}
+html[data-codumi-theme="light"] .codumi-shop__item>small{color:#597092}
+@media(max-width:620px){.codumi-shop__grid{grid-template-columns:repeat(2,minmax(0,1fr))}.codumi-shop__head{align-items:start;flex-wrap:wrap}}
+@media(max-width:360px){.codumi-shop__grid{gap:7px}}
+@media(prefers-reduced-motion:reduce){.user-avatar-frame--prismatic::after{animation:none}}
+
+.codumi-profile-emblem{position:relative;display:flex;justify-content:flex-end;z-index:2;margin:-29px 18px 9px 0;font-size:26px;pointer-events:none;animation:codumi-emblem-float 3s ease-in-out infinite}
+.codumi-shop__emoji{font-size:39px;filter:drop-shadow(0 4px 10px #7cc6ff55);animation:codumi-emblem-float 3s ease-in-out infinite}
+.codumi-shop__preview--emoji{background:linear-gradient(145deg,#1c2950,#41326b)}
+@keyframes codumi-emblem-float{0%,100%{transform:translateY(0) rotate(-6deg)}50%{transform:translateY(-5px) rotate(6deg)}}
+@media(prefers-reduced-motion:reduce){.codumi-profile-emblem,.codumi-shop__emoji{animation:none}}
+
+.codumi-profile-coins{margin-top:7px;display:inline-block;padding:5px 10px;border-radius:12px;background:#141c37b9;color:#ffe4a0;font-size:12px;font-weight:900;border:1px solid #e9c97d66}
+
+/* 2026 profile/shop refresh. Spacious cards, distinct sections and resilient wallet UI. */
+.account-modal--profile { padding-top:76px !important; }
+.account-modal--profile > .account-close {
+  z-index:25;top:18px;right:25px;width:41px;height:41px;
+  border:1px solid rgba(153,175,220,.32);border-radius:13px;
+  color:#f1f5ff;background:linear-gradient(145deg,#36405b,#232b43);
+  box-shadow:0 8px 22px #0003;
+}
+.account-modal--profile > .account-close:hover {background:#49577e;}
+.account-modal--profile .codumi-profile-banner{
+  margin:0 0 20px;min-height:165px;padding:22px 26px !important;
+  border-radius:21px;gap:21px;border-color:#ffffff36;
+  box-shadow:inset 0 1px 0 #ffffff26,0 12px 28px #080f2930;
+}
+.codumi-profile-banner:before { background:linear-gradient(90deg,#09172cbd 0%,#0a17358a 55%,#0a17351a 100%); }
+.account-modal--profile .codumi-profile-banner .codumi-profile-info{min-width:0;flex:1;}
+.account-modal--profile .codumi-profile-banner .account-kicker {color:#dceeff;letter-spacing:.15em;}
+.account-modal--profile .codumi-profile-banner .codumi-profile-name{
+  max-width:100%;width:max-content;overflow-wrap:anywhere;
+  color:var(--codumi-nickname-color,#FFFFFF)!important;
+  text-shadow:0 2px 3px #081329,0 0 15px #0813299a;
+  background:#07142e52;box-shadow:0 0 0 7px #07142e19;
+  padding:4px 9px;border-radius:8px;margin:6px 0 2px -8px;
+  line-height:1.13;letter-spacing:-.025em;
+}
+.account-modal--profile .codumi-profile-banner .account-login-label{color:#dce9ff;}
+.account-modal--profile .codumi-profile-banner .account-status{color:#92f4b7;}
+.account-modal--profile .codumi-profile-banner .codumi-profile-coins{
+  margin-top:11px;display:inline-flex;align-items:center;gap:5px;
+  max-width:100%;font-size:12px;font-variant-numeric:tabular-nums;
+  padding:7px 13px;border:1px solid #ffde8445;border-radius:10px;
+  background:#111b2dbd;color:#ffeebf;box-shadow:inset 0 1px 0 #ffffff1c;
+  overflow-wrap:anywhere;
+}
+.codumi-profile-emblem{margin:-46px 27px 20px auto;width:max-content;filter:drop-shadow(0 4px 8px #101426a6)}
+.codumi-shop{
+  --shop-text:#ebf3ff;--shop-muted:#9eafc9;--shop-panel:#151f33;--shop-stroke:#8295bb3d;
+  gap:22px;min-width:0;padding:3px 3px 12px;
+}
+.codumi-shop__head{gap:18px;align-items:center;padding:9px 5px 2px;flex-wrap:wrap;}
+.codumi-shop__head>div:first-child{min-width:0;flex:1 1 245px;}
+.codumi-shop__head h3{font-size:clamp(19px,3.8vw,24px);color:var(--shop-text);letter-spacing:-.03em;}
+.codumi-shop__head p{color:var(--shop-muted);font-size:12px;line-height:1.5;}
+.codumi-shop__balance{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  min-width:137px;max-width:100%;padding:12px 15px;border:1px solid #f5d48260;
+  border-radius:18px;background:linear-gradient(145deg,#41341d,#261e20 75%);
+  box-shadow:inset 0 1px #fff2b123,0 8px 22px #f0bf241a;
+}
+.codumi-shop__coin-symbol{display:grid;place-items:center;width:34px;height:34px;border-radius:12px;background:#ffd15c24;font-size:22px;}
+.codumi-shop__coin-amount{font-variant-numeric:tabular-nums;display:flex;flex-direction:column;gap:3px;min-width:0;font-size:18px;line-height:1;font-weight:900;color:#ffe39a;overflow-wrap:anywhere;}
+.codumi-shop__coin-amount small{color:#eedbad;font-size:10px;font-weight:700;white-space:normal;}
+.codumi-shop__hint{font-size:11px;padding:13px 16px;border-radius:14px;line-height:1.6;}
+.codumi-shop__notice{padding:12px 16px;border:1px solid #e9b65e68;border-radius:13px;background:#8c631926;color:#ffe2a8;font-size:12px;line-height:1.5;}
+.codumi-shop__section{min-width:0;padding:19px;display:grid;gap:15px;border:1px solid var(--shop-stroke);border-radius:21px;background:linear-gradient(160deg,#a7b9ff0a,#9eafff03);}
+.codumi-shop__section-heading{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;min-width:0;}
+.codumi-shop__section-heading>div{min-width:0;}
+.codumi-shop__section-heading h4{margin:0 0 4px;color:var(--shop-text);font-size:16px;line-height:1.35;}
+.codumi-shop__section-heading p{margin:0;color:var(--shop-muted);font-size:11px;line-height:1.55;}
+.codumi-shop__section-heading>span{flex:none;padding:6px 9px;border-radius:9px;background:#ffffff0c;color:#aab9d0;font-size:10px;white-space:nowrap;}
+.codumi-shop__grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:15px;}
+.codumi-shop__item{
+  min-width:0;padding:11px;gap:9px;border:1px solid #899fc63d;border-radius:17px;
+  background:var(--shop-panel);box-shadow:0 8px 21px #030b1c1b;
+  transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease;
+}
+.codumi-shop__item:hover{transform:translateY(-2px);border-color:#8ea6e977;box-shadow:0 12px 27px #030b1c37;}
+.codumi-shop__item.is-equipped{border-color:#74dbce9c;box-shadow:inset 0 0 0 1px #76d9c729,0 10px 25px #28685a17;}
+.codumi-shop__item>strong{padding:0 2px;color:var(--shop-text);font-size:12px;line-height:1.4;overflow-wrap:anywhere;}
+.codumi-shop__item .codumi-shop__price{padding:0 2px;color:var(--shop-muted);font-size:11px;line-height:1.4;}
+.codumi-shop__item.is-locked .codumi-shop__price{color:#eac77a;}
+.codumi-shop__item button{min-height:38px;padding:7px 9px;border-radius:11px;font-size:11px;line-height:1.4;letter-spacing:.01em;}
+.codumi-shop__item button:disabled{opacity:.67;cursor:default;}
+.codumi-shop__item.is-equipped button{background:linear-gradient(125deg,#20605d,#2b7167);color:#cfffea;}
+.codumi-shop__preview{height:112px;border-radius:12px;border:1px solid #ffffff17;flex:none;}
+.codumi-shop__preview--background{box-shadow:inset 0 0 30px #07152c18;}
+.codumi-shop__preview--site{background:#121c34;}
+.codumi-shop__site-mark{font-size:33px;text-shadow:0 3px 12px #0b143ca3;}
+.codumi-shop__preview--emoji{background:radial-gradient(circle at 50% 30%,#6976da49,transparent 60%),linear-gradient(140deg,#1e2a4a,#33284a);}
+.codumi-shop__emoji{font-size:41px;}
+.codumi-emoji--emoji-none .codumi-shop__emoji{font-size:13px;letter-spacing:.03em;color:#d1d7e4;border:1px dashed #aab9de70;padding:11px;border-radius:12px;animation:none;}
+.codumi-shop__color-picker{display:grid;grid-template-columns:minmax(170px,1fr) minmax(0,1.2fr);gap:16px;align-items:stretch;}
+.codumi-shop__color-demo{display:flex;flex-direction:column;justify-content:center;align-items:flex-start;min-height:117px;padding:16px;border-radius:14px;box-shadow:inset 0 0 0 1px #ffffff30;}
+.codumi-shop__color-demo>span{padding:4px 8px;border-radius:8px;background:#08142a70;color:var(--codumi-nickname-color);text-shadow:0 1px 3px #081329,0 0 13px #081329;font-weight:900;font-size:19px;overflow-wrap:anywhere;max-width:100%;}
+.codumi-shop__color-demo>small{margin:6px 0 0 8px;color:#d9eeff;font-size:10px;}
+.codumi-shop__color-controls{display:flex;flex-direction:column;justify-content:center;gap:11px;min-width:0;}
+.codumi-shop__swatches{display:flex;align-items:center;flex-wrap:wrap;gap:7px;}
+.codumi-shop__swatches button{width:29px;height:29px;flex:none;border:2px solid #ffffff55;border-radius:10px;background:var(--swatch);cursor:pointer;box-shadow:0 2px 6px #0004;}
+.codumi-shop__swatches button.is-active{outline:2px solid #a9d7ff;outline-offset:2px;}
+.codumi-shop__color-native{display:block;width:30px;height:30px;padding:2px;border:1px solid #9fb6dc70;border-radius:9px;cursor:pointer;overflow:hidden;}
+.codumi-shop__color-native input{width:100%;height:100%;padding:0;border:0;background:transparent;cursor:pointer;}
+.codumi-shop__color-save{align-self:flex-start;min-height:36px;padding:7px 15px;border:0;border-radius:10px;background:linear-gradient(125deg,#497bed,#7960eb);color:white;font-size:12px;font-weight:850;cursor:pointer;}
+.codumi-shop__color-save:disabled{opacity:.5;cursor:default;}
+html[data-codumi-theme="light"] .codumi-shop{--shop-text:#253955;--shop-muted:#627591;--shop-panel:#fff;--shop-stroke:#cddbf0;}
+html[data-codumi-theme="light"] .codumi-shop__section{background:linear-gradient(150deg,#f3f7ff,#eaf1ff82);}
+html[data-codumi-theme="light"] .codumi-shop__section-heading>span{background:#e3eafa;color:#4b6284;}
+html[data-codumi-theme="light"] .codumi-shop__notice{background:#fff5de;color:#8c5b24;}
+html[data-codumi-theme="light"] .codumi-shop__item{border-color:#cbd9ed;box-shadow:0 6px 20px #768db822;}
+html[data-codumi-theme="light"] .codumi-shop__item.is-equipped{border-color:#37ad93;}
+html[data-codumi-theme="light"] .codumi-shop__hint{background:#eef2ff;}
+html[data-codumi-theme="light"] .codumi-shop__price{color:#617491;}
+/* Distinct thumbnail wallpaper styles match each global site preset. */
+.codumi-site--site-default{background:radial-gradient(circle at 20% 25%,#836eff99,transparent 42%),radial-gradient(circle at 82% 74%,#53c5efaa,transparent 45%),#121c31;}
+.codumi-site--site-aurora{background:radial-gradient(ellipse at 65% 10%,#78f8b588,transparent 46%),radial-gradient(ellipse at 30% 60%,#9b83ffad,transparent 55%),linear-gradient(135deg,#091b35,#154e5e);}
+.codumi-site--site-midnight{background:radial-gradient(circle at 83% 20%,#d1ceffa9 0 8%,transparent 9%),linear-gradient(145deg,#060c1e,#151e51,#2c235c);}
+.codumi-site--site-grid{background:repeating-linear-gradient(90deg,#20f3ff2b 0 1px,transparent 1px 25px),repeating-linear-gradient(0deg,#20f3ff2b 0 1px,transparent 1px 25px),linear-gradient(130deg,#131634,#432164);}
+.codumi-site--site-stardust{background:radial-gradient(circle at 13% 29%,white 0 1px,transparent 2px),radial-gradient(circle at 75% 20%,#fff 0 1px,transparent 2px),radial-gradient(ellipse at 40% 64%,#bd8effad,transparent 45%),linear-gradient(135deg,#090c27,#513d86);}
+.codumi-site--site-sakura{background:radial-gradient(circle at 20% 20%,#ffbddb,transparent 30%),radial-gradient(circle at 84% 75%,#ffb6949c,transparent 40%),linear-gradient(145deg,#40204d,#ad568b,#60345e);}
+/* Intentionally affect the website wallpaper only: text and game board colors remain readable. */
+html[data-codumi-site-background="site-aurora"] body{background:radial-gradient(ellipse at 15% 0%,#2bdab747,transparent 44%),radial-gradient(ellipse at 90% 56%,#9277f74a,transparent 50%),linear-gradient(150deg,#091829,#14293c,#12243a);background-attachment:fixed;}
+html[data-codumi-site-background="site-midnight"] body{background:radial-gradient(circle at 85% 14%,#9998ee43,transparent 27%),radial-gradient(circle at 19% 83%,#3749aa42,transparent 45%),linear-gradient(155deg,#060c1a,#101a35,#1e1a42);background-attachment:fixed;}
+html[data-codumi-site-background="site-grid"] body{background:repeating-linear-gradient(90deg,transparent 0 55px,#5c79e71f 56px 57px),repeating-linear-gradient(0deg,transparent 0 55px,#5c79e71c 56px 57px),radial-gradient(circle at 75% 30%,#5d36a03c,transparent 50%),#101529;background-attachment:fixed;}
+html[data-codumi-site-background="site-stardust"] body{background:radial-gradient(circle at 14% 17%,#ffffffaf 0 1px,transparent 2px),radial-gradient(circle at 59% 33%,#ffffffa6 0 1px,transparent 2px),radial-gradient(circle at 88% 76%,#ffffffbb 0 1px,transparent 2px),radial-gradient(ellipse at 76% 30%,#bc89f54d,transparent 51%),radial-gradient(ellipse at 12% 86%,#477ad84e,transparent 45%),#0c102b;background-attachment:fixed;}
+html[data-codumi-site-background="site-sakura"] body{background:radial-gradient(ellipse at 13% 0%,#ffb0d967,transparent 39%),radial-gradient(ellipse at 91% 65%,#e683bd6b,transparent 54%),linear-gradient(140deg,#24132c,#47244f,#241733);background-attachment:fixed;}
+/* Override the light/dark toggle only for the wallpaper, not the page text/controls. */
+html[data-codumi-theme="light"][data-codumi-site-background="site-aurora"] body{background:radial-gradient(ellipse at 10% 10%,#a7f5de,transparent 48%),radial-gradient(ellipse at 93% 61%,#baaaff8f,transparent 50%),#e6f6f7;background-attachment:fixed;}
+html[data-codumi-theme="light"][data-codumi-site-background="site-midnight"] body{background:radial-gradient(ellipse at 85% 20%,#a7b3fa95,transparent 48%),linear-gradient(155deg,#e6eafa,#d6deff,#e8e1ff);background-attachment:fixed;}
+html[data-codumi-theme="light"][data-codumi-site-background="site-grid"] body{background:repeating-linear-gradient(90deg,transparent 0 55px,#6c76bd26 56px 57px),repeating-linear-gradient(0deg,transparent 0 55px,#6c76bd26 56px 57px),#f1f0ff;background-attachment:fixed;}
+html[data-codumi-theme="light"][data-codumi-site-background="site-stardust"] body{background:radial-gradient(circle at 19% 15%,#9c84dc 0 1px,transparent 2px),radial-gradient(circle at 65% 47%,#ab9bff 0 2px,transparent 3px),radial-gradient(ellipse at 73% 21%,#e4baff,transparent 49%),#f3ecff;background-attachment:fixed;}
+html[data-codumi-theme="light"][data-codumi-site-background="site-sakura"] body{background:radial-gradient(ellipse at 10% 0%,#ffb4d0,transparent 40%),radial-gradient(ellipse at 91% 78%,#f6b5d2,transparent 45%),#fff1f7;background-attachment:fixed;}
+/* Wallet never spills out of a narrow navigation drawer. */
+.codumi-sidebar__nav .codumi-sidebar__shop-link{gap:8px;min-width:0;}
+.codumi-sidebar__shop-link>span:nth-child(2){min-width:0;flex:1;overflow:hidden;text-overflow:ellipsis;}
+.codumi-sidebar__wallet{display:inline-flex;align-items:center;justify-content:flex-end;gap:4px;flex:0 1 auto;max-width:60%;min-width:0;padding:6px 7px;border:1px solid #ffcf7840;border-radius:10px;background:#f7b94813;color:#ffe2a5;font-size:11px;}
+.codumi-sidebar__wallet span{flex:none;}
+.codumi-sidebar__wallet b{display:block;min-width:0;overflow:hidden;text-overflow:ellipsis;font-variant-numeric:tabular-nums;}
+.codumi-sidebar__site-link{width:100%;display:flex;justify-content:space-between;align-items:center;gap:7px;min-width:0;padding:8px!important;}
+.codumi-sidebar__site-link span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.codumi-sidebar__site-link b{flex:none;font-size:9px;}
+@media(max-width:700px){.codumi-shop__grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:11px;}.codumi-shop__section{padding:14px;}.codumi-shop__color-picker{grid-template-columns:1fr;}.codumi-shop__preview{height:105px;}}
+@media(max-width:430px){.account-modal--profile{padding-top:70px!important;}.account-modal--profile>.account-close{top:15px;right:17px;}.account-modal--profile .codumi-profile-banner{min-height:145px;padding:15px!important;gap:12px;}.codumi-shop__grid{gap:9px;}.codumi-shop__item{padding:9px;}.codumi-shop__preview{height:86px;}.codumi-shop__section-heading>span{display:none;}.codumi-shop__head h3{font-size:20px;}.codumi-shop__balance{padding:10px 13px;}}
+@media(prefers-reduced-motion:reduce){.codumi-shop__item{transition:none;}}
+
+/* Allow long balances to wrap instead of escaping their containers. */
+.codumi-shop__balance{white-space:normal;min-width:0;}
+.codumi-shop__coin-amount{white-space:normal;word-break:break-word;line-height:1.12;}
+.codumi-sidebar__wallet b{white-space:normal;overflow:visible;text-overflow:clip;overflow-wrap:anywhere;word-break:break-word;line-height:1.15;}
+
+/* Nickname swatches change only the text color; the dark label stays constant. */
+
+/* Kodumi store v2 — readable on both themes, clear categories, durable palette UX. */
+.codumi-shop{--shop-panel:#18243c;--shop-stroke:#758cba50;gap:19px;padding:7px 4px 20px}
+.codumi-shop__head{position:relative;isolation:isolate;border:1px solid #7e8bdd40;border-radius:23px;padding:20px!important;background:linear-gradient(110deg,#243353,#20203b);box-shadow:0 12px 34px #030a231f;overflow:hidden}
+.codumi-shop__head:before{content:"";position:absolute;z-index:-1;inset:-50% -30% 10% 35%;background:radial-gradient(ellipse,#946cff3b,transparent 64%);pointer-events:none}
+.codumi-shop__eyebrow,.codumi-shop__section-eyebrow{display:block;font-size:10px;letter-spacing:.12em;font-weight:900;color:#aebfff;margin-bottom:8px}
+.codumi-shop__head h3{font-size:clamp(20px,3.4vw,26px);letter-spacing:-.04em}
+.codumi-shop__head p{line-height:1.55}
+.codumi-shop__balance{min-width:139px;max-width:100%;background:linear-gradient(130deg,#493514,#25213a);border-color:#f9d88b6b;border-radius:17px;box-shadow:0 7px 25px #18102540,inset 0 1px #fff4c444}
+.codumi-shop__hint{display:flex;align-items:center;flex-wrap:wrap;gap:7px 18px;border:1px solid #799aff39;background:linear-gradient(95deg,#5262b924,#7756b219);color:#cbd9f4;padding:13px 16px}
+.codumi-shop__hint b{color:#f3d384}
+.codumi-shop__section{position:relative;gap:17px;border-radius:23px;padding:20px;background:linear-gradient(150deg,#8a9dff12,#6678b307);box-shadow:inset 0 1px 0 #ffffff0a}
+.codumi-shop__section-heading{padding-bottom:15px;border-bottom:1px solid #899dc02b}
+.codumi-shop__section-heading h4{font-size:18px;font-weight:900;margin:0 0 5px;letter-spacing:-.025em}
+.codumi-shop__section-heading>span{padding:7px 10px;border:1px solid #8699be26;border-radius:12px}
+.codumi-shop__item{border-radius:17px;padding:12px;gap:8px;background:linear-gradient(170deg,var(--shop-panel),#121d30);border-color:#8198c45e}
+.codumi-shop__preview{height:109px;border-radius:12px;border:1px solid #ffffff24}
+.codumi-shop__item>strong{font-size:13px}
+.codumi-shop__item .codumi-shop__price{font-size:11px}
+.codumi-shop__preview-tag{position:absolute;right:7px;bottom:7px;padding:4px 7px;border-radius:7px;background:#14233bcb;color:#ffe19e;font-size:9px;letter-spacing:.02em;font-weight:850}
+.codumi-shop__success{padding:11px 14px;border-radius:13px;background:#286b4f38;border:1px solid #6ee2a452;color:#a5f3ce;font-size:12px;font-weight:850}
+.codumi-shop__palette-label{display:flex;align-items:center;gap:8px;color:var(--shop-text);font-size:12px;font-weight:850}
+.codumi-shop__palette-label small{color:var(--shop-muted);font-weight:600;font-size:10px}
+.codumi-shop__saved{display:flex;align-items:center;flex-wrap:wrap;min-height:43px;gap:9px;padding:5px 0 8px}
+.codumi-shop__saved-empty{display:flex;align-items:center;min-height:36px;color:var(--shop-muted);font-size:12px}
+.codumi-shop__saved button{flex:none;width:34px;height:34px;background:var(--swatch);border:2px solid #ffffff70;border-radius:11px;box-shadow:0 2px 10px #0003;cursor:pointer}
+.codumi-shop__saved button.is-active{outline:2px solid #92c0ff;outline-offset:2px}
+.codumi-shop__swatches button{width:33px;height:33px}
+.codumi-shop__swatches .codumi-shop__picker-button{display:inline-flex;align-items:center;justify-content:center;gap:6px;width:auto;padding:0 11px;border:1px dashed #9faff0;background:#7389bf20;color:var(--shop-text);font-weight:850;font-size:11px;white-space:nowrap;box-shadow:none}
+.codumi-shop__color-demo{min-height:190px;border:1px solid #cce3ff40;overflow:hidden;background-size:cover;background-position:center;position:relative;isolation:isolate}
+.codumi-shop__color-demo:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#07162b80,transparent);z-index:-1}
+.codumi-shop__color-demo>span{font-size:clamp(17px,2.5vw,23px);line-height:1.15;font-weight:900}
+.codumi-shop__color-controls{gap:11px}
+.codumi-shop__color-apply,.codumi-shop__palette-save{align-self:flex-start;border:0;border-radius:11px;background:linear-gradient(125deg,#416fe8,#7757d5);color:white;min-height:39px;padding:9px 15px;font-size:12px;font-weight:850;cursor:pointer}
+.codumi-shop__color-apply:disabled,.codumi-shop__palette-save:disabled{opacity:.55;cursor:default}
+.codumi-shop__rgb-panel{border:1px solid #86a5ec6e;border-radius:18px;background:linear-gradient(140deg,#26314f,#1a2741);padding:17px;display:grid;gap:15px;box-shadow:0 10px 35px #0002}
+.codumi-shop__rgb-heading{display:flex;justify-content:space-between;align-items:center;color:#fff;font-size:14px}
+.codumi-shop__rgb-heading button{width:30px;height:30px;border:0;border-radius:8px;background:#ffffff16;color:#fff;font-size:22px;cursor:pointer}
+.codumi-shop__rgb-controls{display:flex;align-items:center;gap:15px;flex-wrap:wrap}
+.codumi-shop__native-picker{display:flex;gap:8px;align-items:center;font-size:11px;color:#d9e2fd;cursor:pointer}
+.codumi-shop__native-picker input{appearance:none;width:50px;height:42px;padding:3px;border:1px solid #a7b7ec6b;border-radius:9px;background:#f7f9ff;cursor:pointer}
+.codumi-shop__rgb-inputs{display:flex;gap:6px}
+.codumi-shop__rgb-inputs label{display:flex;gap:5px;align-items:center;font-size:11px;color:#d9e2fd;font-weight:900}
+.codumi-shop__rgb-inputs input{width:54px;min-width:0;padding:8px 4px;border:1px solid #91a4ce77;border-radius:9px;background:#111c35;color:white;text-align:center;font:inherit}
+.codumi-shop__hex{font-size:13px;color:#e0e9ff;letter-spacing:.08em}
+.codumi-shop__rgb-actions{display:flex;flex-wrap:wrap;gap:8px}
+.codumi-shop__rgb-done{min-height:39px;border:1px solid #8599c56c;border-radius:11px;padding:9px 15px;background:#ffffff16;color:white;font-size:12px;font-weight:850;cursor:pointer}
+.codumi-emoji--emoji-none .codumi-shop__emoji{font-size:41px;color:#c4d6ff;border:0;background:none;padding:0}
+/* Coins in the upper-right corner, away from the online status and player name. */
+.account-modal--profile .codumi-profile-banner{position:relative;padding-right:145px!important;min-height:170px;align-items:center}
+.account-modal--profile .codumi-profile-banner .codumi-profile-info{max-width:100%;min-width:0}
+.account-modal--profile .codumi-profile-banner .codumi-profile-coins{position:absolute;z-index:3;top:14px;right:14px;margin:0;max-width:138px;min-width:100px;display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:5px;padding:9px 11px;border-radius:14px;background:linear-gradient(135deg,#1e2444dd,#0f2633da);border:1px solid #ffe3a562;box-shadow:0 7px 20px #10112750;color:#ffe5a9}
+.account-modal--profile .codumi-profile-coins b{min-width:0;font-size:13px;overflow-wrap:anywhere;font-variant-numeric:tabular-nums}
+.account-modal--profile .codumi-profile-coins small{font-size:9px;color:#f4d798;font-weight:800}
+.codumi-profile-emblem{margin:-37px 30px 15px auto}
+html[data-codumi-theme="light"] .codumi-shop{--shop-panel:#fff;--shop-stroke:#c9d8ef}
+html[data-codumi-theme="light"] .codumi-shop__head{background:linear-gradient(115deg,#f9fbff,#e7efff);border-color:#c7d8f6;box-shadow:0 10px 30px #7689bc33}
+html[data-codumi-theme="light"] .codumi-shop__head p{color:#536b89}
+html[data-codumi-theme="light"] .codumi-shop__eyebrow,html[data-codumi-theme="light"] .codumi-shop__section-eyebrow{color:#5361b6}
+html[data-codumi-theme="light"] .codumi-shop__hint{background:linear-gradient(100deg,#eef3ff,#f4edff);border-color:#d5dff5;color:#516583}
+html[data-codumi-theme="light"] .codumi-shop__hint b{color:#8a5b1f}
+html[data-codumi-theme="light"] .codumi-shop__section{background:linear-gradient(155deg,#f9fbff,#edf3ff);border-color:#ccd9ef;box-shadow:0 6px 26px #6883b021}
+html[data-codumi-theme="light"] .codumi-shop__section-heading{border-color:#d4e0f3}
+html[data-codumi-theme="light"] .codumi-shop__item{background:linear-gradient(155deg,#fff,#f3f6fd);border-color:#cedaeb}
+html[data-codumi-theme="light"] .codumi-shop__success{background:#e1f9ec;color:#196247;border-color:#a1dbc5}
+html[data-codumi-theme="light"] .codumi-shop__rgb-panel{background:linear-gradient(135deg,#f5f8ff,#eaf0ff);border-color:#a9bce9}
+html[data-codumi-theme="light"] .codumi-shop__rgb-heading,html[data-codumi-theme="light"] .codumi-shop__hex{color:#233957}
+html[data-codumi-theme="light"] .codumi-shop__rgb-heading button{background:#dce5f8;color:#425473}
+html[data-codumi-theme="light"] .codumi-shop__rgb-inputs label,html[data-codumi-theme="light"] .codumi-shop__native-picker{color:#3c5473}
+html[data-codumi-theme="light"] .codumi-shop__rgb-inputs input{background:#fff;color:#1b2d47;border-color:#bccbe3}
+html[data-codumi-theme="light"] .codumi-shop__rgb-done{color:#284268;background:#dae5fc}
+@media(max-width:760px){.account-modal--profile .codumi-profile-banner{padding-right:145px!important}}
+@media(max-width:570px){.account-modal--profile .codumi-profile-banner{padding:60px 13px 15px!important;min-height:183px;gap:11px;align-items:center}.account-modal--profile .codumi-profile-banner .codumi-profile-coins{top:10px;right:10px;max-width:160px}.account-modal--profile .codumi-profile-banner .codumi-profile-info{min-width:0}.codumi-shop__section{padding:13px}.codumi-shop__head{padding:15px!important}.codumi-shop__color-demo{min-height:135px}}
+@media(max-width:370px){.codumi-shop__grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.codumi-shop__item{padding:8px}.codumi-shop__preview{height:80px}.codumi-shop__item button{font-size:10px}.codumi-shop__rgb-controls{gap:9px}}
+
+
+/* v4: live site backgrounds, saved-color deletion, and animation switch */
+.app-shell{position:relative;isolation:isolate}
+/* v7: removed blanket selector that broke sticky header, overlays, and modals. */
+.codumi-site-effects{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.codumi-site-effects--site-orbit{background:radial-gradient(circle at 82% 11%,#b4bdff22 0 7%,transparent 8%),radial-gradient(circle at 12% 78%,#4dbfff18,transparent 22%),radial-gradient(ellipse at 52% 88%,#1b3b6f66,transparent 32%)}
+.codumi-site-effects__star{position:absolute;border-radius:999px;background:#fff;opacity:.8;box-shadow:0 0 10px #fff8;animation:codumi-star-pulse ease-in-out infinite}
+.codumi-site-effects__orb{position:absolute;border-radius:50%;filter:blur(.2px)}
+.codumi-site-effects__orb--earth{right:7%;top:7%;width:120px;height:120px;background:radial-gradient(circle at 30% 30%,#8df0ff,#4ea2ff 38%,#173f74 72%,#0b1a3a 100%);box-shadow:0 0 30px #8ad1ff45;animation:codumi-drift-slow 20s ease-in-out infinite}
+.codumi-site-effects__orb--moon{left:10%;top:12%;width:44px;height:44px;background:radial-gradient(circle at 35% 35%,#fff,#dde2ff 65%,#91a0d4 100%);box-shadow:0 0 18px #d9dcff75;animation:codumi-float 13s ease-in-out infinite}
+.codumi-site-effects__planet-ring{position:absolute;right:4.5%;top:12.5%;width:145px;height:42px;border:1px solid #d8e1ff55;border-radius:50%;transform:rotate(-18deg);box-shadow:0 0 18px #dce2ff20;animation:codumi-drift-slow 20s ease-in-out infinite reverse}
+.codumi-site-effects__meteor,.codumi-site-effects__debris,.codumi-site-effects__spark,.codumi-site-effects__window,.codumi-site-effects__beam,.codumi-site-effects__car-light,.codumi-site-effects__float-orb{position:absolute}
+.codumi-site-effects__meteor{width:160px;height:2px;background:linear-gradient(90deg,transparent,#ffffffcc,transparent);opacity:0;filter:drop-shadow(0 0 8px #fff);transform:rotate(-24deg);animation:codumi-shooting 7s linear infinite}
+.codumi-site-effects__meteor--one{top:20%;left:-10%;animation-delay:1s}
+.codumi-site-effects__meteor--two{top:41%;left:-22%;animation-delay:4.2s}
+.codumi-site-effects__debris{width:7px;height:7px;border-radius:50%;background:#eef6ff88;box-shadow:0 0 8px #fff5;animation:codumi-debris 15s linear infinite}
+.codumi-site-effects__debris--one{top:30%;left:58%}
+.codumi-site-effects__debris--two{top:58%;left:77%;width:5px;height:5px;animation-duration:19s;animation-direction:reverse}
+
+.codumi-site-effects--site-camp{background:radial-gradient(ellipse at 50% 100%,#1a1a2038,transparent 35%)}
+.codumi-site-effects__moon{position:absolute;right:12%;top:10%;width:54px;height:54px;border-radius:50%;background:radial-gradient(circle at 38% 35%,#fff,#edf3ff 60%,#b2c6ff 100%);box-shadow:0 0 22px #f0f5ff74;animation:codumi-float 15s ease-in-out infinite}
+.codumi-site-effects__forest-hill{position:absolute;left:-6%;right:-6%;border-radius:50% 50% 0 0/100% 100% 0 0}
+.codumi-site-effects__forest-hill--back{bottom:11%;height:28%;background:linear-gradient(180deg,#13293f,#102135 55%,#0b1627)}
+.codumi-site-effects__forest-hill--front{bottom:-2%;height:26%;background:linear-gradient(180deg,#0d1728,#0a1321)}
+.codumi-site-effects__tent{position:absolute;left:18%;bottom:9%;width:82px;height:56px;background:linear-gradient(135deg,#eac380,#b56a35);clip-path:polygon(50% 0,100% 100%,0 100%);filter:drop-shadow(0 8px 16px #0005)}
+.codumi-site-effects__campfire{position:absolute;left:43%;bottom:10%;width:24px;height:38px;border-radius:50% 50% 42% 42%;background:radial-gradient(circle at 50% 22%,#fff5c5 0 12%,#ffd96d 13%,#ff9d2d 48%,#ff5b18 68%,#0000 69%);filter:drop-shadow(0 0 15px #ff9d3d);animation:codumi-fire 1.9s ease-in-out infinite}
+.codumi-site-effects__ember-glow{position:absolute;left:39%;bottom:4%;width:120px;height:52px;border-radius:50%;background:radial-gradient(circle,#ffb34155,transparent 65%);filter:blur(6px);animation:codumi-glow 2.2s ease-in-out infinite}
+.codumi-site-effects__star--camp{background:#fcfdff;box-shadow:0 0 9px #fff7}
+.codumi-site-effects__meteor--camp{top:24%;left:-18%;animation-delay:2.3s}
+.codumi-site-effects__spark{bottom:12%;width:4px;height:4px;border-radius:50%;background:#ffd27a;box-shadow:0 0 8px #ffb04a;animation:codumi-spark-up linear infinite}
+
+.codumi-site-effects--site-neocity{background:radial-gradient(circle at 68% 16%,#8c56ff28,transparent 20%),radial-gradient(circle at 18% 12%,#27d8ff20,transparent 18%)}
+.codumi-site-effects__city-glow{position:absolute;inset:auto 0 0 0;height:42%;background:linear-gradient(180deg,transparent,#0f1931 20%,#10162d 100%)}
+.codumi-site-effects__city-skyline{position:absolute;left:0;right:0;bottom:0;height:36%;background:linear-gradient(180deg,transparent 0 18%,#0f1a34 19%),linear-gradient(90deg,#0000 0 7%,#18274a 7% 12%,#0000 12% 17%,#21305c 17% 24%,#0000 24% 29%,#152645 29% 35%,#0000 35% 40%,#24386c 40% 48%,#0000 48% 55%,#12203e 55% 63%,#0000 63% 67%,#1d2e59 67% 76%,#0000 76% 82%,#172646 82% 90%,#0000 90% 100%)}
+.codumi-site-effects__window{width:5px;height:9px;background:#ffe08a;box-shadow:0 0 9px #ffd37b;animation:codumi-window 3s steps(1) infinite}
+.codumi-site-effects__beam{left:74%;bottom:22%;width:120px;height:120px;background:conic-gradient(from 230deg,#0000 0 68%,#78dfff33 76%,#0000 84%);filter:blur(1px);transform-origin:bottom left;animation:codumi-beam 8s ease-in-out infinite}
+.codumi-site-effects__car-light{bottom:7%;height:3px;border-radius:999px;background:linear-gradient(90deg,#0000,#ff84da,#0000);opacity:.85;box-shadow:0 0 8px #ff84da;animation:codumi-drive 10s linear infinite}
+.codumi-site-effects__car-light--one{left:-10%;width:120px}
+.codumi-site-effects__car-light--two{left:-25%;width:90px;bottom:9%;background:linear-gradient(90deg,#0000,#7bddff,#0000);box-shadow:0 0 8px #7bddff;animation-delay:3.3s;animation-duration:8.5s}
+.codumi-site-effects__float-orb{top:18%;width:10px;height:10px;border-radius:50%;background:#88efff;box-shadow:0 0 14px #88efff;animation:codumi-float-orb 12s linear infinite}
+.codumi-site-effects__float-orb--one{left:18%}
+.codumi-site-effects__float-orb--two{left:82%;top:28%;width:7px;height:7px;animation-duration:16s}
+
+@keyframes codumi-star-pulse{0%,100%{opacity:.45;transform:scale(.82)}50%{opacity:1;transform:scale(1.2)}}
+@keyframes codumi-shooting{0%,68%{opacity:0;transform:translateX(0) translateY(0) rotate(-24deg)}70%{opacity:.95}100%{opacity:0;transform:translateX(130vw) translateY(55vh) rotate(-24deg)}}
+@keyframes codumi-debris{from{transform:translateX(0) translateY(0)}to{transform:translateX(-26vw) translateY(8vh)}}
+@keyframes codumi-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes codumi-drift-slow{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(-12px,8px,0)}}
+@keyframes codumi-fire{0%,100%{transform:scale(1,.95)}35%{transform:scale(.92,1.08)}70%{transform:scale(1.08,.96)}}
+@keyframes codumi-glow{0%,100%{opacity:.55;transform:scale(1)}50%{opacity:.9;transform:scale(1.08)}}
+@keyframes codumi-spark-up{0%{transform:translateY(0) scale(.8);opacity:0}15%{opacity:1}100%{transform:translateY(-95px) translateX(-8px) scale(.2);opacity:0}}
+@keyframes codumi-window{0%,100%{opacity:.35}30%{opacity:1}60%{opacity:.55}}
+@keyframes codumi-beam{0%,100%{transform:rotate(-8deg)}50%{transform:rotate(18deg)}}
+@keyframes codumi-drive{0%{transform:translateX(0);opacity:0}8%{opacity:1}92%{opacity:1}100%{transform:translateX(120vw);opacity:0}}
+@keyframes codumi-float-orb{0%{transform:translateY(0) translateX(0);opacity:.35}50%{opacity:.95}100%{transform:translateY(40vh) translateX(-8vw);opacity:0}}
+
+html[data-codumi-site-background="site-orbit"] body{background:radial-gradient(circle at 82% 12%,#aeb9ff40 0 5%,transparent 6%),radial-gradient(ellipse at 65% 82%,#1d4675 0,#111e37 44%,#09111f 100%);background-attachment:fixed}
+html[data-codumi-site-background="site-camp"] body{background:radial-gradient(circle at 85% 14%,#f5efff29 0 5%,transparent 6%),linear-gradient(180deg,#061126,#0b1b34 54%,#0a121f 100%);background-attachment:fixed}
+html[data-codumi-site-background="site-neocity"] body{background:radial-gradient(circle at 70% 18%,#945eff2b 0 8%,transparent 9%),linear-gradient(180deg,#091327,#111b35 56%,#0a1122 100%);background-attachment:fixed}
+
+.codumi-site--site-orbit{background:radial-gradient(circle at 80% 20%,#acd2ff 0 10%,transparent 11%),radial-gradient(circle at 26% 25%,#ffffffcc 0 1.5%,transparent 2.2%),linear-gradient(145deg,#090f28,#1b3472)}
+.codumi-site--site-camp{background:radial-gradient(circle at 78% 18%,#fff3ba 0 7%,transparent 8%),linear-gradient(180deg,#071428,#0d2440 58%,#162229 100%)}
+.codumi-site--site-neocity{background:radial-gradient(circle at 76% 20%,#8d6eff 0 7%,transparent 8%),linear-gradient(180deg,#0a132c,#19274f 58%,#17172a 100%)}
+.codumi-shop__preview{position:relative;overflow:hidden}
+.codumi-shop__preview-live{position:absolute;left:7px;top:7px;padding:4px 7px;border-radius:7px;background:#0d2238d1;color:#86f4db;font-size:9px;font-weight:900;letter-spacing:.04em;border:1px solid #7de2d16e}
+.codumi-shop__site-tools{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:12px 14px;border:1px solid #7e96c748;border-radius:16px;background:linear-gradient(135deg,#20314e,#19263f)}
+.codumi-shop__site-note{display:grid;gap:4px;min-width:0}
+.codumi-shop__site-note strong{color:var(--shop-text);font-size:13px}
+.codumi-shop__site-note small{color:var(--shop-muted);font-size:11px;line-height:1.45}
+.codumi-shop__site-toggle{min-height:39px;padding:9px 14px;border-radius:11px;border:1px solid #90a5d36b;background:#ffffff12;color:#eef4ff;font-size:12px;font-weight:850;cursor:pointer}
+.codumi-shop__site-toggle.is-on{background:linear-gradient(125deg,#355fdd,#457fe9);border-color:#8fb3ff8a}
+.codumi-shop__site-toggle.is-off{background:#ffffff0d;color:#dce7f9}
+html[data-codumi-theme="light"] .codumi-shop__site-tools{background:linear-gradient(135deg,#eef4ff,#e8f0ff);border-color:#c7d6ee}
+html[data-codumi-theme="light"] .codumi-shop__site-toggle{background:#dce7ff;color:#234469;border-color:#b7c8ea}
+html[data-codumi-theme="light"] .codumi-shop__site-toggle.is-on{background:linear-gradient(125deg,#4e7df1,#6c8ff0);color:#fff}
+@media(max-width:620px){.codumi-shop__site-tools{align-items:stretch}.codumi-shop__site-toggle{width:100%}}
+@media(prefers-reduced-motion:reduce){.codumi-site-effects{display:none!important}}
+
+
+/* Saved palette v5: one large swatch, clear focus, second click asks confirmation. */
+.codumi-shop__saved{justify-content:flex-start;gap:12px;padding:8px 4px 12px;min-height:59px}
+.codumi-shop__saved button.codumi-shop__favorite{
+  position:relative;display:grid;place-items:center;flex:none;width:47px;height:47px;
+  padding:0;background:var(--swatch);border:2px solid #ffffffa0;border-radius:13px;
+  box-shadow:0 5px 14px #0711264d,inset 0 1px #ffffff60;cursor:pointer;
+  transition:transform .15s ease,outline-color .15s ease,box-shadow .15s ease;
+}
+.codumi-shop__saved button.codumi-shop__favorite:hover,
+.codumi-shop__saved button.codumi-shop__favorite:focus-visible{
+  transform:translateY(-3px);outline:2px solid #a7d7ff;outline-offset:3px;
+}
+.codumi-shop__saved button.codumi-shop__favorite.is-armed{
+  outline:3px solid #9bc8ff;outline-offset:3px;box-shadow:0 0 18px #69baff6a;
+}
+.codumi-shop__saved button.codumi-shop__favorite:disabled{cursor:wait;opacity:.75}
+.codumi-shop__favorite-cross{
+  display:grid;place-items:center;position:absolute;top:3px;right:3px;width:21px;height:21px;
+  border-radius:7px;background:#111a2ddd;border:1px solid #ffffffac;color:#fff;
+  font-size:17px;font-weight:700;line-height:1;pointer-events:none;
+}
+.codumi-shop__dialog-layer{position:fixed;inset:0;z-index:390;display:grid;place-items:center;padding:16px}
+.codumi-shop__dialog-backdrop{position:absolute;inset:0;background:#060d1bb0;backdrop-filter:blur(7px)}
+.codumi-shop__delete-dialog{
+  position:relative;z-index:1;width:min(390px,100%);padding:25px;border:1px solid #829ad477;
+  border-radius:21px;background:linear-gradient(150deg,#23324f,#111b2c);color:#f2f6ff;
+  box-shadow:0 22px 80px #020713c9;text-align:center;
+}
+.codumi-shop__dialog-icon{width:54px;height:54px;margin:0 auto 15px;border-radius:15px;background:var(--swatch);border:3px solid #fff9;box-shadow:0 6px 20px #0005}
+.codumi-shop__delete-dialog h4{margin:0 0 10px;font-size:19px;color:#f5f7ff}
+.codumi-shop__delete-dialog p{margin:0;color:#b9c7dc;font-size:13px;line-height:1.55}
+.codumi-shop__dialog-actions{display:flex;gap:10px;margin-top:23px}
+.codumi-shop__dialog-actions button{flex:1;min-height:43px;padding:10px;border:1px solid #879bba65;border-radius:12px;background:#364461;color:#eff5ff;font-size:13px;font-weight:850;cursor:pointer}
+.codumi-shop__dialog-actions button.codumi-shop__dialog-danger{background:linear-gradient(120deg,#b93955,#d44b65);border-color:#e1798b88;color:white}
+.codumi-shop__dialog-actions button:disabled{opacity:.6;cursor:default}
+.codumi-shop__dialog-actions button:focus-visible{outline:3px solid #a7c9ff;outline-offset:3px}
+.codumi-shop__item-error{padding:9px 10px;border-radius:10px;border:1px solid #f4b5b56b;background:#8d243035;color:#ffd6da;font-size:11px;line-height:1.45;overflow-wrap:anywhere}
+html[data-codumi-theme="light"] .codumi-shop__item-error{background:#fff0f2;color:#9d2942;border-color:#f0a9b8}
+@media(max-width:460px){.codumi-shop__dialog-actions{flex-direction:column-reverse}}
+@media(prefers-reduced-motion:reduce){.codumi-shop__saved button.codumi-shop__favorite{transition:none}}
+
+.codumi-shop__delete-dialog p.codumi-shop__dialog-error{margin-top:13px;padding:10px;border:1px solid #e891a0;border-radius:10px;background:#91334845;color:#ffd4df}
+
+/* Titles are a native category of the existing cosmetics shop. */
+.codumi-shop__title-preview { min-height:94px; display:grid; place-items:center; font-size:42px; background:radial-gradient(circle at 45% 20%,#8c75d366,#172942); border-radius:12px; }
+.codumi-shop__title-item.is-equipped { border-color:#52cda0; }
+.codumi-shop__title-notice { font-size:12px; padding:10px 12px; border-radius:10px; border:1px solid var(--shop-stroke,#415574); color:var(--shop-text,#e2edff); }

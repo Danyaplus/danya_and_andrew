@@ -1,0 +1,203 @@
+/* Kodumi responsive follow-up — October 2026.
+   Applies after all existing theme, adaptive-game and header styles.
+   No gameplay or user-customised cosmetic card styling is changed. */
+
+/* A recognisable logo, not an isolated icon, even on a narrow phone. */
+@media (max-width: 780px), (orientation: landscape) and (max-height: 620px) and (max-width: 1024px) {
+  .site-header__left { overflow: visible; gap: 7px; }
+  .site-header__left .brand { display: inline-flex; flex: 0 1 auto; gap: 6px; min-width: 0; }
+  .site-header__left .brand__text,
+  .site-header .brand__text { display: flex !important; flex-direction: column; align-items: flex-start; line-height: 1.15; min-width: 0; }
+  .site-header__left .brand__text strong { font-size: 11px; letter-spacing: .09em; white-space: nowrap; }
+  .site-header__left .brand__text small { font-size: 7px; letter-spacing: .22em; white-space: nowrap; }
+}
+@media (max-width: 370px) {
+  .site-header { column-gap: 4px; }
+  .site-header__left { gap: 4px; }
+  .site-header__left .brand { gap: 4px; }
+  .site-header__left .brand__text strong { font-size: 9.5px; letter-spacing: .045em; }
+  .site-header__left .brand__text small { font-size: 6.5px; }
+  .site-header.site-header--guest .header-actions { gap: 4px; }
+  .site-header.site-header--guest .codumi-language-header select { max-width: 46px; font-size: 10px; }
+}
+@media (max-width: 415px) {
+  /* Signed-in screens have more icons; use two comfortable rows rather than overflow. */
+  .site-header.site-header--authenticated { grid-template-columns: minmax(0,1fr); row-gap: 5px; }
+  .site-header.site-header--authenticated .site-header__left { grid-column: 1; }
+  .site-header.site-header--authenticated .header-actions {
+    grid-column: 1; grid-row: 2; justify-self: stretch; justify-content: flex-end;
+    padding-bottom: 2px; gap: 8px;
+  }
+  .site-header.site-header--authenticated .codumi-language-header { margin-right: auto; }
+}
+
+/* Mobile search is a persistent panel, not a transient focus tooltip.
+   iOS keyboard dismissal blurs the input; only the search button/outside tap
+   dismisses and clears the query. visualViewport height limits the results. */
+@media (max-width: 780px), (orientation: landscape) and (max-height: 620px) and (max-width: 1024px) {
+  .site-header .search-wrap.is-mobile-open {
+    display: flex !important;
+    flex-direction: column;
+    position: fixed !important;
+    top: calc(var(--codumi-header-height, 64px) + 5px) !important;
+    left: max(8px, env(safe-area-inset-left)) !important;
+    right: max(8px, env(safe-area-inset-right)) !important;
+    width: auto !important;
+    grid-column: 1 / -1 !important;
+    justify-self: stretch !important;
+    z-index: 140 !important;
+    max-height: max(68px, calc(var(--kd-search-visible-height, 100dvh) - var(--codumi-header-height, 64px) - 12px));
+    min-width: 0;
+    padding: 0;
+    background: transparent;
+    overflow: visible;
+  }
+  .site-header .search-wrap.is-mobile-open .search-icon { top: 20px; transform: translateY(-50%); }
+  .site-header .search-wrap.is-mobile-open input {
+    flex: 0 0 42px;
+    width: 100%; min-width: 0; height: 42px;
+    font-size: 16px; /* iOS: prevent auto-zoom when editing */
+    border: 1px solid var(--kd-blue-strong, #4288fa);
+    box-shadow: 0 5px 22px rgba(15,40,84,.18);
+  }
+  .site-header .search-wrap.is-mobile-open .search-dropdown {
+    display: block !important;
+    position: relative !important;
+    inset: auto !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    flex: 0 1 auto;
+    width: 100%;
+    max-height: max(54px, min(310px, calc(var(--kd-search-visible-height, 100dvh) - var(--codumi-header-height, 64px) - 60px))) !important;
+    min-height: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+    margin-top: 7px;
+    border-radius: 15px;
+    box-shadow: 0 16px 32px rgba(4,22,57,.22);
+  }
+  .site-header .search-wrap.is-mobile-open .search-dropdown .game-card { max-width: 100%; }
+  .site-header .mobile-search-toggle.is-active { border-color: var(--kd-blue-strong, #4288fa); color: var(--kd-blue-strong, #4288fa); }
+}
+
+/* Landscape phone / short laptop windows: compact header without clipping. */
+@media (orientation: landscape) and (max-height: 620px) and (max-width: 1024px) {
+  .app-shell { --codumi-header-height: 53px; }
+  .site-header {
+    display: grid; grid-template-columns: minmax(0,1fr) auto;
+    width: 100%; min-height: 53px; padding: 5px 12px; gap: 8px;
+  }
+  .site-header__left { grid-column: 1; }
+  .site-header .header-actions { grid-column: 2; justify-self: end; flex-wrap: nowrap; gap: 7px; }
+  .site-header .search-wrap:not(.is-mobile-open) { display: none !important; }
+  .site-header .mobile-search-toggle { display: grid !important; }
+  .site-header .header-auth-button--desktop { display: none !important; }
+  .site-header .header-guest-menu { display: block; }
+  .site-header .site-menu-toggle,
+  .site-header .header-icon-button,
+  .site-header .header-guest-menu__toggle { width: 36px; height: 36px; flex: 0 0 36px; }
+  .site-header .codumi-language-header { height: 36px; margin: 0; padding: 2px 5px; }
+  .site-header .codumi-language-header > span { display: none; }
+  .site-header .codumi-language-header select { max-width: 55px; min-height: 28px; font-size: 11px; padding: 0; }
+  .site-header .brand__mark { width: 34px; height: 34px; }
+  .codumi-main-content .page-shell { width: min(1240px, calc(100% - 18px)); padding-top: 9px; }
+  .codumi-main-content .games-grid,
+  .codumi-density--comfortable .codumi-main-content .games-grid {
+    grid-template-columns: repeat(auto-fit, minmax(min(160px, 100%), 1fr)); gap: 9px;
+  }
+  .codumi-main-content .game-card__art { aspect-ratio: 16/8.7; }
+  .codumi-main-content .game-card__body { padding: 9px 10px 10px; }
+  .codumi-main-content .game-card p { -webkit-line-clamp: 2; line-clamp: 2; }
+}
+
+/* Short-wide hero: two columns, foreground text never touches card edges. */
+@media (orientation: landscape) and (min-width: 560px) and (max-height: 620px) {
+  .codumi-main-content .kodumi-hero {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr) !important;
+    min-height: 215px;
+  }
+  .codumi-main-content .kodumi-hero__content { padding: 17px 5px 18px 21px !important; }
+  .codumi-main-content .kodumi-hero h1 { font-size: clamp(26px, 3.6vw, 39px) !important; line-height: 1.06; margin-top: 11px; }
+  .codumi-main-content .kodumi-hero__content p { font-size: 12px; line-height: 1.4; margin-top: 9px; }
+  .codumi-main-content .kodumi-hero__actions { margin-top: 11px; gap: 9px; }
+  .codumi-main-content .kodumi-hero__cta { min-height: 37px; padding: 7px 12px; font-size: 12px; }
+  .codumi-main-content .kodumi-hero__instant { min-height: 34px; padding-inline: 8px; font-size: 10px; }
+  .codumi-main-content .kodumi-hero__scene { min-height: 205px; align-self: center; }
+  .codumi-main-content .kodumi-arena { transform: scale(.70) perspective(650px) rotate(-5deg); }
+  .kodumi-arena__sticker--crown { display: grid !important; z-index: 2; }
+  .kodumi-arena__sticker--pad { display: grid !important; z-index: 2; }
+  .codumi-main-content .codumi-daily { display: grid !important; grid-template-columns: minmax(0, 37%) minmax(0, 63%) !important; }
+  .codumi-main-content .codumi-daily__image { width: 100%; min-height: 0; height: 100%; aspect-ratio: auto !important; }
+  .codumi-main-content .codumi-daily__image img { width:100%; height:100%; object-fit: cover; object-position: center; }
+  .codumi-main-content .codumi-daily__info { padding: clamp(10px, 2vw, 18px); min-width: 0; overflow-wrap: anywhere; gap: 6px; }
+  .codumi-main-content .codumi-daily__info h2 { font-size: clamp(16px, 2.4vw, 22px); line-height: 1.2; }
+  .codumi-main-content .codumi-daily__info p { font-size: 11px; line-height: 1.4; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden; }
+  .codumi-main-content .codumi-daily__info button { margin-top: 3px; min-height: 34px; padding: 8px 12px; }
+}
+
+/* Portrait banner: give both copy and decorative play cards their own space. */
+@media (max-width: 620px) and (orientation: portrait) {
+  .codumi-main-content .kodumi-hero__content { padding: 25px 20px 0 !important; }
+  .codumi-main-content .kodumi-hero__content p { max-width: 100%; }
+  .codumi-main-content .kodumi-hero__actions { align-items: flex-start; gap: 10px; }
+  .codumi-main-content .kodumi-hero__instant { min-height: 36px; padding-inline: 10px; }
+  .codumi-main-content .kodumi-hero__scene { min-height: 170px !important; overflow: visible; }
+  .kodumi-arena__sticker--crown,
+  .kodumi-arena__sticker--pad { display: grid !important; z-index: 2; }
+  .kodumi-arena__sticker--crown { top: 0; left: 10%; }
+  .kodumi-arena__sticker--pad { left: 4%; bottom: 32px; }
+  .kodumi-arena__bubble--one { display: block; width: 175px; height: 175px; right: 16%; top: 2px; }
+}
+
+/* Phone landscape game lobby: use vertical space for the actual game and CTA.
+   The long instructions remain scrollable; they aren't clipped or removed. */
+@media (orientation: landscape) and (max-height: 620px) {
+  .game-page:not(.is-game-focus) { width: min(100% - 18px, 1160px); padding-top: 5px; min-height: calc(100dvh - 55px); }
+  .game-page:not(.is-game-focus) .game-page__chrome { margin-bottom: 5px; gap: 6px; }
+  .game-page:not(.is-game-focus) .game-page__back,
+  .game-page:not(.is-game-focus) .game-page__fullscreen { min-height: 32px; height: 32px; padding: 0 10px; font-size: 11px; border-radius: 10px; }
+  .game-page:not(.is-game-focus) .game-page__identity { display: none; }
+  .game-page:not(.is-game-focus) .game-page__content { min-width: 0; max-width: 100%; }
+  .game-page:not(.is-game-focus) .game-page__content > :is(section, div)[class*="lobby"] {
+    box-sizing: border-box;
+    max-width: min(740px, 100%);
+    max-height: max(160px, calc(100dvh - 105px));
+    margin: 3px auto 6px !important;
+    padding: clamp(10px, 2.6vh, 18px) clamp(13px, 3vw, 26px) !important;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+  .game-page:not(.is-game-focus) .game-page__content > :is(section, div)[class*="lobby"] h1,
+  .game-page:not(.is-game-focus) .game-page__content > :is(section, div)[class*="lobby"] h2 {
+    font-size: clamp(22px, 4.6vh, 34px) !important;
+    line-height: 1.1 !important;
+    margin-block: 5px 9px !important;
+  }
+  .game-page:not(.is-game-focus) .game-page__content > :is(section, div)[class*="lobby"] p {
+    font-size: 12px;
+    line-height: 1.38;
+    margin-block: 5px 9px;
+  }
+  .game-page:not(.is-game-focus) .cf-lobby__fish { font-size: 23px; gap: 5px; }
+  .game-page:not(.is-game-focus) .cf-lobby__fish span:nth-child(2) { font-size: 25px; }
+  .game-page:not(.is-game-focus) .cf-lobby .eyebrow { font-size: 9px; letter-spacing: .08em; margin-bottom: 2px; }
+  .game-page:not(.is-game-focus) .cf-lobby h1 { margin-block: 4px 8px !important; }
+  .game-page:not(.is-game-focus) .cf-lobby p { max-width: 640px; margin: 0 auto 7px; font-size: 12px; }
+  .game-page:not(.is-game-focus) .cf-rules { display: flex; flex-wrap: wrap; margin: 7px 0 9px; gap: 6px; }
+  .game-page:not(.is-game-focus) .cf-rules span { padding: 5px 8px; font-size: 10px; }
+  .game-page:not(.is-game-focus) .cf-lobby .primary-button { min-height: 35px; padding: 7px 16px; font-size: 12px; }
+}
+@media (orientation: landscape) and (max-height: 380px) {
+  .game-page:not(.is-game-focus) .cf-lobby__fish { display: none; }
+  .game-page:not(.is-game-focus) .cf-rules { margin: 5px 0 6px; }
+}
+
+/* Avoid locking a game page to a desktop minimum when Chrome is resized. */
+.game-page, .game-page__content, .codumi-main-content, .codumi-main-layout { min-width: 0; }
+@media (prefers-reduced-motion: reduce) {
+  .codumi-main-content .kodumi-hero__cta { transition: none; }
+}

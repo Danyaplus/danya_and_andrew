@@ -1,14 +1,9 @@
+import { getPlayerName } from '../../lib/playerName.js';
 import { useMemo, useState } from 'react';
 import { useMultiplayerGame } from '../../lib/useMultiplayerGame.js';
 import './crocodile-teeth.css';
 
-function getPlayerName() {
-  const saved = localStorage.getItem('danya-andrew-player-name');
-  if (saved) return saved;
-  const generated = `Игрок ${Math.floor(1000 + Math.random() * 9000)}`;
-  localStorage.setItem('danya-andrew-player-name', generated);
-  return generated;
-}
+
 
 const toothPositions = [
   { side: 'top', x: 16, y: 7, rot: 4 },

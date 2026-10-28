@@ -1,3 +1,4 @@
+import { getPlayerName } from '../../lib/playerName.js';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useMultiplayerGame } from '../../lib/useMultiplayerGame.js';
 import './pool.css';
@@ -7,13 +8,7 @@ const BALL_COLORS = {
   8: '#111216', 9: '#f3cf35', 10: '#2458c6', 11: '#d43b37', 12: '#7442a6', 13: '#e17a25', 14: '#209653', 15: '#762831',
 };
 
-function getPlayerName() {
-  const saved = localStorage.getItem('danya-andrew-player-name');
-  if (saved) return saved;
-  const generated = `Игрок ${Math.floor(1000 + Math.random() * 9000)}`;
-  localStorage.setItem('danya-andrew-player-name', generated);
-  return generated;
-}
+
 
 function groupLabel(group) {
   if (group === 'solid') return 'Однотонные';

@@ -1,4 +1,5 @@
-import ReversiGame from './ReversiGame.jsx';
+import { lazy } from 'react';
+const ReversiGame = lazy(() => import('./ReversiGame.jsx'));
 
 export default {
   id: 'reversi',

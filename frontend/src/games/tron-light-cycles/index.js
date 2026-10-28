@@ -1,4 +1,5 @@
-import TronLightCyclesGame from './TronLightCyclesGame.jsx';
+import { lazy } from 'react';
+const TronLightCyclesGame = lazy(() => import('./TronLightCyclesGame.jsx'));
 
 export default {
   id: 'tron-light-cycles',

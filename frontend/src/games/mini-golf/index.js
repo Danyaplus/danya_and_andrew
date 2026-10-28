@@ -1,4 +1,5 @@
-import MiniGolfGame from './MiniGolfGame.jsx';
+import { lazy } from 'react';
+const MiniGolfGame = lazy(() => import('./MiniGolfGame.jsx'));
 
 export default {
   id: 'mini-golf',

@@ -1,4 +1,5 @@
-import MathDuelGame from './MathDuelGame.jsx';
+import { lazy } from 'react';
+const MathDuelGame = lazy(() => import('./MathDuelGame.jsx'));
 
 export default {
   id: 'math-duel',

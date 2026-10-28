@@ -1,4 +1,5 @@
-import SnakeCurveDuelGame from './SnakeCurveDuelGame.jsx';
+import { lazy } from 'react';
+const SnakeCurveDuelGame = lazy(() => import('./SnakeCurveDuelGame.jsx'));
 
 export default {
   id: 'snake-curve-duel',

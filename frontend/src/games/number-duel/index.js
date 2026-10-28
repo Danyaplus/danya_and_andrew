@@ -1,4 +1,5 @@
-import NumberDuelGame from './NumberDuelGame.jsx';
+import { lazy } from 'react';
+const NumberDuelGame = lazy(() => import('./NumberDuelGame.jsx'));
 
 export default {
   id: 'number-duel',

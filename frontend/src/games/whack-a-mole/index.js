@@ -1,4 +1,5 @@
-import WhackAMoleGame from './WhackAMoleGame.jsx';
+import { lazy } from 'react';
+const WhackAMoleGame = lazy(() => import('./WhackAMoleGame.jsx'));
 
 export default {
   id: 'whack-a-mole',

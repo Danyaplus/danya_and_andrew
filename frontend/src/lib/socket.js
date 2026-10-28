@@ -1,6 +1,12 @@
 import { io } from 'socket.io-client';
 
-export const serverUrl = 'https://danya-and-andrew-backend.onrender.com';
+// Explicit deploy configuration always takes precedence. During local development
+// connect to the local API; keep the legacy deployed endpoint as a compatibility
+// fallback for older GitHub Pages installations without VITE_SERVER_URL.
+const configuredUrl = import.meta.env.VITE_SERVER_URL?.trim();
+export const serverUrl = (configuredUrl || (import.meta.env.DEV
+  ? 'http://localhost:3001'
+  : 'https://danya-and-andrew-backend.onrender.com')).replace(/\/$/, '');
 export const authTokenKey = 'danya-and-andrew-auth-token';
 
 const initialToken = localStorage.getItem(authTokenKey);

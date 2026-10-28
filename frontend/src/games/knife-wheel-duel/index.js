@@ -1,4 +1,5 @@
-import KnifeWheelDuelGame from './KnifeWheelDuelGame.jsx';
+import { lazy } from 'react';
+const KnifeWheelDuelGame = lazy(() => import('./KnifeWheelDuelGame.jsx'));
 
 export default {
   id: 'knife-wheel-duel',

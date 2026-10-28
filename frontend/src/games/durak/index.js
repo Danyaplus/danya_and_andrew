@@ -1,4 +1,5 @@
-import DurakGame from './DurakGame.jsx';
+import { lazy } from 'react';
+const DurakGame = lazy(() => import('./DurakGame.jsx'));
 
 export default {
   id: 'durak',

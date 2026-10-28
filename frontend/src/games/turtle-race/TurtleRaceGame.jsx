@@ -1,15 +1,10 @@
+import { getPlayerName } from '../../lib/playerName.js';
 import { useEffect, useRef, useState } from 'react';
 import { useMultiplayerGame } from '../../lib/useMultiplayerGame.js';
 import './turtle-race.css';
 
 const GAME_ID = 'turtle-race';
-const getPlayerName = () => {
-  const saved = localStorage.getItem('danya-andrew-player-name');
-  if (saved) return saved;
-  const name = `Игрок ${Math.floor(Math.random() * 9000 + 1000)}`;
-  localStorage.setItem('danya-andrew-player-name', name);
-  return name;
-};
+
 
 const between = (number, min, max) => Math.max(min, Math.min(max, number));
 const seconds = (ms) => `${Math.max(0, ms / 1000).toFixed(1)} с`;

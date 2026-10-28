@@ -1,4 +1,5 @@
-import DominoGame from './DominoGame.jsx';
+import { lazy } from 'react';
+const DominoGame = lazy(() => import('./DominoGame.jsx'));
 
 export default {
   id: 'domino',

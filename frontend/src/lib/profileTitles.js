@@ -48,9 +48,5 @@ export const paidTitleEmoji = {
   'royal-strategist': '👑', 'neon-champion': '⚡', 'night-owl': '🌙', 'golden-player': '🏆',
 };
 
-export const PAID_TITLES = [
-  { id: 'royal-strategist', price: 180 },
-  { id: 'neon-champion', price: 320 },
-  { id: 'night-owl', price: 480 },
-  { id: 'golden-player', price: 700 },
-];
+import paidTitles from '../../../shared/paidTitles.json';
+export const PAID_TITLES = paidTitles;

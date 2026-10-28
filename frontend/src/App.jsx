@@ -102,7 +102,7 @@ export default function App() {
         if (cancelled) return;
         setToken(savedToken);
         setUser(payload.user);
-        setLanguage(payload.user.language || 'uk');
+        setLanguage(payload.user.language || languageFromPath());
         localStorage.setItem('danya-andrew-player-name', payload.user.displayName || payload.user.username);
         setSocketAuthToken(savedToken);
 
@@ -267,7 +267,7 @@ export default function App() {
     localStorage.setItem('danya-andrew-player-name', payload.user.displayName || payload.user.username);
     setToken(payload.token);
     setUser(payload.user);
-    setLanguage(payload.user.language || 'uk');
+    setLanguage(payload.user.language || languageFromPath());
     setAuthLoading(false);
     setSocketAuthToken(payload.token);
 

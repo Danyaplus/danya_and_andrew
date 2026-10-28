@@ -1,14 +1,9 @@
+import { getPlayerName } from '../../lib/playerName.js';
 import { useEffect, useRef, useState } from 'react';
 import { useMultiplayerGame } from '../../lib/useMultiplayerGame.js';
 import './spin-soccer.css';
 
-function getPlayerName() {
-  const saved = localStorage.getItem('danya-andrew-player-name');
-  if (saved) return saved;
-  const generated = `Игрок ${Math.floor(1000 + Math.random() * 9000)}`;
-  localStorage.setItem('danya-andrew-player-name', generated);
-  return generated;
-}
+
 
 function formatClock(ms = 0) {
   const seconds = Math.max(0, Math.ceil(ms / 1000));

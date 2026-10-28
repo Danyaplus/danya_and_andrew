@@ -1,14 +1,9 @@
+import { getPlayerName } from '../../lib/playerName.js';
 import { useEffect, useRef, useState } from 'react';
 import { useMultiplayerGame } from '../../lib/useMultiplayerGame.js';
 import './tug-of-war.css';
 
-function getPlayerName() {
-  const saved = localStorage.getItem('danya-andrew-player-name');
-  if (saved) return saved;
-  const name = `Игрок ${Math.floor(1000 + Math.random() * 9000)}`;
-  localStorage.setItem('danya-andrew-player-name', name);
-  return name;
-}
+
 
 function Character({ x, color, flipped = false, pulling = false, mine = false }) {
   const blue = color === 'blue';

@@ -1,3 +1,4 @@
+import { getPlayerName } from '../../lib/playerName.js';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useMultiplayerGame } from '../../lib/useMultiplayerGame.js';
 import './chess.css';
@@ -10,13 +11,7 @@ const PIECES = {
   bp: `♟${TEXT_VARIATION}`, bn: `♞${TEXT_VARIATION}`, bb: `♝${TEXT_VARIATION}`, br: `♜${TEXT_VARIATION}`, bq: `♛${TEXT_VARIATION}`, bk: `♚${TEXT_VARIATION}`,
 };
 
-function getPlayerName() {
-  const saved = localStorage.getItem('danya-andrew-player-name');
-  if (saved) return saved;
-  const generated = `Игрок ${Math.floor(1000 + Math.random() * 9000)}`;
-  localStorage.setItem('danya-andrew-player-name', generated);
-  return generated;
-}
+
 
 function formatClock(milliseconds = 0) {
   const safe = Math.max(0, milliseconds);

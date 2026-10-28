@@ -1,3 +1,4 @@
+import { getPlayerName } from '../../lib/playerName.js';
 import { useEffect, useRef, useState } from 'react';
 import { useMultiplayerGame } from '../../lib/useMultiplayerGame.js';
 import './rock-paper-scissors.css';
@@ -9,13 +10,7 @@ const GESTURES = [
 ];
 const BY_ID = Object.fromEntries(GESTURES.map((gesture) => [gesture.id, gesture]));
 
-function getPlayerName() {
-  const saved = localStorage.getItem('danya-andrew-player-name');
-  if (saved) return saved;
-  const generated = `Игрок ${Math.floor(1000 + Math.random() * 9000)}`;
-  localStorage.setItem('danya-andrew-player-name', generated);
-  return generated;
-}
+
 
 function Gesture({ move, hidden = false, className = '' }) {
   return (

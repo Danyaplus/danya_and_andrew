@@ -1,15 +1,10 @@
+import { getPlayerName } from '../../lib/playerName.js';
 import { useEffect, useMemo, useState } from 'react';
 import { useMultiplayerGame } from '../../lib/useMultiplayerGame.js';
 import './reversi.css';
 import ReversiNooseScene, { ReversiNooseResult } from './ReversiNooseScene.jsx';
 
-function getPlayerName() {
-  const saved = localStorage.getItem('danya-andrew-player-name');
-  if (saved) return saved;
-  const generated = `Игрок ${Math.floor(1000 + Math.random() * 9000)}`;
-  localStorage.setItem('danya-andrew-player-name', generated);
-  return generated;
-}
+
 
 function colorLabel(color) {
   return color === 'black' ? 'Чёрные' : 'Белые';

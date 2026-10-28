@@ -1,4 +1,5 @@
-import OrbitHitGame from './OrbitHitGame.jsx';
+import { lazy } from 'react';
+const OrbitHitGame = lazy(() => import('./OrbitHitGame.jsx'));
 
 export default {
   id: 'orbit-hit',

@@ -1,4 +1,5 @@
-import UnoGame from './UnoGame.jsx';
+import { lazy } from 'react';
+const UnoGame = lazy(() => import('./UnoGame.jsx'));
 
 export default {
   id: 'uno',

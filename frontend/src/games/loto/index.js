@@ -1,4 +1,5 @@
-import LotoGame from './LotoGame.jsx';
+import { lazy } from 'react';
+const LotoGame = lazy(() => import('./LotoGame.jsx'));
 
 export default {
   id: 'loto',

@@ -1,4 +1,5 @@
-import MemoryBattleGame from './MemoryBattleGame.jsx';
+import { lazy } from 'react';
+const MemoryBattleGame = lazy(() => import('./MemoryBattleGame.jsx'));
 
 export default {
   id: 'memory-battle',

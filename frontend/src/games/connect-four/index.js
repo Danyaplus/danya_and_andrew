@@ -1,4 +1,5 @@
-import ConnectFourGame from './ConnectFourGame.jsx';
+import { lazy } from 'react';
+const ConnectFourGame = lazy(() => import('./ConnectFourGame.jsx'));
 
 export default {
   id: 'connect-four',

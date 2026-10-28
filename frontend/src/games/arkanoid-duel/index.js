@@ -1,4 +1,5 @@
-import ArkanoidDuelGame from './ArkanoidDuelGame.jsx';
+import { lazy } from 'react';
+const ArkanoidDuelGame = lazy(() => import('./ArkanoidDuelGame.jsx'));
 
 export default {
   id: 'arkanoid-duel',

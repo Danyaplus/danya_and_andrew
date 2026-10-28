@@ -1,4 +1,5 @@
-import TapRaceGame from './TapRaceGame.jsx';
+import { lazy } from 'react';
+const TapRaceGame = lazy(() => import('./TapRaceGame.jsx'));
 
 export default {
   id: 'tap-race',

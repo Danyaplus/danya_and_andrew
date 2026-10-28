@@ -1,16 +1,11 @@
+import { getPlayerName } from '../../lib/playerName.js';
 import { useEffect, useRef, useState } from 'react';
 import { useMultiplayerGame } from '../../lib/useMultiplayerGame.js';
 import './coin-flip.css';
 
 const GAME_ID = 'coin-flip';
 
-function getPlayerName() {
-  const existing = localStorage.getItem('danya-andrew-player-name');
-  if (existing) return existing;
-  const name = `Игрок ${Math.floor(1000 + Math.random() * 9000)}`;
-  localStorage.setItem('danya-andrew-player-name', name);
-  return name;
-}
+
 
 function SideIcon({ side }) {
   return side === 'heads' ? <span aria-hidden="true">🦅</span> : <span aria-hidden="true">✦</span>;

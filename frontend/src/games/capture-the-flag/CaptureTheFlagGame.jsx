@@ -1,3 +1,4 @@
+import { getPlayerName } from '../../lib/playerName.js';
 import { memo, useEffect, useRef, useState } from 'react';
 import { useMultiplayerGame } from '../../lib/useMultiplayerGame.js';
 import './capture-the-flag.css';
@@ -12,13 +13,7 @@ const PALETTE = {
 const COLORS = { a: '#ff456e', b: '#238bff' };
 const S = { a: '🍒', b: '💎' };
 
-function getPlayerName() {
-  const saved = localStorage.getItem('danya-andrew-player-name');
-  if (saved) return saved;
-  const generated = `Игрок ${Math.floor(1000 + Math.random() * 9000)}`;
-  localStorage.setItem('danya-andrew-player-name', generated);
-  return generated;
-}
+
 function formatTime(ms) {
   const sec = Math.ceil(Math.max(0, ms) / 1000);
   return `${Math.floor(sec / 60)}:${String(sec % 60).padStart(2, '0')}`;

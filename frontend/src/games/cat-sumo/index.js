@@ -1,4 +1,5 @@
-import CatSumoGame from './CatSumoGame.jsx';
+import { lazy } from 'react';
+const CatSumoGame = lazy(() => import('./CatSumoGame.jsx'));
 
 export default {
   id: 'cat-sumo',

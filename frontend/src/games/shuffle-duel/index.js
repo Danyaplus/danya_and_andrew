@@ -1,4 +1,5 @@
-import ShuffleDuelGame from './ShuffleDuelGame.jsx';
+import { lazy } from 'react';
+const ShuffleDuelGame = lazy(() => import('./ShuffleDuelGame.jsx'));
 
 export default {
   id: 'shuffle-duel',

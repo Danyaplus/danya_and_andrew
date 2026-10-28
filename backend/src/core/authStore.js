@@ -1,4 +1,6 @@
-import { createHash, randomBytes, randomUUID, scryptSync, timingSafeEqual } from 'node:crypto';
+import { createHash, randomBytes, randomUUID, scrypt, timingSafeEqual } from 'node:crypto';
+import { promisify } from 'node:util';
+const derivePassword = promisify(scrypt);
 import { createClient } from '@supabase/supabase-js';
 
 const SESSION_TTL_MS = 1000 * 60 * 60 * 24 * 30;
@@ -43,6 +45,7 @@ function privateUser(user) {
   return {
     ...visible,
     email: user.email || '',
+    language: user.language || 'uk',
     hasPassword: true,
   };
 }
@@ -51,13 +54,13 @@ function hashToken(token) {
   return createHash('sha256').update(token).digest('hex');
 }
 
-function hashPassword(password, salt) {
-  return scryptSync(password, salt, 64).toString('hex');
+async function hashPassword(password, salt) {
+  return (await derivePassword(password, salt, 64)).toString('hex');
 }
 
-function verifyPassword(user, password) {
+async function verifyPassword(user, password) {
   const expected = Buffer.from(user.passwordHash || '', 'hex');
-  const actual = Buffer.from(hashPassword(String(password || ''), user.passwordSalt || ''), 'hex');
+  const actual = Buffer.from(await hashPassword(String(password || ''), user.passwordSalt || ''), 'hex');
   return expected.length === actual.length && expected.length > 0 && timingSafeEqual(expected, actual);
 }
 
@@ -92,6 +95,7 @@ function rowToUser(row) {
     passwordSalt: row.password_salt,
     passwordHash: row.password_hash,
     email: normalizeEmail(row.email),
+    language: row.language || 'uk',
     avatar: row.avatar || null,
     lastSeenAt: Number(row.last_seen_at) || null,
     friends: [],
@@ -155,6 +159,25 @@ export class AuthStore {
       },
     });
     this.data = { users: [], sessions: [] };
+    this.usersById = new Map();
+    this.usersByUsername = new Map();
+    this.sessionsByHash = new Map();
+    this.lastSessionPrune = 0;
+  }
+
+  // Supabase REST defaults to a limited row count. Read every page so
+  // existing accounts and friendships never silently disappear at 1000 rows.
+  async fetchAllRows(table, configure = (query) => query) {
+    const PAGE = 500;
+    const output = [];
+    for (let offset = 0; ; offset += PAGE) {
+      const { data, error } = await configure(this.supabase.from(table).select('*'))
+        .range(offset, offset + PAGE - 1);
+      if (error) throw dbError(error);
+      output.push(...(data || []));
+      if (!data || data.length < PAGE) break;
+    }
+    return output;
   }
 
   async init() {
@@ -162,33 +185,31 @@ export class AuthStore {
     const cleanup = await this.supabase.from('sessions').delete().lte('expires_at', now);
     if (cleanup.error) throw dbError(cleanup.error);
 
-    const [usersResult, sessionsResult, requestsResult, friendsResult] = await Promise.all([
-      this.supabase.from('users').select('*').order('created_at', { ascending: true }),
-      this.supabase.from('sessions').select('*').gt('expires_at', now),
-      this.supabase.from('friend_requests').select('*'),
-      this.supabase.from('friendships').select('*'),
+    const [userRows, sessionRows, requestRows, friendshipRows] = await Promise.all([
+      this.fetchAllRows('users', (query) => query.order('created_at', { ascending: true }).order('id', { ascending: true })),
+      this.fetchAllRows('sessions', (query) => query.gt('expires_at', now).order('token_hash')),
+      this.fetchAllRows('friend_requests', (query) => query.order('from_user_id').order('to_user_id')),
+      this.fetchAllRows('friendships', (query) => query.order('user_a').order('user_b')),
     ]);
-
-    for (const result of [usersResult, sessionsResult, requestsResult, friendsResult]) {
-      if (result.error) throw dbError(result.error);
-    }
-
-    this.data.users = (usersResult.data || []).map(rowToUser);
-    this.data.sessions = (sessionsResult.data || []).map((row) => ({
+    this.data.users = userRows.map(rowToUser);
+    this.data.sessions = sessionRows.map((row) => ({
       tokenHash: row.token_hash,
       userId: row.user_id,
       createdAt: Number(row.created_at),
       expiresAt: Number(row.expires_at),
     }));
 
-    const byId = new Map(this.data.users.map((user) => [user.id, user]));
+    this.usersById = new Map(this.data.users.map((user) => [user.id, user]));
+    this.usersByUsername = new Map(this.data.users.map((user) => [user.usernameKey, user]));
+    this.sessionsByHash = new Map(this.data.sessions.map((session) => [session.tokenHash, session]));
+    const byId = this.usersById;
 
-    for (const row of requestsResult.data || []) {
+    for (const row of requestRows) {
       byId.get(row.from_user_id)?.outgoing.push(row.to_user_id);
       byId.get(row.to_user_id)?.incoming.push(row.from_user_id);
     }
 
-    for (const row of friendsResult.data || []) {
+    for (const row of friendshipRows) {
       byId.get(row.user_a)?.friends.push(row.user_b);
       byId.get(row.user_b)?.friends.push(row.user_a);
     }
@@ -202,9 +223,18 @@ export class AuthStore {
     console.log(`[db] Supabase ready: ${this.data.users.length} users`);
   }
 
+  // Scanning all 30-day sessions on every HTTP/socket request is expensive.
+  // Fast path is a Map lookup; expired tokens are rejected even before pruning.
   pruneSessions() {
     const now = Date.now();
+    if (now - this.lastSessionPrune < 60_000) return;
+    this.lastSessionPrune = now;
     this.data.sessions = this.data.sessions.filter((session) => session.expiresAt > now);
+    this.sessionsByHash = new Map(this.data.sessions.map((session) => [session.tokenHash, session]));
+  }
+
+  getUserRecord(userId) {
+    return this.usersById.get(userId) || null;
   }
 
   validateCredentials(username, password, { registering = false, ignoreUserId = null } = {}) {
@@ -216,7 +246,8 @@ export class AuthStore {
 
     if (
       registering &&
-      this.data.users.some((user) => user.id !== ignoreUserId && user.usernameKey === usernameKey(cleanUsername))
+      (this.usersByUsername.has(usernameKey(cleanUsername))
+        && this.usersByUsername.get(usernameKey(cleanUsername)).id !== ignoreUserId)
     ) {
       throw new Error('USERNAME_TAKEN');
     }
@@ -243,6 +274,7 @@ export class AuthStore {
     if (result.error) throw dbError(result.error);
 
     this.data.sessions.push(session);
+    this.sessionsByHash.set(session.tokenHash, session);
     return token;
   }
 
@@ -255,9 +287,10 @@ export class AuthStore {
       usernameKey: usernameKey(credentials.username),
       displayName: credentials.username,
       passwordSalt: salt,
-      passwordHash: hashPassword(credentials.password, salt),
+      passwordHash: await hashPassword(credentials.password, salt),
       avatar: null,
       email: '',
+      language: 'uk',
       friends: [],
       incoming: [],
       outgoing: [],
@@ -283,11 +316,15 @@ export class AuthStore {
     }
 
     this.data.users.push(user);
+    this.usersById.set(user.id, user);
+    this.usersByUsername.set(user.usernameKey, user);
     try {
       const token = await this.createSessionForUser(user.id);
       return { token, user: privateUser(user) };
     } catch (error) {
       this.data.users = this.data.users.filter((item) => item.id !== user.id);
+      this.usersById.delete(user.id);
+      this.usersByUsername.delete(user.usernameKey);
       await this.supabase.from('users').delete().eq('id', user.id);
       throw error;
     }
@@ -295,8 +332,8 @@ export class AuthStore {
 
   async login(username, password) {
     const cleanUsername = normalizeUsername(username);
-    const user = this.data.users.find((item) => item.usernameKey === usernameKey(cleanUsername));
-    if (!user || !verifyPassword(user, password)) throw new Error('AUTH_INVALID');
+    const user = this.usersByUsername.get(usernameKey(cleanUsername));
+    if (!user || !await verifyPassword(user, password)) throw new Error('AUTH_INVALID');
 
     const token = await this.createSessionForUser(user.id);
     return { token, user: privateUser(user) };
@@ -305,29 +342,30 @@ export class AuthStore {
   getUserByToken(token) {
     if (!token || typeof token !== 'string') return null;
     this.pruneSessions();
-    const session = this.data.sessions.find((item) => item.tokenHash === hashToken(token));
+    const session = this.sessionsByHash.get(hashToken(token));
     if (!session || session.expiresAt <= Date.now()) return null;
-    return this.data.users.find((user) => user.id === session.userId) || null;
+    return this.getUserRecord(session.userId);
   }
 
   async revokeToken(token) {
     if (!token) return;
     const hashed = hashToken(token);
     this.data.sessions = this.data.sessions.filter((session) => session.tokenHash !== hashed);
+    this.sessionsByHash.delete(hashed);
     const result = await this.supabase.from('sessions').delete().eq('token_hash', hashed);
     if (result.error) throw dbError(result.error);
   }
 
   getPublicUser(userId) {
-    return publicUser(this.data.users.find((user) => user.id === userId));
+    return publicUser(this.getUserRecord(userId));
   }
 
   getPrivateUser(userId) {
-    return privateUser(this.data.users.find((user) => user.id === userId));
+    return privateUser(this.getUserRecord(userId));
   }
 
   async updateAvatar(userId, avatar) {
-    const user = this.data.users.find((item) => item.id === userId);
+    const user = this.getUserRecord(userId);
     if (!user) throw new Error('USER_NOT_FOUND');
     const cleanAvatar = safeAvatar(avatar);
 
@@ -338,8 +376,18 @@ export class AuthStore {
     return privateUser(user);
   }
 
+  async updateLanguage(userId, language) {
+    if (!['uk', 'ru', 'en'].includes(language)) throw new Error('LANGUAGE_INVALID');
+    const user = this.getUserRecord(userId);
+    if (!user) throw new Error('USER_NOT_FOUND');
+    const result = await this.supabase.from('users').update({ language }).eq('id', userId);
+    if (result.error) throw dbError(result.error);
+    user.language = language;
+    return privateUser(user);
+  }
+
   async updateEmail(userId, value) {
-    const user = this.data.users.find((item) => item.id === userId);
+    const user = this.getUserRecord(userId);
     if (!user) throw new Error('USER_NOT_FOUND');
     const email = safeEmail(value);
 
@@ -358,7 +406,7 @@ export class AuthStore {
   }
 
   async updateDisplayName(userId, value) {
-    const user = this.data.users.find((item) => item.id === userId);
+    const user = this.getUserRecord(userId);
     if (!user) throw new Error('USER_NOT_FOUND');
     const displayName = safeDisplayName(value);
 
@@ -375,15 +423,15 @@ export class AuthStore {
   }
 
   async changePassword(userId, currentPassword, newPassword) {
-    const user = this.data.users.find((item) => item.id === userId);
+    const user = this.getUserRecord(userId);
     if (!user) throw new Error('USER_NOT_FOUND');
-    if (!verifyPassword(user, currentPassword)) throw new Error('AUTH_INVALID');
+    if (!await verifyPassword(user, currentPassword)) throw new Error('AUTH_INVALID');
 
     const cleanNewPassword = String(newPassword || '');
     if (cleanNewPassword.length < 6 || cleanNewPassword.length > 128) throw new Error('PASSWORD_INVALID');
 
     const salt = randomBytes(16).toString('hex');
-    const passwordHash = hashPassword(cleanNewPassword, salt);
+    const passwordHash = await hashPassword(cleanNewPassword, salt);
     const result = await this.supabase.from('users').update({
       password_salt: salt,
       password_hash: passwordHash,
@@ -396,12 +444,12 @@ export class AuthStore {
   }
 
   areFriends(userId, otherId) {
-    const user = this.data.users.find((item) => item.id === userId);
+    const user = this.getUserRecord(userId);
     return Boolean(user && user.friends.includes(otherId));
   }
 
   relationship(userId, otherId) {
-    const user = this.data.users.find((item) => item.id === userId);
+    const user = this.getUserRecord(userId);
     if (!user) return 'none';
     if (user.friends.includes(otherId)) return 'friend';
     if (user.incoming.includes(otherId)) return 'incoming';
@@ -424,7 +472,7 @@ export class AuthStore {
   }
 
   getFriendsPayload(userId) {
-    const user = this.data.users.find((item) => item.id === userId);
+    const user = this.getUserRecord(userId);
     if (!user) throw new Error('USER_NOT_FOUND');
 
     const byId = new Map(this.data.users.map((item) => [item.id, item]));
@@ -440,8 +488,8 @@ export class AuthStore {
   async sendFriendRequest(userId, targetId) {
     if (!targetId || userId === targetId) throw new Error('FRIEND_INVALID');
 
-    const user = this.data.users.find((item) => item.id === userId);
-    const target = this.data.users.find((item) => item.id === targetId);
+    const user = this.getUserRecord(userId);
+    const target = this.getUserRecord(targetId);
     if (!user || !target) throw new Error('USER_NOT_FOUND');
     if (user.friends.includes(targetId)) return { status: 'friend' };
 
@@ -463,8 +511,8 @@ export class AuthStore {
   }
 
   async acceptFriendRequest(userId, targetId) {
-    const user = this.data.users.find((item) => item.id === userId);
-    const target = this.data.users.find((item) => item.id === targetId);
+    const user = this.getUserRecord(userId);
+    const target = this.getUserRecord(targetId);
     if (!user || !target) throw new Error('USER_NOT_FOUND');
 
     if (!user.incoming.includes(targetId) && !user.friends.includes(targetId)) {
@@ -505,8 +553,8 @@ export class AuthStore {
   }
 
   async removeFriendRelation(userId, targetId) {
-    const user = this.data.users.find((item) => item.id === userId);
-    const target = this.data.users.find((item) => item.id === targetId);
+    const user = this.getUserRecord(userId);
+    const target = this.getUserRecord(targetId);
     if (!user || !target) throw new Error('USER_NOT_FOUND');
 
     const [a, b] = pair(userId, targetId);
@@ -528,7 +576,7 @@ export class AuthStore {
   }
 
   async recordLastSeen(userId, timestamp = Date.now()) {
-    const user = this.data.users.find((item) => item.id === userId);
+    const user = this.getUserRecord(userId);
     if (!user) return;
     user.lastSeenAt = timestamp;
     const result = await this.supabase.from('users').update({ last_seen_at: timestamp }).eq('id', userId);
@@ -571,10 +619,17 @@ export class AuthStore {
   }
 
   async getHiddenDirectMessageIds(userId) {
-    const result = await this.supabase.from('direct_message_hidden')
-      .select('message_id').eq('user_id', userId);
-    if (result.error) throw dbError(result.error);
-    return new Set((result.data || []).map((row) => row.message_id));
+    const hidden = new Set();
+    const PAGE = 500;
+    for (let offset = 0; ; offset += PAGE) {
+      const result = await this.supabase.from('direct_message_hidden')
+        .select('message_id').eq('user_id', userId)
+        .order('message_id').range(offset, offset + PAGE - 1);
+      if (result.error) throw dbError(result.error);
+      for (const row of result.data || []) hidden.add(row.message_id);
+      if ((result.data || []).length < PAGE) break;
+    }
+    return hidden;
   }
 
   async deleteDirectMessage(userId, messageId, scope) {
@@ -695,90 +750,36 @@ export class AuthStore {
   }
 
   async getDirectSummaries(userId) {
-    const user = this.data.users.find((item) => item.id === userId);
+    const user = this.getUserRecord(userId);
     if (!user) throw new Error('USER_NOT_FOUND');
-
-    const [messagesResult, readsResult] = await Promise.all([
-      this.supabase
-        .from('direct_messages')
-        .select('*')
-        .or(`from_user_id.eq.${userId},to_user_id.eq.${userId}`)
-        .order('created_at', { ascending: false })
-        .limit(1000),
-      this.supabase
-        .from('direct_chat_reads')
-        .select('friend_id,last_read_at')
-        .eq('user_id', userId),
-    ]);
-    if (messagesResult.error) throw dbError(messagesResult.error);
-    if (readsResult.error) throw dbError(readsResult.error);
-
-    const hiddenIds = await this.getHiddenDirectMessageIds(userId);
-    const reads = new Map((readsResult.data || []).map((row) => [row.friend_id, Number(row.last_read_at) || 0]));
-    const latest = new Map();
-    const unread = new Map();
-
-    for (const row of messagesResult.data || []) {
-      if (hiddenIds.has(row.id)) continue;
-      const friendId = row.from_user_id === userId ? row.to_user_id : row.from_user_id;
-      if (!user.friends.includes(friendId)) continue;
-      if (!latest.has(friendId)) latest.set(friendId, row);
-      if (row.to_user_id === userId && Number(row.created_at) > (reads.get(friendId) || 0)) {
-        unread.set(friendId, (unread.get(friendId) || 0) + 1);
-      }
-    }
-
-    return user.friends
-      .map((friendId) => {
-        const friend = this.getPublicUser(friendId);
-        if (!friend) return null;
-        const row = latest.get(friendId);
-        return {
-          friend,
-          unreadCount: unread.get(friendId) || 0,
-          lastMessage: row ? {
-            id: row.id,
-            text: row.text,
-            mediaKind: row.media_kind || null,
-            fromUserId: row.from_user_id,
-            createdAt: Number(row.created_at),
-          } : null,
-        };
-      })
-      .filter(Boolean)
-      .sort((a, b) => (b.lastMessage?.createdAt || 0) - (a.lastMessage?.createdAt || 0));
+    const { data, error } = await this.supabase.rpc('codumi_direct_summaries', { p_user_id: userId });
+    if (error) throw dbError(error);
+    const result = new Map((data || []).map((row) => [row.friend_id, row]));
+    return user.friends.map((friendId) => {
+      const friend = this.getPublicUser(friendId);
+      if (!friend) return null;
+      const row = result.get(friendId);
+      return {
+        friend,
+        unreadCount: Number(row?.unread_count || 0),
+        lastMessage: row?.message_id ? {
+          id: row.message_id,
+          text: row.message_text,
+          mediaKind: row.media_kind || null,
+          fromUserId: row.from_user_id,
+          createdAt: Number(row.created_at),
+        } : null,
+      };
+    }).filter(Boolean).sort((a, b) => (b.lastMessage?.createdAt || 0) - (a.lastMessage?.createdAt || 0));
   }
 
   async toggleDirectReaction(userId, messageId, emoji) {
-    const found = await this.supabase
-      .from('direct_messages')
-      .select('*')
-      .eq('id', messageId)
-      .maybeSingle();
-    if (found.error) throw dbError(found.error);
-    const row = found.data;
-    if (!row) throw new Error('MESSAGE_NOT_FOUND');
-    if (row.from_user_id !== userId && row.to_user_id !== userId) throw new Error('MESSAGE_NOT_FOUND');
-
-    const reactions = normalizeReactions(row.reactions);
-    const ids = new Set(reactions[emoji] || []);
-    if (ids.has(userId)) ids.delete(userId);
-    else ids.add(userId);
-    if (ids.size) reactions[emoji] = [...ids];
-    else delete reactions[emoji];
-
-    const updated = await this.supabase
-      .from('direct_messages')
-      .update({ reactions })
-      .eq('id', messageId);
-    if (updated.error) throw dbError(updated.error);
-
-    return {
-      messageId,
-      fromUserId: row.from_user_id,
-      toUserId: row.to_user_id,
-      reactions,
-    };
+    const { data, error } = await this.supabase.rpc('codumi_toggle_direct_reaction', {
+      p_user_id: userId, p_message_id: messageId, p_emoji: emoji,
+    });
+    if (error) throw dbError(error);
+    return { messageId, fromUserId: data.fromUserId, toUserId: data.toUserId,
+      reactions: normalizeReactions(data.reactions) };
   }
 
   async cleanupDirectMessages(olderThanTimestamp) {

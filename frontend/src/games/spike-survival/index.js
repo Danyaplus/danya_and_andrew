@@ -1,4 +1,5 @@
-import SpikeSurvivalGame from './SpikeSurvivalGame.jsx';
+import { lazy } from 'react';
+const SpikeSurvivalGame = lazy(() => import('./SpikeSurvivalGame.jsx'));
 
 export default {
   id: 'spike-survival',

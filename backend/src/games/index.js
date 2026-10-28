@@ -7,6 +7,7 @@ const gamesDirectory = path.dirname(fileURLToPath(import.meta.url));
 async function discoverGames() {
   const entries = await readdir(gamesDirectory, { withFileTypes: true });
   const registry = new Map();
+  const failures = [];
 
   for (const entry of entries) {
     if (!entry.isDirectory()) continue;
@@ -18,7 +19,7 @@ async function discoverGames() {
       const game = module.default;
 
       if (!game?.id || !game?.title || typeof game.createRoom !== 'function') {
-        console.warn(`[games] Пропущен ${entry.name}: неверный контракт модуля.`);
+        failures.push(`${entry.name}: неверный контракт модуля`);
         continue;
       }
 
@@ -28,11 +29,15 @@ async function discoverGames() {
 
       registry.set(game.id, game);
     } catch (error) {
-      if (error?.code === 'ERR_MODULE_NOT_FOUND') continue;
-      console.error(`[games] Не удалось загрузить ${entry.name}:`, error);
+      failures.push(`${entry.name}: ${error?.message || error}`);
     }
   }
 
+  if (failures.length) {
+    throw new Error(`[games] Ошибки реестра игр:\n${failures.join('\n')}`);
+  }
+  if (!registry.size) throw new Error('[games] Не найдено ни одной игры');
+  console.log(`[games] Registered ${registry.size} games`);
   return registry;
 }
 

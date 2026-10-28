@@ -1,3 +1,4 @@
+import { getPlayerName } from '../../lib/playerName.js';
 import { memo, useEffect, useRef, useState } from 'react';
 import { useMultiplayerGame } from '../../lib/useMultiplayerGame.js';
 import './spike-survival.css';
@@ -6,13 +7,7 @@ const WORLD_W = 1000;
 const WORLD_H = 620;
 const TAU = Math.PI * 2;
 
-function getPlayerName() {
-  const saved = localStorage.getItem('danya-andrew-player-name');
-  if (saved) return saved;
-  const generated = `Игрок ${Math.floor(1000 + Math.random() * 9000)}`;
-  localStorage.setItem('danya-andrew-player-name', generated);
-  return generated;
-}
+
 
 function clamp(value, min, max) { return Math.max(min, Math.min(max, value)); }
 function normalizeAngle(angle) {

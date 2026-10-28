@@ -1,4 +1,5 @@
-import FlyingCatsGame from './FlyingCatsGame.jsx';
+import { lazy } from 'react';
+const FlyingCatsGame = lazy(() => import('./FlyingCatsGame.jsx'));
 
 export default {
   id: 'flying-cats',

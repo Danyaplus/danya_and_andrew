@@ -1,4 +1,5 @@
-import GomokuGame from './GomokuGame.jsx';
+import { lazy } from 'react';
+const GomokuGame = lazy(() => import('./GomokuGame.jsx'));
 
 export default {
   id: 'gomoku',

@@ -1,4 +1,5 @@
-import TowerStackDuelGame from './TowerStackDuelGame.jsx';
+import { lazy } from 'react';
+const TowerStackDuelGame = lazy(() => import('./TowerStackDuelGame.jsx'));
 
 export default {
   id: 'tower-stack-duel',

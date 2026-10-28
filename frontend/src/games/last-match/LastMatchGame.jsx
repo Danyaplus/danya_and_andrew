@@ -1,3 +1,4 @@
+import { getPlayerName } from '../../lib/playerName.js';
 import { useEffect, useState } from 'react';
 import { useMultiplayerGame } from '../../lib/useMultiplayerGame.js';
 import { useTranslation } from '../../lib/i18n.jsx';
@@ -6,13 +7,7 @@ import './last-match.css';
 const GAME_ID = 'last-match';
 const TOTAL_MATCHES = 20;
 
-function getPlayerName() {
-  const stored = localStorage.getItem('danya-andrew-player-name');
-  if (stored) return stored;
-  const name = `Игрок ${Math.floor(1000 + Math.random() * 9000)}`;
-  localStorage.setItem('danya-andrew-player-name', name);
-  return name;
-}
+
 
 function MatchPile({ remaining = TOTAL_MATCHES, preview = 0, decorative = false }) {
   const { language } = useTranslation();

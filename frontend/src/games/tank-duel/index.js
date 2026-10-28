@@ -1,4 +1,5 @@
-import TankDuelGame from './TankDuelGame.jsx';
+import { lazy } from 'react';
+const TankDuelGame = lazy(() => import('./TankDuelGame.jsx'));
 
 export default {
   id: 'tank-duel',

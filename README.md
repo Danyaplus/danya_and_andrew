@@ -1,252 +1,73 @@
-# Danya & Andrew
+# Kodumi Games
 
-Онлайн-платформа с играми на двоих. Общий интерфейс платформы не зависит от конкретной игры: шапка, поиск, каталог, маршрутизация, Socket.IO-клиент и matchmaking являются общими, а сами игры подключаются отдельными модулями.
+Игровая платформа на React/Vite + Node.js/Express + Socket.IO + Supabase.
+В архиве — **полный исходный проект**, включая все 50 игр, графику,
+настройки развертывания и SQL. Сборка `dist/` и зависимости `node_modules/`
+не включены: они создаются при установке.
 
-## Структура проекта
+## Быстрый запуск
 
-```text
-danya-andrew/
-├─ frontend/
-│  ├─ .env.example
-│  ├─ index.html
-│  └─ src/
-│     ├─ components/
-│     │  ├─ Header.jsx          # шапка Danya & Andrew + поиск
-│     │  └─ GameCard.jsx        # универсальная карточка игры
-│     ├─ pages/
-│     │  ├─ HomePage.jsx        # каталог игр
-│     │  └─ GamePage.jsx        # универсальная страница запуска игры
-│     ├─ lib/
-│     │  ├─ socket.js           # единое Socket.IO-соединение
-│     │  └─ useMultiplayerGame.js # общий клиентский контракт игры
-│     ├─ games/
-│     │  ├─ index.js            # автоматически находит игры
-│     │  └─ chess/              # первая игра
-│     │     ├─ index.js
-│     │     ├─ ChessGame.jsx
-│     │     └─ chess.css
-│     ├─ styles/global.css
-│     ├─ App.jsx
-│     └─ main.jsx
-│
-├─ backend/
-│  ├─ .env.example
-│  └─ src/
-│     ├─ core/
-│     │  └─ matchmaker.js       # общая очередь и комнаты
-│     ├─ games/
-│     │  ├─ index.js            # автоматически находит серверные игры
-│     │  └─ chess/
-│     │     ├─ index.js
-│     │     └─ createChessRoom.js
-│     └─ server.js
-│
-└─ package.json
-```
-
-Главный принцип: если удалить обе папки `games/chess`, ядро платформы остаётся рабочим — просто каталог будет пустым. Общие компоненты не содержат шахматной логики.
-
-## Запуск
-
-Нужен Node.js 20+.
+Требуется Node.js 22+ и Supabase. Ключ Supabase — **только на бэкенде**.
 
 ```bash
 npm install
+cp backend/env.example backend/.env
+cp frontend/env.example frontend/.env
+# Настройте SUPABASE_URL / SUPABASE_SECRET_KEY и VITE_SERVER_URL при необходимости
 npm run dev
 ```
 
-После запуска:
+- Фронтенд: http://localhost:5173
+- Бэкенд: http://localhost:3001
+- Health: http://localhost:3001/api/health
+- Статические проверки: `npm test`
+- Production-сборка: `npm run build`
+- Production-сервер: `npm start`
 
-- frontend: `http://localhost:5173`
-- backend: `http://localhost:3001`
-- health-check: `http://localhost:3001/api/health`
+## База данных
 
-Для локальной проверки matchmaking открой сайт в двух браузерах или в обычном и приватном окне. В обоих открой шахматы и нажми «Найти соперника».
+**Обязательно** до установки бэкенда версии 2026-10-28 запустите в SQL Editor:
 
-## Production
+1. `supabase/chat-upgrade.sql` (если раньше не применялся — содержит существующие улучшения чата).
+2. `supabase/profile-showcase-titles.sql` (если раньше не применялся — витрина и титулы).
+3. `supabase/2026-10-28-safe-refactor.sql` (**новая миграция** — язык, индексы, атомарные реакции, быстрое получение диалогов).
 
-```bash
-npm install
-npm run build
-npm start
-```
+Перед миграцией сохраните резервную копию базы. SQL не удаляет данные игроков.
+Не используйте `SQL` на другой / тестовой базе без проверки соответствия схемы.
 
-После сборки backend умеет отдавать `frontend/dist`, поэтому production можно запускать одним Node-процессом.
+## Структура
 
-## Что реализовано
+- `frontend/src/games/*/index.js` — метаданные и ленивый импорт компонента игры.
+- `frontend/src/pages/GamePage.jsx` — общее размещение игры и управление матчем.
+- `frontend/src/lib/playerName.js` — имя гостя для всех игр.
+- `frontend/src/lib/socket.js` — API и Socket.IO с настройкой URL.
+- `shared/cosmetics.json` — единый каталог косметики для фронтенда и сервера.
+- `shared/paidTitles.json` — единые идентификаторы и цены титулов в коде.
+- `backend/src/core` — бизнес-логика, Supabase, сессии и матчи.
+- `backend/src/games` — серверные правила каждой игры.
+- `backend/src/routes` — отделяемые API-маршруты.
+- `supabase` — SQL-скрипты, которые нужно запускать вручную.
+- `tests` — автоматические проверки без внешних зависимостей.
 
-- название платформы **Danya & Andrew**;
-- адаптивная шапка;
-- поиск игр по названию;
-- выпадающие результаты поиска;
-- каталог карточек игр;
-- отдельная папка `frontend/src/games` для игровых модулей;
-- автоматическое обнаружение frontend-игр через Vite `import.meta.glob`;
-- отдельная папка `backend/src/games` для серверной логики игр;
-- автоматическое обнаружение backend-игр;
-- единый Socket.IO-клиент;
-- универсальный React-hook `useMultiplayerGame(gameId)`;
-- общая очередь matchmaking;
-- автоматическое создание комнаты для двух игроков;
-- корректный выход из очереди при уходе со страницы;
-- корректное завершение матча, если игрок покинул игру;
-- первая игра — полноценные шахматы;
-- случайное распределение белых и чёрных;
-- таймер 10+0 каждому игроку;
-- серверная проверка всех ходов через `chess.js`;
-- рокировка;
-- взятие на проходе;
-- превращение пешки с выбором фигуры;
-- шах, мат и пат;
-- троекратное повторение;
-- правило 50 ходов, если оно поддерживается используемой версией `chess.js`;
-- ничья при недостаточном материале;
-- сдача;
-- поражение по времени;
-- завершение партии при отключении соперника;
-- кнопка поиска нового соперника после завершения партии.
+## Развертывание
 
-## Как добавить следующую игру
+В `VITE_SERVER_URL` должен стоять публичный адрес работающего бэкенда **без** `/api` в конце.
+Для сборки в GitHub Pages добавьте переменную репозитория `VITE_SERVER_URL`.
+Если переменная отсутствует, для совместимости останется старый адрес Render.
 
-### 1. Frontend
+`VITE_BASE_PATH` на GitHub Pages по умолчанию оставлен `/danya_and_andrew/`, чтобы не
+ломать действующую ссылку. Если проект переехал в корень отдельного домена,
+передайте `VITE_BASE_PATH=/` в сборку.
 
-Создай папку:
+Старые ключи авторизации и имени игрока в localStorage намеренно сохранены:
+переименование этих ключей без миграции автоматически разлогинит игроков.
 
-```text
-frontend/src/games/checkers/
-```
+## Безопасность и ограничения
 
-Минимально нужны:
+База хранит аккаунты и прогресс, но активные комнаты матчей и очередь пока
+живут в оперативной памяти **одного** сервера. Нельзя запускать несколько независимых
+Node-инстансов за балансировщиком без распределения по сессиям или общего состояния.
 
-```text
-index.js
-CheckersGame.jsx
-checkers.css
-```
+Файлы проекта не содержат секретов. Никогда не добавляйте `.env` в публичный репозиторий.
 
-`index.js`:
-
-```js
-import CheckersGame from './CheckersGame.jsx';
-
-export default {
-  id: 'checkers',
-  order: 2,
-  title: 'Шашки',
-  description: 'Классические шашки на двоих.',
-  icon: '🔴',
-  badge: '2 игрока',
-  component: CheckersGame,
-};
-```
-
-Ничего вручную добавлять в общий каталог не нужно — `frontend/src/games/index.js` сам увидит новую папку.
-
-В компоненте игры используй общий hook:
-
-```js
-const {
-  waiting,
-  state,
-  error,
-  findMatch,
-  cancelSearch,
-  sendAction,
-} = useMultiplayerGame('checkers');
-```
-
-Таким образом новая игра автоматически получает общую очередь, комнату и Socket.IO-канал.
-
-### 2. Backend
-
-Создай:
-
-```text
-backend/src/games/checkers/index.js
-backend/src/games/checkers/createCheckersRoom.js
-```
-
-`index.js`:
-
-```js
-import { createCheckersRoom } from './createCheckersRoom.js';
-
-export default {
-  id: 'checkers',
-  title: 'Шашки',
-  createRoom: createCheckersRoom,
-};
-```
-
-Игровая комната должна вернуть общий контракт:
-
-```js
-{
-  playerSocketIds,
-  emitState(),
-  handleAction(socketId, action),
-  handleDisconnect(socketId),
-  destroy(),
-}
-```
-
-После этого backend сам обнаружит игру. `matchmaker.js` менять не нужно.
-
-## Socket.IO-события ядра
-
-Frontend → backend:
-
-```text
-queue:join
-queue:leave
-game:action
-match:leave
-```
-
-Backend → frontend:
-
-```text
-queue:waiting
-queue:left
-match:started
-game:state
-game:error
-```
-
-Сами игры передают свои команды внутри `game:action`, например шахматы отправляют:
-
-```js
-{
-  type: 'move',
-  payload: {
-    from: 'e2',
-    to: 'e4',
-    promotion: 'q',
-  },
-}
-```
-
-## Переменные окружения
-
-### Frontend
-
-В development по умолчанию используется `http://localhost:3001`. Если backend находится на другом адресе:
-
-```text
-VITE_SERVER_URL=https://api.example.com
-```
-
-### Backend
-
-```text
-PORT=3001
-CLIENT_ORIGIN=http://localhost:5173
-```
-
-## Основные команды
-
-```bash
-npm run dev      # frontend + backend одновременно
-npm run build    # production-сборка frontend
-npm start        # запуск backend / production-сервера
-```
+Дополнительные ограничения проверки и этапы развертывания: `ОБНОВЛЕНИЕ_2026-10-28.md`.

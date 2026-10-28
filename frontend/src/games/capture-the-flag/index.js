@@ -1,4 +1,5 @@
-import CaptureTheFlagGame from './CaptureTheFlagGame.jsx';
+import { lazy } from 'react';
+const CaptureTheFlagGame = lazy(() => import('./CaptureTheFlagGame.jsx'));
 
 export default {
   id: 'capture-the-flag',

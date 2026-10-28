@@ -1,4 +1,5 @@
-import TurtleRaceGame from './TurtleRaceGame.jsx';
+import { lazy } from 'react';
+const TurtleRaceGame = lazy(() => import('./TurtleRaceGame.jsx'));
 
 export default {
   id: 'turtle-race',

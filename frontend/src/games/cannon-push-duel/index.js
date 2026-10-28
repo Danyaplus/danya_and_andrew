@@ -1,4 +1,5 @@
-import CannonPushDuelGame from './CannonPushDuelGame.jsx';
+import { lazy } from 'react';
+const CannonPushDuelGame = lazy(() => import('./CannonPushDuelGame.jsx'));
 
 export default {
   id: 'cannon-push-duel',

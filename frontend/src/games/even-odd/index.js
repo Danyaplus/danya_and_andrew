@@ -1,4 +1,5 @@
-import EvenOddGame from './EvenOddGame.jsx';
+import { lazy } from 'react';
+const EvenOddGame = lazy(() => import('./EvenOddGame.jsx'));
 
 export default {
   id: 'even-odd',

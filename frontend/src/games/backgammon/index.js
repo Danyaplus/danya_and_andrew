@@ -1,4 +1,5 @@
-import BackgammonGame from './BackgammonGame.jsx';
+import { lazy } from 'react';
+const BackgammonGame = lazy(() => import('./BackgammonGame.jsx'));
 
 export default {
   id: 'backgammon',

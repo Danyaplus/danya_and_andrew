@@ -1,4 +1,5 @@
-import RicochetDuelGame from './RicochetDuelGame.jsx';
+import { lazy } from 'react';
+const RicochetDuelGame = lazy(() => import('./RicochetDuelGame.jsx'));
 
 export default {
   id: 'ricochet-duel',

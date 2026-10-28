@@ -1,4 +1,5 @@
-import AirHockeyGame from './AirHockeyGame.jsx';
+import { lazy } from 'react';
+const AirHockeyGame = lazy(() => import('./AirHockeyGame.jsx'));
 
 export default {
   id: 'air-hockey',

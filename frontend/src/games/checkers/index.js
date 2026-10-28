@@ -1,4 +1,5 @@
-import CheckersGame from './CheckersGame.jsx';
+import { lazy } from 'react';
+const CheckersGame = lazy(() => import('./CheckersGame.jsx'));
 
 export default {
   id: 'checkers',

@@ -1,4 +1,5 @@
-import CrocodileTeethGame from './CrocodileTeethGame.jsx';
+import { lazy } from 'react';
+const CrocodileTeethGame = lazy(() => import('./CrocodileTeethGame.jsx'));
 
 export default {
   id: 'crocodile-teeth',

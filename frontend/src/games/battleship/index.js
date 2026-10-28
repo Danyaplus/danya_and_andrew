@@ -1,4 +1,5 @@
-import BattleshipGame from './BattleshipGame.jsx';
+import { lazy } from 'react';
+const BattleshipGame = lazy(() => import('./BattleshipGame.jsx'));
 
 export default {
   id: 'battleship',

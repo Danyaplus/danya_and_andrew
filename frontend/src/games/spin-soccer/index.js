@@ -1,4 +1,5 @@
-import SpinSoccerGame from './SpinSoccerGame.jsx';
+import { lazy } from 'react';
+const SpinSoccerGame = lazy(() => import('./SpinSoccerGame.jsx'));
 
 export default {
   id: 'spin-soccer',

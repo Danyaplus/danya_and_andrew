@@ -1,3 +1,4 @@
+import { getPlayerName } from '../../lib/playerName.js';
 import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useMultiplayerGame } from '../../lib/useMultiplayerGame.js';
@@ -6,13 +7,7 @@ import './whack-a-mole.css';
 const GAME_ID = 'whack-a-mole';
 const HOLES = Array.from({ length: 9 }, (_, index) => index);
 
-function getPlayerName() {
-  const name = localStorage.getItem('danya-andrew-player-name');
-  if (name) return name;
-  const generated = `Игрок ${Math.floor(Math.random() * 9000 + 1000)}`;
-  localStorage.setItem('danya-andrew-player-name', generated);
-  return generated;
-}
+
 
 function Mole({ kind = 'mole' }) {
   if (kind === 'trap') {

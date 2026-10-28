@@ -1,4 +1,5 @@
-import LastShellGame from './LastShellGame.jsx';
+import { lazy } from 'react';
+const LastShellGame = lazy(() => import('./LastShellGame.jsx'));
 
 export default {
   id: 'last-shell',

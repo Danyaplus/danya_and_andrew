@@ -1,3 +1,4 @@
+import { getPlayerName } from '../../lib/playerName.js';
 import { useEffect, useRef, useState } from 'react';
 import { useMultiplayerGame } from '../../lib/useMultiplayerGame.js';
 import './math-duel.css';
@@ -5,13 +6,7 @@ import './math-duel.css';
 const BUTTON_KEYS = ['1', '2', '3', '4'];
 const DECORATIVE_SIGNS = ['+', '×', '−', '÷'];
 
-function getPlayerName() {
-  const saved = localStorage.getItem('danya-andrew-player-name');
-  if (saved) return saved;
-  const generated = `Игрок ${Math.floor(1000 + Math.random() * 9000)}`;
-  localStorage.setItem('danya-andrew-player-name', generated);
-  return generated;
-}
+
 
 function playTone(type) {
   try {

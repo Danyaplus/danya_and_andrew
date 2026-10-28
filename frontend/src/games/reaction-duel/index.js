@@ -1,4 +1,5 @@
-import ReactionDuelGame from './ReactionDuelGame.jsx';
+import { lazy } from 'react';
+const ReactionDuelGame = lazy(() => import('./ReactionDuelGame.jsx'));
 
 export default {
   id: 'reaction-duel',

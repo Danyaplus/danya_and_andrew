@@ -1,4 +1,5 @@
-import DriftRaceGame from './DriftRaceGame.jsx';
+import { lazy } from 'react';
+const DriftRaceGame = lazy(() => import('./DriftRaceGame.jsx'));
 
 export default {
   id: 'drift-race',

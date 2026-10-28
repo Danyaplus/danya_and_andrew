@@ -1,4 +1,5 @@
-import RockPaperScissorsGame from './RockPaperScissorsGame.jsx';
+import { lazy } from 'react';
+const RockPaperScissorsGame = lazy(() => import('./RockPaperScissorsGame.jsx'));
 
 export default {
   id: 'rock-paper-scissors',

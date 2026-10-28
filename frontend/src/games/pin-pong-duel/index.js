@@ -1,4 +1,5 @@
-import PinPongDuelGame from './PinPongDuelGame.jsx';
+import { lazy } from 'react';
+const PinPongDuelGame = lazy(() => import('./PinPongDuelGame.jsx'));
 
 export default {
   id: 'pin-pong-duel',

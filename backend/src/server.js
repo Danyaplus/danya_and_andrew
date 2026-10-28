@@ -7,6 +7,7 @@ import express from 'express';
 import cors from 'cors';
 import { Server } from 'socket.io';
 import { AuthStore } from './core/authStore.js';
+import { registerProfileLanguageRoute } from './routes/profileLanguage.js';
 import { Matchmaker } from './core/matchmaker.js';
 import { getAchievementProfile, recordCompletedMatch, achievementCatalog, badgeRewardAmount } from './core/achievements.js';
 import { readProfileShowcase, saveProfileShowcase, purchaseProfileTitle } from './core/profileShowcase.js';
@@ -212,6 +213,7 @@ function authErrorResponse(res, error) {
     EMAIL_INVALID: 400,
     EMAIL_TAKEN: 409,
     DISPLAY_NAME_INVALID: 400,
+    LANGUAGE_INVALID: 400,
     USER_NOT_FOUND: 404,
     FRIEND_INVALID: 400,
     FRIEND_REQUEST_NOT_FOUND: 404,
@@ -707,7 +709,10 @@ app.post('/api/auth/logout', async (req, res) => {
   res.json({ ok: true });
 });
 
-app.patch('/api/profile/avatar', async (req, res) => {
+registerProfileLanguageRoute(app, { authStore, requireUser, emitToUser, authErrorResponse,
+  limit: httpRateLimit({ prefix: 'language', limit: 15, windowMs: 60_000 }) });
+
+app.patch('/api/profile/avatar', httpRateLimit({ prefix: 'profile-avatar', limit: 12, windowMs: 60_000 }), async (req, res) => {
   const user = requireUser(req, res);
   if (!user) return;
   try {
@@ -724,7 +729,7 @@ app.patch('/api/profile/avatar', async (req, res) => {
   }
 });
 
-app.patch('/api/profile/email', async (req, res) => {
+app.patch('/api/profile/email', httpRateLimit({ prefix: 'profile-email', limit: 12, windowMs: 60_000 }), async (req, res) => {
   const user = requireUser(req, res);
   if (!user) return;
   try {
@@ -736,7 +741,7 @@ app.patch('/api/profile/email', async (req, res) => {
   }
 });
 
-app.patch('/api/profile/display-name', async (req, res) => {
+app.patch('/api/profile/display-name', httpRateLimit({ prefix: 'profile-display-name', limit: 12, windowMs: 60_000 }), async (req, res) => {
   const user = requireUser(req, res);
   if (!user) return;
   try {
@@ -757,7 +762,7 @@ app.patch('/api/profile/login', (req, res) => {
   res.status(403).json({ ok: false, error: 'LOGIN_IMMUTABLE' });
 });
 
-app.patch('/api/profile/password', async (req, res) => {
+app.patch('/api/profile/password', httpRateLimit({ prefix: 'profile-password', limit: 12, windowMs: 60_000 }), async (req, res) => {
   const user = requireUser(req, res);
   if (!user) return;
   try {

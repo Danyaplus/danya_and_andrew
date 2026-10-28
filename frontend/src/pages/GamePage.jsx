@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { Suspense, useEffect, useMemo, useRef, useState } from 'react';
 import { matchModeKey } from '../lib/useMultiplayerGame.js';
 import { socket } from '../lib/socket.js';
 import { clearMatchSession, readMatchSession, requestMatchResume, restartMatchConnection } from '../lib/matchRecovery.js';
@@ -439,7 +439,9 @@ export default function GamePage({ game, onBack, party, currentUser }) {
             </div>
           </div>
         )}
-        <GameComponent onBack={leaveGame} adminMode={canOpenChessAdmin && chessAdmin} />
+        <Suspense fallback={<div className="game-loading" role="status">Загружаем игру…</div>}>
+          <GameComponent onBack={leaveGame} adminMode={canOpenChessAdmin && chessAdmin} />
+        </Suspense>
       </div>
     </main>
   );

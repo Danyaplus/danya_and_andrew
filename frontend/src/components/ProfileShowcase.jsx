@@ -62,13 +62,20 @@ export function useProfileShowcase(token, active) {
 
   useEffect(() => {
     if (!active || !token) return undefined;
-    socket.on('progress:updated', reload);
-    socket.on('friends:changed', reload);
-    socket.on('showcase:updated', reload);
+    // Coalesce socket bursts (claim + wallet + friend events) into one API read.
+    let timer;
+    const refreshSoon = () => {
+      clearTimeout(timer);
+      timer = setTimeout(reload, 150);
+    };
+    socket.on('progress:updated', refreshSoon);
+    socket.on('friends:changed', refreshSoon);
+    socket.on('showcase:updated', refreshSoon);
     return () => {
-      socket.off('progress:updated', reload);
-      socket.off('friends:changed', reload);
-      socket.off('showcase:updated', reload);
+      clearTimeout(timer);
+      socket.off('progress:updated', refreshSoon);
+      socket.off('friends:changed', refreshSoon);
+      socket.off('showcase:updated', refreshSoon);
     };
   }, [active, token, reload]);
 
@@ -105,14 +112,22 @@ export function ShowcaseEditor({ token, data, setData, loading, loadFailed, lang
   const [saving, setSaving] = useState(false);
   const [notice, setNotice] = useState('');
   const medalListRef = useRef(null);
+  const draftDirtyRef = useRef(false);
 
+  // Socket refreshes must not replace unsaved selections. Rebase the editor
+  // only after opening the profile, a successful save, or switching accounts.
   useEffect(() => {
-    setTitleId(data?.titleId || 'none');
-    setBadgeIds(data?.badgeIds || []);
-    setTitleColors(data?.titleColors || {});
+    if (!data) return;
+    if (!draftDirtyRef.current) {
+      setTitleId(data.titleId || 'none');
+      setBadgeIds(data.badgeIds || []);
+      setTitleColors(data.titleColors || {});
+    }
   }, [data]);
+  useEffect(() => { draftDirtyRef.current = false; }, [token]);
 
   const toggleBadge = (id) => {
+    draftDirtyRef.current = true;
     setNotice('');
     setBadgeIds((prev) => prev.includes(id)
       ? prev.filter((item) => item !== id)
@@ -125,6 +140,10 @@ export function ShowcaseEditor({ token, data, setData, loading, loadFailed, lang
     setNotice('');
     try {
       const next = await apiRequest('/api/profile/showcase', { token, method: 'PATCH', body: { titleId, badgeIds, titleColors } });
+      draftDirtyRef.current = false;
+      setTitleId(next.titleId || 'none');
+      setBadgeIds(next.badgeIds || []);
+      setTitleColors(next.titleColors || {});
       setData(next);
       setNotice(labels.saved);
     } catch { setNotice(labels.error); }
@@ -149,7 +168,7 @@ export function ShowcaseEditor({ token, data, setData, loading, loadFailed, lang
     return <button key={title.id} type="button" disabled={!title.unlocked}
       style={{'--title-accent': titleColors[title.id] || '#DDBB6B'}}
       className={`kd-showcase-title-card ${selected ? 'is-selected' : ''} ${!title.unlocked ? 'is-locked' : ''}`}
-      onClick={() => { setTitleId(title.id); setNotice(''); }} aria-pressed={selected}>
+      onClick={() => { draftDirtyRef.current = true; setTitleId(title.id); setNotice(''); }} aria-pressed={selected}>
       <span className="kd-showcase-title-card__icon">{paidTitleEmoji[title.id] || (title.id === 'none' ? '—' : '✦')}</span>
       <span className="kd-showcase-title-card__body"><strong>{name}</strong><small>{description}</small>
         {title.price > 0 && title.owned && <em>{labels.bought}</em>}</span>
@@ -193,8 +212,8 @@ export function ShowcaseEditor({ token, data, setData, loading, loadFailed, lang
       {titleId !== 'none' && unlockedTitles.some((title) => title.id === titleId) && <div className="kd-showcase-color-panel">
         <label htmlFor="kd-showcase-title-color">🎨 {labels.color}</label>
         <div className="kd-showcase-color-controls"><input id="kd-showcase-title-color" type="color" value={titleColors[titleId] || '#DDBB6B'}
-          onChange={(e) => {setTitleColors((prev) => ({...prev,[titleId]:e.target.value.toUpperCase()}));setNotice('');}} />
-          {['#F0C75A','#4BE2AD','#75B9FF','#F586DF','#FFFFFF'].map((hex) => <button key={hex} type="button" className="kd-showcase-color-dot" style={{'--swatch':hex}} title={hex} aria-label={hex} onClick={() => {setTitleColors((prev) => ({...prev,[titleId]:hex}));setNotice('');}} />)}
+          onChange={(e) => {draftDirtyRef.current = true;setTitleColors((prev) => ({...prev,[titleId]:e.target.value.toUpperCase()}));setNotice('');}} />
+          {['#F0C75A','#4BE2AD','#75B9FF','#F586DF','#FFFFFF'].map((hex) => <button key={hex} type="button" className="kd-showcase-color-dot" style={{'--swatch':hex}} title={hex} aria-label={hex} onClick={() => {draftDirtyRef.current = true;setTitleColors((prev) => ({...prev,[titleId]:hex}));setNotice('');}} />)}
           <span className="kd-showcase-color-hex">{titleColors[titleId] || '#DDBB6B'}</span></div>
       </div>}
       {inactiveTitles.length > 0 && <div className="kd-showcase-locked-titles"><strong>{labels.locked}</strong>

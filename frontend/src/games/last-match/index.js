@@ -1,4 +1,5 @@
-import LastMatchGame from './LastMatchGame.jsx';
+import { lazy } from 'react';
+const LastMatchGame = lazy(() => import('./LastMatchGame.jsx'));
 
 export default {
   id: 'last-match',

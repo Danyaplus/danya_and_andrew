@@ -1,4 +1,5 @@
-import TicTacToeGame from './TicTacToeGame.jsx';
+import { lazy } from 'react';
+const TicTacToeGame = lazy(() => import('./TicTacToeGame.jsx'));
 
 export default {
   id: 'tic-tac-toe',

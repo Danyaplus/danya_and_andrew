@@ -1,4 +1,5 @@
-import PoolGame from './PoolGame.jsx';
+import { lazy } from 'react';
+const PoolGame = lazy(() => import('./PoolGame.jsx'));
 
 export default {
   id: 'pool',

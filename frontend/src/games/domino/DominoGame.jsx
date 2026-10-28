@@ -1,3 +1,4 @@
+import { getPlayerName } from '../../lib/playerName.js';
 import { useMemo, useState } from 'react';
 import { useMultiplayerGame } from '../../lib/useMultiplayerGame.js';
 import './domino.css';
@@ -13,13 +14,7 @@ const PIPS = {
   6: [0, 2, 3, 5, 6, 8],
 };
 
-function getPlayerName() {
-  const saved = localStorage.getItem('danya-andrew-player-name');
-  if (saved) return saved;
-  const name = `Игрок ${Math.floor(1000 + Math.random() * 9000)}`;
-  localStorage.setItem('danya-andrew-player-name', name);
-  return name;
-}
+
 
 function Half({ value }) {
   return (

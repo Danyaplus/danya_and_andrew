@@ -1,4 +1,5 @@
 import { getAchievementProfile } from './achievements.js';
+import paidTitles from '../../../shared/paidTitles.json' with { type: 'json' };
 
 // Cosmetic titles only; the achievement metrics and badge claim flags are verified in Supabase.
 export const PROFILE_TITLES = [
@@ -11,10 +12,7 @@ export const PROFILE_TITLES = [
   { id: 'explorer', badgeId: 'three-games', condition: 'games-3', price: 0 },
   { id: 'collector', badgeId: 'seven-games', condition: 'games-7', price: 0 },
   { id: 'friend-of-all', badgeId: 'ten-friends', condition: 'friends-10', price: 0 },
-  { id: 'royal-strategist', badgeId: null, condition: 'shop', price: 180 },
-  { id: 'neon-champion', badgeId: null, condition: 'shop', price: 320 },
-  { id: 'night-owl', badgeId: null, condition: 'shop', price: 480 },
-  { id: 'golden-player', badgeId: null, condition: 'shop', price: 700 },
+  ...paidTitles.map(({ id, price }) => ({ id, badgeId: null, condition: 'shop', price })),
 ];
 
 function validationError(message) {

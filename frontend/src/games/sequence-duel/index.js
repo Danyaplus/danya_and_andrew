@@ -1,4 +1,5 @@
-import SequenceDuelGame from './SequenceDuelGame.jsx';
+import { lazy } from 'react';
+const SequenceDuelGame = lazy(() => import('./SequenceDuelGame.jsx'));
 
 export default {
   id: 'sequence-duel',

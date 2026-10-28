@@ -1,4 +1,5 @@
-import TimeTargetDuelGame from './TimeTargetDuelGame.jsx';
+import { lazy } from 'react';
+const TimeTargetDuelGame = lazy(() => import('./TimeTargetDuelGame.jsx'));
 
 export default {
   id: 'time-target-duel',

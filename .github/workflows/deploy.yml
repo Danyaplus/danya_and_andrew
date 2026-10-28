@@ -1,4 +1,4 @@
-name: Deploy Danya & Andrew
+name: Deploy Kodumi Games
 
 on:
   push:
@@ -33,6 +33,8 @@ jobs:
 
       - name: Build frontend
         working-directory: frontend
+        env:
+          VITE_SERVER_URL: ${{ vars.VITE_SERVER_URL }}
         run: npm run build
 
       - name: Setup Pages

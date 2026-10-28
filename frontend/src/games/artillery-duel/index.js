@@ -1,4 +1,5 @@
-import TankArtilleryGame from './TankArtilleryGame.jsx';
+import { lazy } from 'react';
+const TankArtilleryGame = lazy(() => import('./TankArtilleryGame.jsx'));
 
 export default {
   id: 'tank-artillery',

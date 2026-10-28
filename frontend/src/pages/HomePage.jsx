@@ -107,7 +107,7 @@ export default function HomePage({ search, onOpenGame }) {
           <>
             <div className="games-grid">
               {shownGames.map((game, index) => (
-                <GameCard key={game.id} game={game} eager={index < PAGE_SIZE} priority={index < 4} onOpen={onOpenGame} />
+                <GameCard key={game.id} game={game} eager={index < 4} priority={index < 2} onOpen={onOpenGame} />
               ))}
             </div>
             {hasMore && (

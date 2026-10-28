@@ -1,4 +1,5 @@
-import CoinFlipGame from './CoinFlipGame.jsx';
+import { lazy } from 'react';
+const CoinFlipGame = lazy(() => import('./CoinFlipGame.jsx'));
 
 export default {
   id: 'coin-flip',

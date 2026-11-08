@@ -1,0 +1,120 @@
+/* The overlay is independent of the game board, so it survives phone rotation and resize. */
+body.game-focus-mode,
+html:has(body.game-focus-mode),
+.game-page { overscroll-behavior-y: none; }
+.game-page.is-game-focus { touch-action: pan-x pan-y; }
+.kodumi-reconnect-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100000;
+  display: grid;
+  place-items: center;
+  padding: max(20px, env(safe-area-inset-top)) max(14px, env(safe-area-inset-right)) max(20px, env(safe-area-inset-bottom)) max(14px, env(safe-area-inset-left));
+  background: rgba(7,14,34,.76);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  overflow-y: auto;
+}
+.kodumi-reconnect-card {
+  width: min(440px,100%);
+  padding: clamp(21px,5vw,34px);
+  border: 1px solid rgba(124,175,253,.36);
+  border-radius: 24px;
+  background: linear-gradient(155deg,#172b4d,#0d192d 80%);
+  box-shadow: 0 25px 90px rgba(0,5,21,.5);
+  color: #f3f7ff;
+  text-align: center;
+}
+.kodumi-reconnect-icon { font-size: 39px; margin-bottom: 13px; }
+.kodumi-reconnect-card h2 { font-size: clamp(20px,5vw,27px); line-height: 1.2; margin: 0 0 13px; }
+.kodumi-reconnect-card p { margin: 0; font-size: 14px; line-height: 1.6; color: #bbcce9; }
+.kodumi-reconnect-actions { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+.kodumi-reconnect-actions button { min-height: 44px; padding: 11px 17px; border-radius: 12px; font-weight: 850; font-size: 13px; cursor: pointer; }
+.kodumi-reconnect-primary { background: linear-gradient(105deg,#118aff,#5260ff); color: #fff; border: 1px solid #64b9ff; }
+.kodumi-reconnect-exit { color: #e7eeff; background: #243956; border: 1px solid #476083; }
+.kodumi-reconnect-actions button:focus-visible { outline: 3px solid #72ceff; outline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) { .kodumi-reconnect-overlay { transition: none; } }
+html[data-codumi-theme="light"] .kodumi-reconnect-overlay { background: rgba(29,48,86,.62); }
+html[data-codumi-theme="light"] .kodumi-reconnect-card {
+  background: linear-gradient(145deg,#fff,#eef4ff 85%);
+  color: #173359;
+  border-color: #bad3f4;
+  box-shadow: 0 20px 65px rgba(20,48,98,.2);
+}
+html[data-codumi-theme="light"] .kodumi-reconnect-card p { color: #456180; }
+html[data-codumi-theme="light"] .kodumi-reconnect-exit { background: #e2edff; color: #1a4e9d; border-color: #bad3f4; }
+
+/* Database-confirmed match rewards. Shared by all games, not game-specific UI. */
+.kodumi-match-reward {
+  position: fixed;
+  z-index: 95000;
+  right: max(12px, env(safe-area-inset-right));
+  bottom: max(20px, env(safe-area-inset-bottom));
+  width: min(390px, calc(100vw - 24px));
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  border: 1px solid rgba(116,175,255,.48);
+  border-radius: 17px;
+  padding: 16px 14px 16px 18px;
+  background: linear-gradient(125deg,#142b49,#0b1b31);
+  color: #f5f9ff;
+  box-shadow: 0 12px 38px rgba(0,9,26,.48);
+  line-height: 1.4;
+}
+.kodumi-match-reward--awarded { border-color: #50d9a2; }
+.kodumi-match-reward--partial,
+.kodumi-match-reward--error { border-color: #ffbd69; }
+.kodumi-match-reward__copy { flex: 1; min-width: 0; display: grid; gap: 5px; }
+.kodumi-match-reward__copy strong { font-size: 15px; }
+.kodumi-match-reward__copy span { font-size: 13px; color: #c4d7ee; }
+.kodumi-match-reward button {
+  flex: 0 0 28px; width: 28px; height: 28px; padding: 0;
+  border: 0; border-radius: 7px; background: rgba(255,255,255,.12);
+  color: inherit; font-size: 22px; cursor: pointer;
+}
+html[data-codumi-theme="light"] .kodumi-match-reward {
+  background: linear-gradient(125deg,#f8fbff,#e6efff);
+  color: #19324e; box-shadow: 0 10px 28px rgba(24,47,96,.18);
+}
+html[data-codumi-theme="light"] .kodumi-match-reward__copy span { color: #415c79; }
+html[data-codumi-theme="light"] .kodumi-match-reward button { background: #dce6f7; }
+
+/* Per-game matchmaking currency mode; no per-game components need changes. */
+.codumi-stake-choice{position:relative;z-index:3;margin:12px auto 16px;width:min(740px,100%);padding:15px 17px;border:1px solid rgba(121,174,255,.25);border-radius:18px;background:linear-gradient(125deg,rgba(15,32,60,.93),rgba(22,41,76,.9));color:#edf4ff;box-shadow:0 8px 28px rgba(4,14,38,.18)}
+.codumi-stake-choice__heading{display:flex;gap:6px 14px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-bottom:10px}
+.codumi-stake-choice__heading strong{font-size:15px}
+.codumi-stake-choice__heading span,.codumi-stake-choice__details{font-size:12px;color:#b4c8e6;line-height:1.5}
+.codumi-stake-choice__modes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.codumi-stake-choice__modes button{display:grid;gap:4px;text-align:left;padding:12px 13px;background:rgba(255,255,255,.055);color:inherit;border:1px solid rgba(130,169,221,.22);border-radius:11px;cursor:pointer;min-width:0}
+.codumi-stake-choice__modes button strong{font-size:14px}
+.codumi-stake-choice__modes button small{color:#afc6e6;font-size:11px;line-height:1.4}
+.codumi-stake-choice__modes button.is-selected{border-color:#6dceff;background:rgba(58,130,224,.23);box-shadow:inset 0 0 0 1px rgba(109,206,255,.14)}
+.codumi-stake-choice__modes button:disabled{opacity:.48;cursor:not-allowed}
+.codumi-stake-choice__details{margin-top:11px}
+.codumi-stake-pot{position:relative;z-index:3;display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;width:fit-content;max-width:100%;margin:9px auto 12px;padding:10px 17px;background:linear-gradient(110deg,#382e14,#5c451b);border:1px solid #cba45d;border-radius:30px;color:#fff2bc;box-shadow:0 5px 26px rgba(0,0,0,.2)}
+.codumi-stake-pot strong{font-size:18px}.codumi-stake-pot span,.codumi-stake-pot small{font-size:12px}
+html[data-codumi-theme="light"] .codumi-stake-choice{background:linear-gradient(125deg,#f6faff,#ebf3ff);border-color:#bacdef;color:#183558}
+html[data-codumi-theme="light"] .codumi-stake-choice__details,html[data-codumi-theme="light"] .codumi-stake-choice__heading span{color:#486689}
+html[data-codumi-theme="light"] .codumi-stake-choice__modes button{background:#fff;border-color:#ccd8ea}
+html[data-codumi-theme="light"] .codumi-stake-choice__modes button small{color:#476788}
+html[data-codumi-theme="light"] .codumi-stake-choice__modes button.is-selected{background:#dbedff;border-color:#3987cb}
+@media(max-width:440px){.codumi-stake-choice{padding:12px}.codumi-stake-choice__modes{grid-template-columns:1fr}.codumi-stake-choice__modes button{padding:10px 13px}.codumi-stake-pot{padding:8px 12px}}
+.codumi-technical-award{margin-top:12px!important;padding:9px 12px;border-radius:9px;background:rgba(64,171,120,.16);border:1px solid rgba(111,224,167,.3)}
+/* Compact game focus must not shrink 100%-height playfields to make room for the prize pill. */
+.game-page.is-game-focus.is-auto-game-layout .codumi-stake-pot {
+  position: fixed;
+  z-index: 61;
+  top: calc(44px + env(safe-area-inset-top));
+  left: 50%;
+  transform: translateX(-50%);
+  width: max-content;
+  pointer-events: none;
+  padding: 5px 10px;
+  margin: 0;
+  gap: 7px;
+  font-size: 11px;
+  opacity: .94;
+}
+.game-page.is-game-focus.is-auto-game-layout .codumi-stake-pot strong{font-size:13px}
+.game-page.is-game-focus.is-auto-game-layout .codumi-stake-pot small{display:none}

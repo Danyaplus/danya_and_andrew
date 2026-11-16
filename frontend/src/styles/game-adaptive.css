@@ -295,3 +295,182 @@
 @media (prefers-reduced-motion: reduce) {
   .game-page.is-game-focus.is-auto-game-layout .game-page__fullscreen { transition: none !important; }
 }
+
+/* Chess, checkers and tic-tac-toe: a square playfield sized by the visible
+   viewport, not just its width. This also applies when the site header is shown. */
+.game-page[data-game-id="chess"],
+.game-page[data-game-id="checkers"],
+.game-page[data-game-id="tic-tac-toe"] {
+  --kd-play-size: min(760px, max(160px, calc(var(--kd-viewport-height, 100dvh) - 350px)), max(220px, calc(var(--kd-viewport-width, 100vw) - 340px)));
+}
+
+.game-page:not(.is-game-focus)[data-game-id="chess"] .chess-layout,
+.game-page:not(.is-game-focus)[data-game-id="checkers"] .checkers-layout,
+.game-page:not(.is-game-focus)[data-game-id="tic-tac-toe"] .ttt-layout {
+  grid-template-columns: minmax(0, var(--kd-play-size)) minmax(200px, 1fr);
+  gap: 16px;
+  justify-content: center;
+}
+.game-page:not(.is-game-focus)[data-game-id="chess"] .board-column,
+.game-page:not(.is-game-focus)[data-game-id="checkers"] .checkers-board-column,
+.game-page:not(.is-game-focus)[data-game-id="tic-tac-toe"] .ttt-game-column {
+  width: 100%;
+  max-width: var(--kd-play-size);
+  min-width: 0;
+}
+.game-page:not(.is-game-focus)[data-game-id="chess"] .chess-match__topbar { margin-bottom: 10px; }
+.game-page:not(.is-game-focus)[data-game-id="chess"] .chess-match__topbar h1 { font-size: clamp(21px, 2.5vw, 34px); }
+.game-page:not(.is-game-focus)[data-game-id="checkers"] .checkers-turn-chip,
+.game-page:not(.is-game-focus)[data-game-id="tic-tac-toe"] .ttt-turn-chip { margin-bottom: 8px; }
+.game-page:not(.is-game-focus)[data-game-id="chess"] .player-bar,
+.game-page:not(.is-game-focus)[data-game-id="checkers"] .checkers-player-bar { min-height: 55px; padding: 7px 10px; }
+.game-page:not(.is-game-focus)[data-game-id="chess"] .clock,
+.game-page:not(.is-game-focus)[data-game-id="checkers"] .checkers-clock { padding: 6px 9px; font-size: 19px; }
+.game-page:not(.is-game-focus)[data-game-id="tic-tac-toe"] .ttt-player-card { padding: 7px 10px; }
+.game-page:not(.is-game-focus)[data-game-id="tic-tac-toe"] .ttt-board { width: 100%; max-width: var(--kd-play-size); }
+
+/* Focus view is usable even when the browser refuses the Fullscreen API. */
+.game-page.is-game-focus.is-auto-game-layout[data-game-id="chess"],
+.game-page.is-game-focus.is-auto-game-layout[data-game-id="checkers"],
+.game-page.is-game-focus.is-auto-game-layout[data-game-id="tic-tac-toe"] {
+  --kd-play-size: min(780px, max(145px, calc(var(--kd-viewport-height, 100dvh) - 185px)), max(190px, calc(var(--kd-viewport-width, 100vw) - 300px)));
+}
+.game-page.is-game-focus.is-auto-game-layout[data-game-id="chess"] .chess-layout,
+.game-page.is-game-focus.is-auto-game-layout[data-game-id="checkers"] .checkers-layout,
+.game-page.is-game-focus.is-auto-game-layout[data-game-id="tic-tac-toe"] .ttt-layout {
+  --focus-board-size: var(--kd-play-size);
+  --tt-board: var(--kd-play-size);
+  grid-template-columns: minmax(0, var(--kd-play-size)) minmax(160px, 240px) !important;
+  gap: 10px !important;
+  justify-content: center !important;
+  align-items: start !important;
+  width: 100% !important;
+}
+.game-page.is-game-focus.is-auto-game-layout[data-game-id="chess"] .board-column,
+.game-page.is-game-focus.is-auto-game-layout[data-game-id="checkers"] .checkers-board-column,
+.game-page.is-game-focus.is-auto-game-layout[data-game-id="tic-tac-toe"] .ttt-game-column {
+  width: var(--kd-play-size) !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+}
+.game-page.is-game-focus.is-auto-game-layout[data-game-id="chess"] .chess-board,
+.game-page.is-game-focus.is-auto-game-layout[data-game-id="checkers"] .checkers-board,
+.game-page.is-game-focus.is-auto-game-layout[data-game-id="tic-tac-toe"] .ttt-board {
+  width: 100% !important;
+  max-width: 100% !important;
+  aspect-ratio: 1 !important;
+}
+.game-page.is-game-focus.is-auto-game-layout[data-game-id="chess"] .player-bar,
+.game-page.is-game-focus.is-auto-game-layout[data-game-id="checkers"] .checkers-player-bar {
+  min-height: 43px !important;
+  padding: 4px 8px !important;
+}
+.game-page.is-game-focus.is-auto-game-layout[data-game-id="chess"] .clock,
+.game-page.is-game-focus.is-auto-game-layout[data-game-id="checkers"] .checkers-clock {
+  min-width: 72px !important;
+  padding: 5px 6px !important;
+  font-size: 17px !important;
+}
+.game-page.is-game-focus.is-auto-game-layout[data-game-id="checkers"] .checkers-turn-chip,
+.game-page.is-game-focus.is-auto-game-layout[data-game-id="tic-tac-toe"] .ttt-turn-chip {
+  margin-bottom: 6px !important;
+  padding: 5px 10px !important;
+  font-size: 12px !important;
+}
+.game-page.is-game-focus.is-auto-game-layout[data-game-id="checkers"] .checkers-side-panel,
+.game-page.is-game-focus.is-auto-game-layout[data-game-id="tic-tac-toe"] .ttt-side-panel {
+  position: static !important;
+  padding: 10px !important;
+  gap: 8px !important;
+}
+.game-page.is-game-focus.is-auto-game-layout[data-game-id="tic-tac-toe"] .ttt-board {
+  margin: 6px auto !important;
+  padding: 5px !important;
+  gap: 5px !important;
+}
+.game-page.is-game-focus.is-auto-game-layout[data-game-id="tic-tac-toe"] .ttt-player-card {
+  min-height: 43px !important;
+  padding: 4px 8px !important;
+}
+.game-page.is-game-focus.is-auto-game-layout[data-game-id="tic-tac-toe"] .ttt-symbol-badge {
+  width: 32px !important;
+  height: 32px !important;
+  font-size: 24px !important;
+}
+.game-page.is-game-focus.is-auto-game-layout[data-game-id="tic-tac-toe"] .ttt-clock { padding: 5px 7px !important; }
+
+/* On narrow/tall screens the whole board and player names stay visible;
+   nonessential rules are collapsed rather than pushing the board offscreen. */
+@media (max-width: 900px) {
+  .game-page:not(.is-game-focus)[data-game-id="chess"],
+  .game-page:not(.is-game-focus)[data-game-id="checkers"],
+  .game-page:not(.is-game-focus)[data-game-id="tic-tac-toe"] {
+    --kd-play-size: min(calc(var(--kd-viewport-width, 100vw) - 32px), max(145px, calc(var(--kd-viewport-height, 100dvh) - 345px)), 620px);
+  }
+  .game-page:not(.is-game-focus)[data-game-id="chess"] .chess-layout,
+  .game-page:not(.is-game-focus)[data-game-id="checkers"] .checkers-layout,
+  .game-page:not(.is-game-focus)[data-game-id="tic-tac-toe"] .ttt-layout {
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 8px !important;
+  }
+  .game-page:not(.is-game-focus)[data-game-id="chess"] .board-column,
+  .game-page:not(.is-game-focus)[data-game-id="checkers"] .checkers-board-column,
+  .game-page:not(.is-game-focus)[data-game-id="tic-tac-toe"] .ttt-game-column {
+    width: min(100%, var(--kd-play-size)) !important;
+    margin: 0 auto;
+  }
+  .game-page:not(.is-game-focus)[data-game-id="chess"] .match-panel,
+  .game-page:not(.is-game-focus)[data-game-id="checkers"] .checkers-side-panel,
+  .game-page:not(.is-game-focus)[data-game-id="tic-tac-toe"] .ttt-side-panel {
+    position: static;
+    width: min(100%, var(--kd-play-size));
+    margin: 0 auto;
+  }
+}
+
+.game-page.is-game-focus.is-auto-game-layout.game-page--tall[data-game-id="chess"],
+.game-page.is-game-focus.is-auto-game-layout.game-page--tall[data-game-id="checkers"],
+.game-page.is-game-focus.is-auto-game-layout.game-page--tall[data-game-id="tic-tac-toe"] {
+  --kd-play-size: min(calc(var(--kd-viewport-width, 100vw) - 20px), max(140px, calc(var(--kd-viewport-height, 100dvh) - 190px)), 620px);
+}
+.game-page.is-game-focus.is-auto-game-layout.game-page--tall[data-game-id="chess"] .chess-layout,
+.game-page.is-game-focus.is-auto-game-layout.game-page--tall[data-game-id="checkers"] .checkers-layout,
+.game-page.is-game-focus.is-auto-game-layout.game-page--tall[data-game-id="tic-tac-toe"] .ttt-layout {
+  grid-template-columns: minmax(0, 1fr) !important;
+  justify-items: center !important;
+  gap: 6px !important;
+}
+.game-page.is-game-focus.is-auto-game-layout.game-page--tall[data-game-id="chess"] .chess-match,
+.game-page.is-game-focus.is-auto-game-layout.game-page--tall[data-game-id="checkers"] .checkers-match,
+.game-page.is-game-focus.is-auto-game-layout.game-page--tall[data-game-id="tic-tac-toe"] .ttt-match {
+  max-width: 100% !important;
+  margin: 0 auto !important;
+}
+.game-page.is-game-focus.is-auto-game-layout.game-page--tall[data-game-id="chess"] .match-panel,
+.game-page.is-game-focus.is-auto-game-layout.game-page--tall[data-game-id="checkers"] .checkers-side-panel,
+.game-page.is-game-focus.is-auto-game-layout.game-page--tall[data-game-id="tic-tac-toe"] .ttt-side-panel {
+  width: min(100%, var(--kd-play-size)) !important;
+  padding: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+}
+.game-page.is-game-focus.is-auto-game-layout.game-page--tall[data-game-id="checkers"] .checkers-side-panel > div:first-child,
+.game-page.is-game-focus.is-auto-game-layout.game-page--tall[data-game-id="tic-tac-toe"] .ttt-side-panel > div:first-child,
+.game-page.is-game-focus.is-auto-game-layout.game-page--tall[data-game-id="tic-tac-toe"] .ttt-rule-strip {
+  display: none !important;
+}
+.game-page.is-game-focus.is-auto-game-layout.game-page--tall[data-game-id="chess"] .match-panel__block { display: none !important; }
+.game-page.is-game-focus.is-auto-game-layout.game-page--tall[data-game-id="chess"] .match-panel .danger-button,
+.game-page.is-game-focus.is-auto-game-layout.game-page--tall[data-game-id="checkers"] .checkers-side-panel .danger-button,
+.game-page.is-game-focus.is-auto-game-layout.game-page--tall[data-game-id="tic-tac-toe"] .ttt-side-panel .danger-button {
+  width: 100% !important;
+  min-height: 40px !important;
+}
+
+/* The 3×3 game also reserves room for both player cards and the turn chip. */
+.game-page.is-game-focus.is-auto-game-layout[data-game-id="tic-tac-toe"] {
+  --kd-play-size: min(540px, max(145px, calc(var(--kd-viewport-height, 100dvh) - 210px)), max(190px, calc(var(--kd-viewport-width, 100vw) - 300px)));
+}
+.game-page.is-game-focus.is-auto-game-layout.game-page--tall[data-game-id="tic-tac-toe"] {
+  --kd-play-size: min(calc(var(--kd-viewport-width, 100vw) - 20px), max(140px, calc(var(--kd-viewport-height, 100dvh) - 210px)), 540px);
+}

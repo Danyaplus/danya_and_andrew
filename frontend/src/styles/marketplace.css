@@ -1,0 +1,36 @@
+.kd-market,.kd-market *{box-sizing:border-box}.kd-market{margin:20px 0;background:linear-gradient(160deg,#1b2147,#11172e);border:1px solid #9971c45c;padding:22px;border-radius:22px;color:#fff}.kd-market header span{font-size:10px;color:#c28cff;font-weight:900;letter-spacing:.18em}.kd-market h3{font-size:22px;margin:4px 0}.kd-market header p{color:#aab5da;font-size:13px;margin:0 0 19px}.kd-market__grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,180px),1fr));gap:13px}.kd-market-card{border:1px solid #7d75ac60;border-radius:15px;overflow:hidden;background:#121a34;min-width:0}.kd-market-card__art{height:118px;position:relative;display:grid;place-items:center;background:linear-gradient(120deg,#593e8e,#183a57);font-size:43px;overflow:hidden}.kd-market-card__art img{width:100%;height:100%;object-fit:cover}.kd-market-card__sale{position:absolute;top:9px;right:9px;padding:4px 8px;background:#f0528a;color:white;font-size:11px;border-radius:8px}.kd-market-card__body{padding:13px;display:flex;flex-direction:column;min-height:160px;gap:6px}.kd-market-card__body small{font-size:11px;color:#aa8dde}.kd-market-card h4{margin:0;font-size:15px;color:white}.kd-market-card p{font-size:11px;color:#adb6d6;margin:0}.kd-market-card__cost{margin-top:auto;display:flex;align-items:center;gap:8px;flex-wrap:wrap}.kd-market-card__cost del{color:#9c9aaa;font-size:11px}.kd-market-card__cost strong{color:#ffe0a2;font-size:13px}.kd-market-card button{border:1px solid #a97bf4;border-radius:9px;min-height:39px;color:white;background:linear-gradient(110deg,#7954d6,#a45ce2);cursor:pointer}.kd-market-card button:disabled{background:#343955;color:#b4b7d1;cursor:not-allowed;border-color:#ffffff30}.kd-market__success{color:#a9f8c6}.kd-market__error{color:#ffb6cc}.kd-market__empty{color:#9aa9cb;padding:20px;text-align:center}.kodumi-market-site-wallpaper{position:fixed;inset:0;z-index:-1;pointer-events:none;background-size:cover;background-position:center;background-repeat:no-repeat}.codumi-market-profile-sticker{display:flex;align-items:center;gap:7px;max-width:max-content;border-radius:12px;padding:4px 8px;margin-top:6px;background:#151d34b4;color:#fff;font-weight:800}.codumi-market-profile-sticker img{width:30px;height:30px;object-fit:cover;border-radius:8px}.codumi-market-profile-sticker small{font-size:11px;color:#b2d1ff}@media(max-width:550px){.kd-market{padding:15px}.kd-market__grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.kd-market-card__body{padding:10px}.kd-market-card__art{height:90px}}
+.kd-market__builtins{margin-top:24px;padding-top:20px;border-top:1px solid #ffffff21}.kd-market__builtins h4{font-size:18px}.kd-market__builtin-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,170px),1fr));gap:9px}.kd-market__builtin-grid>div{display:grid;gap:5px;align-content:start;padding:12px;background:#0b1631;border:1px solid #7776a34a;border-radius:13px}.kd-market__builtin-grid span{font-size:23px}.kd-market__builtin-grid b{font-size:12px}.kd-market__builtin-grid button,.kd-market__titles button{border-radius:8px;border:1px solid #927bb9;background:#302552;color:#fff;min-height:32px;cursor:pointer}.kd-market__titles{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:18px}.kd-market__titles span{padding:6px 9px;border-radius:8px;background:#352b55;font-size:12px}
+.codumi-market-custom-card .codumi-main-content .games-grid > .game-card .game-card__body{background-image:linear-gradient(#10142b8a,#14152c9e),var(--kodumi-market-card-image);background-size:cover;background-position:center}.codumi-market-frame{position:absolute;inset:-8px;width:calc(100% + 16px)!important;height:calc(100% + 16px)!important;object-fit:contain;pointer-events:none;z-index:2}.account-avatar-edit:has(.codumi-market-frame){position:relative}
+/* Unified catalog and inventory category layout */
+.kd-market{padding:clamp(15px,3vw,26px);background:linear-gradient(145deg,#1c2346,#101931);box-shadow:0 12px 36px #0002}
+.kd-market__categories{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0 22px;padding:7px;background:#0b1330a8;border:1px solid #9282bd45;border-radius:16px}
+.kd-market__categories button{display:flex;align-items:center;gap:7px;flex:1 1 auto;justify-content:center;min-height:43px;border:1px solid transparent;border-radius:11px;padding:8px 11px;color:#c3cce9;background:#ffffff06;cursor:pointer;font:inherit;transition:.18s}
+.kd-market__categories button b{font-size:12px;white-space:nowrap;font-weight:700}
+.kd-market__categories button span{font-size:16px}
+.kd-market__categories button small{font-size:10px;color:#9aaacb;padding:2px 6px;border-radius:10px;background:#ffffff15}
+.kd-market__categories button:hover{background:#8167c028}
+.kd-market__categories button.is-selected{background:linear-gradient(115deg,#7f54b7a8,#3d3f826e);color:white;border-color:#b88be37d}
+.kd-market__group-heading{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:12px 0 13px}
+.kd-market__group-heading h4{font-size:16px;color:#e9eaff;margin:0}
+.kd-market__group-heading span{font-size:12px;color:#9fadd0}
+.kd-market__grid{grid-template-columns:repeat(auto-fill,minmax(min(100%,204px),1fr));gap:14px}
+.kd-market-card{display:flex;flex-direction:column;border-color:#9186b75c;border-radius:17px;background:linear-gradient(150deg,#1c2444,#101b35);box-shadow:0 6px 18px #0002;transition:transform .18s,border-color .18s}
+.kd-market-card:hover{transform:translateY(-2px);border-color:#bd8bed94}
+.kd-market-card--equipped{border-color:#79d3b783}
+.kd-market-card__cover{position:relative}
+.kd-market-card__cover .kd-market-card__art{height:128px}
+.kd-market-card__art{height:128px;background:radial-gradient(circle at 75% 0%,#8861b9ab,transparent 70%),linear-gradient(140deg,#4c3b84,#1e375d)}
+.kd-market-card__art>span{font-size:42px;filter:drop-shadow(0 3px 13px #1119)}
+.kd-market-card__equipped{position:absolute;left:9px;top:9px;font-size:10px;font-weight:800;background:#1e6356e8;color:#c4ffdf;padding:5px 9px;border-radius:8px}
+.kd-market-card__body{flex:1;min-height:188px;gap:9px;padding:14px}
+.kd-market-card__body h4{font-size:15px;line-height:1.3;overflow-wrap:anywhere}
+.kd-market-card__body p{font-size:12px;line-height:1.4}
+.kd-market-card__cost{min-height:24px}
+.kd-market-card__members{color:#c3b2e7!important}
+.kd-market-card button{width:100%;font-size:12px;font-weight:800;min-height:39px}
+.kd-market__builtins{margin-top:28px;border-top:1px solid #a49bc03a;padding-top:22px}
+.kd-market__builtins .kd-market__group-heading{margin-top:0}
+.kd-market__builtins .kd-market-card__body{min-height:147px}
+.kd-market__titles{gap:9px;margin:0}.kd-market__titles>span{padding:10px 12px}
+.kd-market__titles button{padding:9px 13px}
+@media(max-width:680px){.kd-market__categories{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}.kd-market__categories button{justify-content:flex-start;min-width:0}.kd-market__categories button b{white-space:normal;text-align:left;font-size:11px}.kd-market__categories button small{margin-left:auto}.kd-market__grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.kd-market-card__body{min-height:178px}.kd-market-card__art,.kd-market-card__cover .kd-market-card__art{height:102px}}

@@ -1,0 +1,18 @@
+/* A purchased modern frame is drawn above the avatar, without changing legacy frames. */
+.codumi-market-frame-ring {
+  position:absolute;z-index:5;pointer-events:none;
+  inset:-7px;border:var(--km-frame-thickness,5px) solid var(--km-frame-color,#ffd15e);
+  border-radius:50%;box-shadow:0 0 var(--km-frame-glow,14px) var(--km-frame-color,#ffd15e),inset 0 0 5px var(--km-frame-color,#ffd15e);
+}
+.codumi-market-frame-ring--double {border-style:double;border-width:calc(var(--km-frame-thickness,5px) + 3px)}
+.codumi-market-frame-ring--dashed {border-style:dashed}
+.ko-next-frame-example {position:relative;display:grid;place-items:center;margin:8px auto 3px;width:88px;height:88px;border-radius:50%;background:linear-gradient(135deg,#42286d,#212e55);border:2px solid #9e76ce70}
+.ko-next-frame-example__face {font-size:48px;line-height:1}
+.ko-next-frame-example .codumi-market-frame {position:absolute;inset:-8px;width:calc(100% + 16px);height:calc(100% + 16px);object-fit:contain;pointer-events:none;z-index:5}
+.ko-next-frame-settings {display:grid;gap:10px;padding:13px;border:1px solid #9564c26c;border-radius:14px;background:linear-gradient(145deg,#241b42,#161731)}
+.ko-next-frame-settings>strong {color:#f0e3ff;font-size:13px}
+.ko-next-frame-settings>p {margin:0;font-size:11px;line-height:1.5;color:#bdb0d4}
+.ko-next-frame-settings__fields {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.ko-next-frame-settings__fields>label {display:grid;gap:5px;color:#ddd0ef;font-size:11px}
+.ko-next-frame-settings__fields input[type=color] {width:100%;height:42px;cursor:pointer;border-radius:9px}
+@media(max-width:440px){.ko-next-frame-settings__fields{grid-template-columns:1fr}}
